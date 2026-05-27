@@ -20,6 +20,10 @@ Thumbs.db
 vendor/
 node_modules/
 
+# Frontend build
+frontend/dist/
+frontend/generate_pages.js
+
 # Storage (runtime generated)
 storage/
 
