@@ -46,7 +46,7 @@
 
 <div id="toast-container"></div>
 
-<button id="scroll-top" aria-label="Scroll to top" style="position:fixed;bottom:2rem;left:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--primary-dark);border:none;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 15px rgba(16,185,129,0.3);transition:var(--transition);opacity:0;transform:translateY(20px);pointer-events:none;z-index:999;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 25px rgba(16,185,129,0.4)'" onmouseout="this.style.transform=''">
+<button id="scroll-top" aria-label="Scroll to top" style="position:fixed;bottom:2rem;left:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--white);border:none;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 15px rgba(220,38,38,0.3);transition:var(--transition);opacity:0;transform:translateY(20px);pointer-events:none;z-index:999;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 25px rgba(220,38,38,0.4)'" onmouseout="this.style.transform=''">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
 <script>

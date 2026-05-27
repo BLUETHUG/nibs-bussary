@@ -1,5 +1,5 @@
 <?php
-$db_file = __DIR__ . '/bursary.sqlite';
+$db_file = __DIR__ . '/../storage/mvc.sqlite';
 $dsn = "sqlite:$db_file";
 
 try {

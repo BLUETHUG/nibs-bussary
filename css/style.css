@@ -1,40 +1,41 @@
 :root {
-    --primary-blue: #1E3A8A; /* blue */
-    --primary-red: #DC2626; /* red */
-    --bg-black: #000000;
-    --bg-white: #FFFFFF;
-    --neutral-gray: #000000; /* using black for neutral */
-    --text-white: #FFFFFF;
-    --text-dark: #FFFFFF; /* white text on dark background */
-    --text-muted: #BBBBBB;
-    --accent-blue: #1E40AF;
-    --accent-red: #EF4444;
-}
-    /* NIBS Official Brand Colors (from nibs.ac.ke) */
-    --primary: #1e73be;
-    --primary-light: #3a8fd4;
-    --primary-dark: #1665a5;
-    --accent: #10b981;
-    --accent-light: #34d399;
-    --accent-dark: #047857;
-    --white: #ffffff;
-    --off-white: #f5f7fa;
-    --text-dark: #2c2c2c;
-    --text-muted: #666666;
-    --text-light: #9ca3af;
-    --border: #e5e7eb;
-    /* Legacy aliases (backward compat for old pages) */
-    --primary-blue: #1e73be;
-    --secondary-blue: #1665a5;
-    --accent-green: #10b981;
-    --primary-red: #10b981;
-    --bg-light: #f5f7fa;
-    --bg-dark: #2c2c2c;
+    /* Blue-Red-Black-White palette */
+    --primary-blue: #1e40af;
+    --primary-red: #dc2626;
+    --accent-blue: #1e40af;
+    --accent-red: #ef4444;
+    --bg-black: #0f172a;
     --bg-white: #ffffff;
-    --accent-blue: #e8f0fe;
-    --neutral-gray: #f5f7fa;
-    --success-green: #28a745;
-    --warning-yellow: #ffc107;
+    --neutral-gray: #0f172a;
+    --text-white: #ffffff;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+}
+    /* NIBS Brand Colors — Blue/Red/Black/White */
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e3a8a;
+    --accent: #dc2626;
+    --accent-light: #ef4444;
+    --accent-dark: #b91c1c;
+    --white: #ffffff;
+    --off-white: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --border: #e2e8f0;
+    /* Legacy aliases */
+    --primary-blue: #1e40af;
+    --secondary-blue: #1e3a8a;
+    --accent-green: #dc2626;
+    --primary-red: #dc2626;
+    --bg-light: #f8fafc;
+    --bg-dark: #0f172a;
+    --bg-white: #ffffff;
+    --accent-blue: #e0e7ff;
+    --neutral-gray: #f1f5f9;
+    --success-green: #22c55e;
+    --warning-yellow: #f59e0b;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
     --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
     --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
@@ -106,7 +107,7 @@ a:hover { color: var(--accent-dark); }
     background: transparent;
 }
 .navbar.scrolled {
-    background: rgba(26, 54, 93, 0.97);
+    background: rgba(15, 23, 42, 0.97);
     backdrop-filter: blur(20px);
     padding: 0.7rem 5%;
     box-shadow: 0 4px 30px rgba(0,0,0,0.15);
@@ -166,7 +167,7 @@ a:hover { color: var(--accent-dark); }
 .nav-links .btn-nav:hover {
     background: var(--accent-light);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
 }
 .nav-links .btn-nav::after { display: none; }
 
@@ -202,7 +203,7 @@ a:hover { color: var(--accent-dark); }
     content: '';
     position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dc2626' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.5;
 }
 .hero-particles {
@@ -273,7 +274,7 @@ a:hover { color: var(--accent-dark); }
 .btn-primary:hover {
     background: var(--accent-light);
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.35);
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.35);
 }
 .btn-outline {
     background: transparent;
@@ -350,7 +351,7 @@ a:hover { color: var(--accent-dark); }
 .hero-card input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
 }
 .hero-card input::placeholder { color: rgba(255,255,255,0.25); }
 .hero-card .btn-primary { width: 100%; justify-content: center; margin-top: 0.5rem; }

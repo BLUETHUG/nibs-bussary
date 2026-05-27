@@ -13,7 +13,7 @@ ob_start();
                  alt="NIBS Technical College"
                  class="auth-logo"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-            <div style="display:none;font-size:2rem;font-weight:900;color:#c084fc;margin-bottom:1rem;">NIBS</div>
+            <div style="display:none;font-size:2rem;font-weight:900;color:#dc2626;margin-bottom:1rem;">NIBS</div>
             <h1>Create Account</h1>
             <p>Join the NIBS Bursary Portal</p>
         </div>
@@ -35,40 +35,42 @@ ob_start();
                     <div class="input-wrap">
                         <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
                         <input type="text" id="full_name" name="full_name"
+                               placeholder="John Doe"
                                value="<?= htmlspecialchars($_POST['full_name'] ?? '') ?>"
-                               placeholder="John Doe" required aria-required="true">
+                               required autocomplete="name" aria-required="true">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="index_number">Index Number</label>
                     <div class="input-wrap">
-                        <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-hashtag"></i></span>
+                        <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-id-card"></i></span>
                         <input type="text" id="index_number" name="index_number"
+                               placeholder="e.g. STUD001"
                                value="<?= htmlspecialchars($_POST['index_number'] ?? '') ?>"
-                               placeholder="e.g. STUD001" required aria-required="true">
+                               required autocomplete="off" aria-required="true">
                     </div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label for="email">Email</label>
                     <div class="input-wrap">
                         <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
                         <input type="email" id="email" name="email"
+                               placeholder="name@nibs.ac.ke"
                                value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-                               placeholder="name@nibs.ac.ke" required aria-required="true"
-                               autocomplete="email">
+                               required autocomplete="email" aria-required="true">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
+                    <label for="phone">Phone</label>
                     <div class="input-wrap">
                         <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
                         <input type="tel" id="phone" name="phone"
+                               placeholder="+254 7XX XXX XXX"
                                value="<?= htmlspecialchars($_POST['phone'] ?? '') ?>"
-                               placeholder="+254 700 000 000" required aria-required="true"
-                               autocomplete="tel">
+                               required autocomplete="tel" aria-required="true">
                     </div>
                 </div>
             </div>
@@ -79,18 +81,19 @@ ob_start();
                     <div class="input-wrap">
                         <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
                         <input type="password" id="password" name="password"
-                               placeholder="Min. 8 characters" required minlength="8" aria-required="true"
-                               autocomplete="new-password">
+                               placeholder="Min. 6 characters" required
+                               autocomplete="new-password" aria-required="true">
                         <button type="button" class="toggle-pw" onclick="togglePassword('password')" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password</label>
                     <div class="input-wrap">
-                        <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
+                        <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
                         <input type="password" id="confirm_password" name="confirm_password"
-                               placeholder="Repeat password" required minlength="8" aria-required="true"
-                               autocomplete="new-password">
+                               placeholder="Repeat password" required
+                               autocomplete="new-password" aria-required="true">
+                        <button type="button" class="toggle-pw" onclick="togglePassword('confirm_password')" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
                     </div>
                 </div>
             </div>
@@ -104,7 +107,7 @@ ob_start();
         <div class="auth-footer">
             <p>Already have an account? <a href="/login">Login here</a></p>
             <p class="mt-2">Support: +254 111 030 100</p>
-            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(255,255,255,0.4);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
+            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(148,163,184,0.6);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
         </div>
     </div>
 </div>

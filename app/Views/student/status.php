@@ -6,18 +6,18 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
-        <h2 class="section-title">📋 My Applications</h2>
+        <h2 class="section-title"><i class="fa-solid fa-list"></i> My Applications</h2>
         <a href="/student/apply" class="btn-primary">New Application</a>
     </div>
 
     <?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success">✅ Application submitted successfully!</div>
+    <div class="alert alert-success"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Application submitted successfully!</div>
     <?php endif; ?>
 
     <div class="section-card glass-card">
         <?php if (empty($applications)): ?>
         <div class="empty-state text-center">
-            <div class="empty-icon">📭</div>
+            <div class="empty-icon"><i class="fa-solid fa-inbox" style="font-size:3rem;opacity:0.3;"></i></div>
             <h3>No Applications Yet</h3>
             <p class="text-muted">You haven't submitted any applications. Start your bursary journey today.</p>
             <a href="/student/apply" class="btn-primary mt-4">Apply Now</a>

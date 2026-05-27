@@ -6,7 +6,7 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
-        <h2 class="section-title">📊 Analytics Overview</h2>
+        <h2 class="section-title"><i class="fa-solid fa-chart-bar"></i> Analytics Overview</h2>
         <div class="header-actions">
             <a href="/admin/reports/pdf" class="btn-secondary">Download PDF</a>
             <a href="/admin/reports/csv" class="btn-primary">Export CSV</a>
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'status') : []) ?>,
             datasets: [{
                 data: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'count') : []) ?>,
-                backgroundColor: ['#10b981', '#1d73be', '#34d399', '#28a745', '#6c757d'],
+                backgroundColor: ['#dc2626', '#1e40af', '#ef4444', '#2563eb', '#6b7280'],
                 borderWidth: 0
             }]
         },
@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Disbursements (KES)',
                 data: <?= json_encode(!empty($summary['monthly_disbursed']) ? array_reverse(array_column($summary['monthly_disbursed'], 'total')) : []) ?>,
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                borderColor: '#dc2626',
+                backgroundColor: 'rgba(220, 38, 38, 0.2)',
                 fill: true,
                 tension: 0.4
             }]

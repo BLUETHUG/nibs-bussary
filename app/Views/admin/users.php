@@ -6,7 +6,7 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
-        <h2 class="section-title">👥 User Management</h2>
+        <h2 class="section-title"><i class="fa-solid fa-users-gear"></i> User Management</h2>
     </div>
 
     <div class="section-card glass-card">

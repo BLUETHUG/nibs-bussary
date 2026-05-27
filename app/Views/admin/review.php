@@ -6,7 +6,7 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
-        <h2 class="section-title">🔍 Review Application #<?= $application->id ?></h2>
+        <h2 class="section-title"><i class="fa-solid fa-magnifying-glass"></i> Review Application #<?= $application->id ?></h2>
         <a href="/admin/applications" class="btn-secondary">← Back to List</a>
     </div>
 

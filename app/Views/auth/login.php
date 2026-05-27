@@ -13,9 +13,9 @@ ob_start();
                  alt="NIBS Technical College"
                  class="auth-logo"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-            <div style="display:none;font-size:2rem;font-weight:900;color:#c084fc;margin-bottom:1rem;">NIBS</div>
-            <h1>Bursary Portal</h1>
-            <p>NIBS Technical College</p>
+            <div style="display:none;font-size:2rem;font-weight:900;color:#dc2626;margin-bottom:1rem;">NIBS</div>
+            <h1>Welcome Back</h1>
+            <p>Sign in to your bursary portal</p>
         </div>
 
         <?php if (!empty($errors)): ?>
@@ -66,7 +66,7 @@ ob_start();
         <div class="auth-footer">
             <p>Don't have an account? <a href="/register">Register here</a></p>
             <p class="mt-2">Support: +254 111 030 100</p>
-            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(255,255,255,0.4);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
+            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(148,163,184,0.6);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
         </div>
     </div>
 </div>

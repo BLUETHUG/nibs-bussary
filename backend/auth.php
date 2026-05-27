@@ -72,8 +72,10 @@ function register($data, $pdo) {
         }
 
         $hash = password_hash($data['password'], PASSWORD_BCRYPT);
-        $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->execute([$data['name'], $data['email'], $hash]);
+        $index = $data['index_number'] ?? $data['email'];
+        $phone = $data['phone'] ?? '0700000000';
+        $stmt = $pdo->prepare("INSERT INTO users (full_name, index_number, email, phone, password_hash, role) VALUES (?, ?, ?, ?, ?, 'student')");
+        $stmt->execute([$data['name'], $index, $data['email'], $phone, $hash]);
         
         echo json_encode(['success' => 'Registration successful']);
     } catch (PDOException $e) {
@@ -93,19 +95,20 @@ function login($data, $pdo) {
     }
 
     try {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$data['email']]);
+        // Try email first, then index_number
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? OR index_number = ?");
+        $stmt->execute([$data['email'], $data['email']]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($data['password'], $user['password'])) {
+        if ($user && password_verify($data['password'], $user['password_hash'])) {
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
-            $_SESSION['name'] = $user['name'];
+            $_SESSION['name'] = $user['full_name'];
             $_SESSION['last_activity'] = time();
             
             if ($isAjax) {
-                echo json_encode(['success' => 'Login successful', 'role' => $user['role'], 'name' => $user['name']]);
+                echo json_encode(['success' => 'Login successful', 'role' => $user['role'], 'name' => $user['full_name']]);
             } else {
                 $redirect = $user['role'] === 'admin' ? '/admin/dashboard' : '/student/dashboard';
                 header('Location: ' . $redirect, true, 302); exit;

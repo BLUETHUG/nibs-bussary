@@ -25,7 +25,7 @@
                 <h4 style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin: 2rem 0 1rem;">Today</h4>
                 
                 <div style="background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 2rem; border-left: 4px solid var(--accent); display: flex; gap: 2rem; align-items: flex-start;">
-                    <div style="width: 45px; height: 45px; background: rgba(16, 185, 129, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-file-signature"></i></div>
+                    <div style="width: 45px; height: 45px; background: rgba(220, 38, 38, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-file-signature"></i></div>
                     <div style="flex: 1;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                             <h4 style="margin: 0; font-size: 1.1rem; color: var(--primary);">Application Submitted Successfully</h4>

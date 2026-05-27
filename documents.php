@@ -24,26 +24,9 @@
                 <div style="background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between;">
                     <div>
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
-                            <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;"><i class="fa-solid fa-id-card"></i></div>
-                            <span style="background: #d4edda; color: #155724; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px;">Verified</span>
-                        </div>
-                        <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--primary);">National ID / Birth Certificate</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); min-height: 40px;">Essential for identity verification and citizenship confirmation.</p>
-                    </div>
-                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Uploaded: 15/03/2024</span>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn-secondary" style="width: auto; padding: 0.5rem; font-size: 0.8rem; border-radius: var(--radius-sm); margin: 0; border: 1px solid var(--border);"><i class="fa-solid fa-eye"></i></button>
-                            <button class="btn-secondary" style="width: auto; padding: 0.5rem; font-size: 0.8rem; border-radius: var(--radius-sm); margin: 0; border: 1px solid var(--border);"><i class="fa-solid fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
+            <div style="width: 50px; height: 50px; background: rgba(220, 38, 38, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;"><i class="fa-solid fa-id-card"></i></div>
 
-                <!-- Fee Statement -->
-                <div style="background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
-                            <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;"><i class="fa-solid fa-receipt"></i></div>
+            <div style="width: 50px; height: 50px; background: rgba(220, 38, 38, 0.12); color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;"><i class="fa-solid fa-receipt"></i></div>
                             <span style="background: #fff3cd; color: #856404; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px;">Reviewing</span>
                         </div>
                         <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--primary);">Current Fee Statement</h4>
@@ -59,7 +42,7 @@
                 </div>
 
                 <!-- Empty state for new upload -->
-                <div style="background: rgba(255,255,255,0.6); border-radius: var(--radius-md); border: 2px dashed var(--border); padding: 2.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.background='rgba(16,185,129,0.04)';" onmouseout="this.style.borderColor='var(--border)'; this.style.background='rgba(255,255,255,0.6)';">
+                <div style="background: rgba(255,255,255,0.6); border-radius: var(--radius-md); border: 2px dashed var(--border); padding: 2.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.background='rgba(220,38,38,0.04)';" onmouseout="this.style.borderColor='var(--border)'; this.style.background='rgba(255,255,255,0.6)';">
                     <div style="width: 60px; height: 60px; background: var(--white); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; box-shadow: var(--shadow-sm);"><i class="fa-solid fa-plus"></i></div>
                     <h4 style="color: var(--primary);">Upload New Document</h4>
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">PDF, PNG or JPG (Max 10MB)</p>

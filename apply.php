@@ -162,7 +162,7 @@
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
         }
         .form-group input::placeholder,
         .form-group textarea::placeholder { color: var(--text-light); }
@@ -179,7 +179,7 @@
         }
         .upload-box:hover {
             border-color: var(--accent);
-            background: rgba(16, 185, 129, 0.03);
+            background: rgba(220, 38, 38, 0.03);
         }
         .upload-box input[type="file"] { width: auto; font-size: 0.85rem; }
 

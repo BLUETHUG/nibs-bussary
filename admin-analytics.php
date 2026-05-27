@@ -79,7 +79,7 @@
         }
         function Dot($height, $label) {
             echo '<div style="flex: 1; display: flex; flex-direction: column; align-items:center; position: relative;">
-                    <div style="width: 12px; height: 12px; background: var(--primary-red); border-radius: 50%; box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.1); margin-bottom: ' . $height . ';"></div>
+                    <div style="width: 12px; height: 12px; background: var(--primary-red); border-radius: 50%; box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.1); margin-bottom: ' . $height . ';"></div>
                     <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600; margin-bottom: -1.5rem;">' . $label . '</span>
                   </div>';
         }

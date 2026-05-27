@@ -10,7 +10,7 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <div class="dash-hero glass-card" style="background-image: url('https://www.nibs.ac.ke/wp-content/uploads/2024/01/nibs-campus-aerial.jpg');">
         <div class="dash-hero-overlay">
             <img src="https://nibs.ac.ke/wp-content/themes/nibs/assets/images/logo.png" alt="NIBS" class="dash-logo" onerror="this.style.display='none'">
-            <h1>Welcome, <?= htmlspecialchars($_SESSION['full_name']) ?> 👋</h1>
+            <h1>Welcome, <?= htmlspecialchars($_SESSION['full_name']) ?></h1>
             <p>Manage your bursary applications for NIBS Technical College</p>
         </div>
     </div>
@@ -18,11 +18,11 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <!-- Announcements -->
     <?php if (!empty($announcements)): ?>
     <div class="section-card glass-card">
-        <h2 class="section-title">📢 Announcements</h2>
+        <h2 class="section-title"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Announcements</h2>
         <div class="announcements-list">
             <?php foreach ($announcements as $ann): ?>
             <div class="announcement-item">
-                <div class="ann-icon">📌</div>
+                <div class="ann-icon"><i class="fa-solid fa-thumbtack"></i></div>
                 <div>
                     <strong><?= htmlspecialchars($ann['title']) ?></strong>
                     <p><?= htmlspecialchars($ann['body']) ?></p>
@@ -37,7 +37,7 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <!-- Notifications -->
     <?php if (!empty($notifications)): ?>
     <div class="section-card glass-card notif-card">
-        <h2 class="section-title">🔔 Notifications <span class="badge-count"><?= count($notifications) ?></span></h2>
+        <h2 class="section-title"><i class="fa-solid fa-bell" aria-hidden="true"></i> Notifications <span class="badge-count"><?= count($notifications) ?></span></h2>
         <?php foreach ($notifications as $n): ?>
         <div class="notif-item">
             <span class="notif-dot"></span>
@@ -53,17 +53,17 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <!-- Quick Actions -->
     <div class="quick-actions">
         <a href="/student/apply" class="action-card glass-card action-apply">
-            <div class="action-icon">✨</div>
+            <div class="action-icon"><i class="fa-solid fa-file-circle-plus"></i></div>
             <h3>New Application</h3>
             <p>Apply for bursary funding</p>
         </a>
         <a href="/student/status" class="action-card glass-card action-status">
-            <div class="action-icon">📋</div>
+            <div class="action-icon"><i class="fa-solid fa-list-check"></i></div>
             <h3>My Applications</h3>
             <p>Track your application status</p>
         </a>
         <a href="/student/status?download=1" class="action-card glass-card action-download" id="download-letter">
-            <div class="action-icon">📄</div>
+            <div class="action-icon"><i class="fa-solid fa-file-lines"></i></div>
             <h3>Award Letter</h3>
             <p>Download your bursary letter</p>
         </a>
@@ -72,7 +72,7 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <!-- Recent Applications -->
     <?php if (!empty($applications)): ?>
     <div class="section-card glass-card">
-        <h2 class="section-title">📁 Recent Applications</h2>
+        <h2 class="section-title"><i class="fa-solid fa-folder-open" aria-hidden="true"></i> Recent Applications</h2>
         <div class="table-responsive">
             <table class="data-table">
                 <thead>
@@ -95,7 +95,7 @@ $appConfig = require __DIR__ . '/../../config/app.php';
     <?php else: ?>
     <div class="section-card glass-card text-center">
         <div class="empty-state">
-            <div class="empty-icon">📭</div>
+            <div class="empty-icon"><i class="fa-solid fa-inbox" style="font-size:3rem;opacity:0.3;"></i></div>
             <h3>No Applications Yet</h3>
             <p>Start by submitting your first bursary application.</p>
             <a href="/student/apply" class="btn-auth" style="width:auto;display:inline-flex;padding:0.7rem 1.5rem;text-decoration:none;">Apply Now</a>

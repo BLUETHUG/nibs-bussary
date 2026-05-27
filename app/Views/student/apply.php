@@ -7,13 +7,13 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="section-card glass-card">
-        <h2 class="section-title">✨ New Bursary Application</h2>
+        <h2 class="section-title"><i class="fa-solid fa-file-pen"></i> New Bursary Application</h2>
         <p class="text-muted">Complete the form below to apply for a bursary. All fields marked with * are required.</p>
 
         <?php if (!empty($errors)): ?>
         <div class="alert alert-error mt-4">
             <?php foreach ($errors as $e): ?>
-                <div>⚠️ <?= htmlspecialchars($e) ?></div>
+                <div><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> <?= htmlspecialchars($e) ?></div>
             <?php endforeach; ?>
         </div>
         <?php endif; ?>

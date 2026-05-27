@@ -85,7 +85,7 @@
     border-left: 3px solid transparent;
 }
 .sidebar-nav a.active {
-    background: rgba(16, 185, 129, 0.08);
+    background: rgba(220, 38, 38, 0.08);
     color: var(--accent);
     border-left-color: var(--accent);
     font-weight: 600;
@@ -116,7 +116,7 @@
     transition: all 0.25s ease;
 }
 .logout-link:hover {
-    background: rgba(16,185,129,0.15);
-    color: #10b981 !important;
+    background: rgba(220,38,38,0.15);
+    color: #dc2626 !important;
 }
 </style>

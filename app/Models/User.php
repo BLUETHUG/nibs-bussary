@@ -80,7 +80,11 @@ class User {
         $user = new self();
         foreach ($row as $key => $value) {
             if (is_string($key) && property_exists($user, $key)) {
-                $user->$key = $value;
+                if ($key === 'is_active') {
+                    $user->is_active = (bool) $value;
+                } else {
+                    $user->$key = $value;
+                }
             }
         }
         return $user;

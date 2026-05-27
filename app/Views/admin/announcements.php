@@ -7,7 +7,7 @@ ob_start();
 ?>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
-        <h2 class="section-title">📢 Announcements</h2>
+        <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Announcements</h2>
     </div>
 
     <div class="admin-grid" style="grid-template-columns: 1fr 350px; gap: 2rem;">

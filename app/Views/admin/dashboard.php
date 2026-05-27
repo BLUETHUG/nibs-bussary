@@ -8,28 +8,28 @@ ob_start();
     <!-- Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card glass-card">
-            <div class="stat-icon">📁</div>
+            <div class="stat-icon"><i class="fa-solid fa-folder"></i></div>
             <div class="stat-info">
                 <h3>Total Applications</h3>
                 <div class="stat-value"><?= number_format((float)$stats['total']) ?></div>
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--warning-yellow);">⏳</div>
+            <div class="stat-icon" style="color: var(--warning-yellow);"><i class="fa-solid fa-hourglass-half"></i></div>
             <div class="stat-info">
                 <h3>Pending Review</h3>
                 <div class="stat-value"><?= number_format((float)$stats['pending']) ?></div>
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--success-green);">✅</div>
+            <div class="stat-icon" style="color: var(--success-green);"><i class="fa-solid fa-check-circle"></i></div>
             <div class="stat-info">
                 <h3>Approved</h3>
                 <div class="stat-value"><?= number_format((float)$stats['approved']) ?></div>
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--primary-blue);">💰</div>
+            <div class="stat-icon" style="color: var(--primary-blue);"><i class="fa-solid fa-coins"></i></div>
             <div class="stat-info">
                 <h3>Total Disbursed</h3>
                 <div class="stat-value">KES <?= number_format((float)$stats['total_disbursed'], 0) ?></div>
@@ -41,7 +41,7 @@ ob_start();
         <!-- Recent Applications -->
         <div class="section-card glass-card">
             <div class="card-header">
-                <h2 class="section-title">🕒 Recent Applications</h2>
+                <h2 class="section-title"><i class="fa-solid fa-clock"></i> Recent Applications</h2>
                 <a href="/admin/applications" class="btn-text">View All →</a>
             </div>
             <div class="table-responsive">
@@ -76,7 +76,7 @@ ob_start();
         <!-- Available Funds -->
         <div class="section-card glass-card">
             <div class="card-header">
-                <h2 class="section-title">💰 Available Funds</h2>
+                <h2 class="section-title"><i class="fa-solid fa-coins"></i> Available Funds</h2>
                 <a href="/admin/funds" class="btn-text">Manage →</a>
             </div>
             <div class="funds-list">

@@ -61,7 +61,7 @@
                     <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem;">Recent Notifications</h3>
                     <div style="border-left: 2px solid var(--border); padding-left: 1.5rem; margin-left: 0.8rem;">
                         <div style="position: relative; margin-bottom: 2rem;">
-                            <div style="position: absolute; left: -1.85rem; top: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(16,185,129,0.15);"></div>
+                            <div style="position: absolute; left: -1.85rem; top: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(220,38,38,0.15);"></div>
                             <h4 style="margin: 0; font-size: 0.95rem;">Application for Jan-Apr 2024 Session Successfully Received</h4>
                             <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0.2rem 0;">March 15, 2024 at 10:45 AM</p>
                             <p style="font-size: 0.85rem; color: var(--text-dark); margin-top: 0.5rem;">Your application (ID: NIBS-2024-B83) has been logged and is awaiting document verification.</p>

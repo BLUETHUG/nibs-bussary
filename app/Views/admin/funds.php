@@ -8,7 +8,7 @@ ob_start();
     <div class="admin-grid" style="grid-template-columns: 1fr 350px; gap: 2rem;">
         <!-- Funds List -->
         <div class="section-card glass-card">
-            <h2 class="section-title">💰 Active Bursary Funds</h2>
+            <h2 class="section-title"><i class="fa-solid fa-coins"></i> Active Bursary Funds</h2>
             <div class="table-responsive">
                 <table class="data-table">
                     <thead>
@@ -44,7 +44,7 @@ ob_start();
 
         <!-- Create New Fund -->
         <div class="section-card glass-card">
-            <h2 class="section-title">➕ Create New Fund</h2>
+            <h2 class="section-title"><i class="fa-solid fa-plus-circle"></i> Create New Fund</h2>
             <form action="/admin/funds/create" method="POST" class="standard-form">
                 <?= \App\Middleware\CsrfMiddleware::field() ?>
                 <div class="form-group">

@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/legacy_db.php';
+$pdo = $legacy_pdo;
 
 header('Content-Type: application/json');
 session_start();

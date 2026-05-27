@@ -33,7 +33,7 @@
 
         <div style="background:rgba(255,255,255,0.04);backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:2.5rem;box-shadow:0 30px 80px rgba(0,0,0,0.3);">
             <?php if ($error): ?>
-                <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius-sm);padding:0.8rem 1rem;margin-bottom:1.5rem;text-align:center;font-size:0.85rem;color:#34d399;"><?= $error ?></div>
+                <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:0.8rem 1rem;margin-bottom:1.5rem;text-align:center;font-size:0.85rem;color:#fca5a5;"><?= $error ?></div>
             <?php endif; ?>
             <h2 style="color:var(--white);font-size:1.6rem;margin-bottom:0.3rem;text-align:center;">Welcome Back</h2>
             <p style="color:rgba(255,255,255,0.4);text-align:center;margin-bottom:2rem;font-size:0.9rem;">Enter your credentials to access the portal</p>
@@ -43,12 +43,9 @@
                 
                 <div style="margin-bottom:1.2rem;">
                     <label style="display:block;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">Email Address</label>
-                    <input type="email" name="email" id="login-email" required placeholder="name@nibs.ac.ke" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.9rem 1rem;border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;width:100%;transition:var(--transition);" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px rgba(16,185,129,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'">
-                </div>
+<input type="email" name="email" id="login-email" required placeholder="name@nibs.ac.ke" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.9rem 1rem;border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;width:100%;transition:var(--transition);" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'">
 
-                <div style="margin-bottom:1.5rem;">
-                    <label style="display:block;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;">Password</label>
-                    <input type="password" name="password" id="login-password" required placeholder="••••••••" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.9rem 1rem;border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;width:100%;transition:var(--transition);" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px rgba(16,185,129,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'">
+                <input type="password" name="password" id="login-password" required placeholder="••••••••" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.9rem 1rem;border-radius:var(--radius-sm);font-family:inherit;font-size:0.9rem;width:100%;transition:var(--transition);" onfocus="this.style.borderColor='var(--accent)';this.style.boxShadow='0 0 0 3px rgba(220,38,38,0.15)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'">
                 </div>
 
                 <button type="submit" style="width:100%;padding:1rem;background:var(--accent);color:var(--primary-dark);border:none;border-radius:var(--radius-sm);font-weight:700;font-size:1rem;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:0.5rem;" onmouseover="this.style.background='var(--accent-light)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)'">
