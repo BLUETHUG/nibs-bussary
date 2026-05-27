@@ -1,0 +1,10 @@
+/* three-overlay.css */
+.three-label {
+    color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    user-select: none;
+}

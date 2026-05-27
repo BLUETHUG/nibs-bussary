@@ -1,0 +1,29 @@
+# DB
+backend/bursary.sqlite
+storage/mvc.sqlite
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+
+# Dependencies
+vendor/
+node_modules/
+
+# Storage (runtime generated)
+storage/
+
+# External projects (not part of bursary system)
+3d-dating/
+nibs-portal/
+deathnote-desires/
