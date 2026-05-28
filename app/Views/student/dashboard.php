@@ -3,7 +3,6 @@ declare(strict_types=1);
 $pageTitle = 'Student Dashboard — NIBS Bursary';
 $bodyClass = 'page-dashboard';
 ob_start();
-$appConfig = require __DIR__ . '/../../config/app.php';
 ?>
 <div class="dashboard-wrapper float-in">
     <!-- Hero Banner -->

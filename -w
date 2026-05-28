@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NIBS Technical College — Automated Bursary Management System">
+    <title>Login — NIBS Bursary Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232563eb'/><text x='16' y='22' text-anchor='middle' font-size='18' font-weight='bold' fill='%23fff'>N</text></svg>">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+    </head>
+<body class="page-login">
+<a href="#page-content" class="skip-link">Skip to main content</a>
+
+<div id="ui-overlay">
+
+<main id="page-content">
+<div class="auth-page">
+<div class="auth-container float-in">
+    <div class="auth-card">
+        <div class="auth-header">
+            <img src="https://nibs.ac.ke/wp-content/themes/nibs/assets/images/logo.png"
+                 alt="NIBS Technical College"
+                 class="auth-logo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <div style="display:none;font-size:2rem;font-weight:900;color:#dc2626;margin-bottom:1rem;">NIBS</div>
+            <h1>Welcome Back</h1>
+            <p>Sign in to your bursary portal</p>
+        </div>
+
+        
+        
+        
+        <form method="POST" action="/login" class="auth-form" id="login-form" aria-label="Login form">
+            <input type="hidden" name="_csrf_token" value="94d8b35ba87d04f07031fb58fc9f8449fc150e3b1f9d5149fb1c4dd788c61684">            <div class="form-group">
+                <label for="index_number">Index Number</label>
+                <div class="input-wrap">
+                    <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-id-card"></i></span>
+                    <input type="text" id="index_number" name="index_number"
+                           placeholder="e.g. STUD001"
+                           value=""
+                           required autocomplete="username"
+                           aria-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <span class="input-icon" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="password" name="password"
+                           placeholder="Your password" required autocomplete="current-password"
+                           aria-required="true">
+                    <button type="button" class="toggle-pw" onclick="togglePassword('password')" aria-label="Toggle password visibility"><i class="fa-solid fa-eye"></i></button>
+                </div>
+            </div>
+            <button type="submit" class="btn-auth" id="login-btn">
+                <span>Sign In</span>
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+            <p class="mt-2">Support: +254 111 030 100</p>
+            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(148,163,184,0.6);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+function togglePassword(id) {
+    const f = document.getElementById(id);
+    if (f) f.type = f.type === 'password' ? 'text' : 'password';
+}
+</script>
+</main>
+</div>
+
+<script>
+document.getElementById('hamburger')?.addEventListener('click', function() {
+    document.getElementById('nav-links')?.classList.toggle('open');
+});
+document.addEventListener('click', function(e) {
+    var nav = document.getElementById('nav-links');
+    var ham = document.getElementById('hamburger');
+    if (nav && ham && !e.target.closest('#main-nav')) {
+        nav.classList.remove('open');
+    }
+});
+</script>
+</body>
+</html>
