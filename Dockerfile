@@ -8,6 +8,8 @@ RUN mkdir -p /app/storage && chmod -R 777 /app/storage
 
 WORKDIR /app
 
+RUN php init_db.php
+
 EXPOSE 8080
 
 CMD php -S 0.0.0.0:${PORT:-8080} -t /app /app/server.php
