@@ -15,21 +15,21 @@ ob_start();
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--warning-yellow);"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="stat-icon" style="color: var(--warning);"><i class="fa-solid fa-hourglass-half"></i></div>
             <div class="stat-info">
                 <h3>Pending Review</h3>
                 <div class="stat-value"><?= number_format((float)$stats['pending']) ?></div>
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--success-green);"><i class="fa-solid fa-check-circle"></i></div>
+            <div class="stat-icon" style="color: var(--success);"><i class="fa-solid fa-check-circle"></i></div>
             <div class="stat-info">
                 <h3>Approved</h3>
                 <div class="stat-value"><?= number_format((float)$stats['approved']) ?></div>
             </div>
         </div>
         <div class="stat-card glass-card">
-            <div class="stat-icon" style="color: var(--primary-blue);"><i class="fa-solid fa-coins"></i></div>
+            <div class="stat-icon" style="color: var(--primary);"><i class="fa-solid fa-coins"></i></div>
             <div class="stat-info">
                 <h3>Total Disbursed</h3>
                 <div class="stat-value">KES <?= number_format((float)$stats['total_disbursed'], 0) ?></div>
@@ -100,78 +100,9 @@ ob_start();
     </div>
 </div>
 
-<style>
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-}
-.stat-card {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
-}
-.stat-icon {
-    font-size: 2.5rem;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-}
-.stat-value {
-    font-size: 1.8rem;
-    font-weight: 800;
-    font-family: 'Roboto Slab', serif;
-}
-.admin-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1.5rem;
-}
-@media (max-width: 1024px) {
-    .admin-grid { grid-template-columns: 1fr; }
-}
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-.fund-item {
-    margin-bottom: 1.5rem;
-}
-.fund-progress-container {
-    height: 8px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 4px;
-    margin: 0.5rem 0;
-    overflow: hidden;
-}
-.fund-progress-bar {
-    height: 100%;
-    background: var(--primary-red);
-    border-radius: 4px;
-}
-.fund-amounts {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-}
-.btn-action {
-    background: var(--primary-red);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.85rem;
-}
-</style>
+
 
 <?php
 $content = ob_get_clean();
-$extraScripts = '<script type="module" src="/assets/js/scene-admin.js"></script>';
+$extraScripts = '';
 require __DIR__ . '/../layouts/base.php';

@@ -65,7 +65,7 @@ ob_start();
                         <label>Rejection Reason</label>
                         <textarea name="reason" required placeholder="Explain why this application was rejected..."></textarea>
                     </div>
-                    <button type="submit" class="btn-secondary w-100" style="color: var(--primary-red); border-color: var(--primary-red);">Reject Application</button>
+                    <button type="submit" class="btn-danger w-100">Reject Application</button>
                 </form>
             </div>
             <?php else: ?>
@@ -84,36 +84,7 @@ ob_start();
     </div>
 </div>
 
-<style>
-.details-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-}
-.detail-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-.detail-item strong {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-}
-.detail-item span {
-    font-weight: 600;
-}
-.standard-form textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-    padding: 0.7rem 1rem;
-    border-radius: 8px;
-    min-height: 100px;
-}
-.my-4 { margin: 2rem 0; }
-</style>
+
 
 <?php
 $content = ob_get_clean();

@@ -63,78 +63,52 @@ ob_start();
     </div>
 </div>
 
-<style>
-.reports-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-.reports-grid .section-card:last-child {
-    grid-column: span 2;
-}
-@media (max-width: 768px) {
-    .reports-grid { grid-template-columns: 1fr; }
-    .reports-grid .section-card:last-child { grid-column: span 1; }
-}
-.course-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-.course-item {
-    background: rgba(255,255,255,0.05);
-    padding: 1rem;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-}
-</style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Status Chart
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
-    new Chart(statusCtx, {
-        type: 'doughnut',
-        data: {
-            labels: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'status') : []) ?>,
-            datasets: [{
-                data: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'count') : []) ?>,
-                backgroundColor: ['#dc2626', '#1e40af', '#ef4444', '#2563eb', '#6b7280'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } }
-        }
-    });
-
-    // Disbursement Chart
-    const disburseCtx = document.getElementById('disbursementChart').getContext('2d');
-    new Chart(disburseCtx, {
-        type: 'line',
-        data: {
-            labels: <?= json_encode(!empty($summary['monthly_disbursed']) ? array_reverse(array_column($summary['monthly_disbursed'], 'month')) : []) ?>,
-            datasets: [{
-                label: 'Disbursements (KES)',
-                data: <?= json_encode(!empty($summary['monthly_disbursed']) ? array_reverse(array_column($summary['monthly_disbursed'], 'total')) : []) ?>,
-                borderColor: '#dc2626',
-                backgroundColor: 'rgba(220, 38, 38, 0.2)',
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#fff' } },
-                x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#fff' } }
+    var statusEl = document.getElementById('statusChart');
+    if (statusEl) {
+        new Chart(statusEl.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'status') : []) ?>,
+                datasets: [{
+                    data: <?= json_encode(!empty($summary['by_status']) ? array_column($summary['by_status'], 'count') : []) ?>,
+                    backgroundColor: ['#2563eb', '#f59e0b', '#10b981', '#ef4444', '#94a3b8'],
+                    borderWidth: 0
+                }]
             },
-            plugins: { legend: { labels: { color: '#fff' } } }
-        }
-    });
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom', labels: { color: '#475569' } } }
+            }
+        });
+    }
+
+    var disburseEl = document.getElementById('disbursementChart');
+    if (disburseEl) {
+        new Chart(disburseEl.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: <?= json_encode(!empty($summary['monthly_disbursed']) ? array_reverse(array_column($summary['monthly_disbursed'], 'month')) : []) ?>,
+                datasets: [{
+                    label: 'Disbursements (KES)',
+                    data: <?= json_encode(!empty($summary['monthly_disbursed']) ? array_reverse(array_column($summary['monthly_disbursed'], 'total')) : []) ?>,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37,99,235,0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569' } },
+                    x: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569' } }
+                },
+                plugins: { legend: { labels: { color: '#475569' } } }
+            }
+        });
+    }
 });
 </script>
 

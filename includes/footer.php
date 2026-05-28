@@ -46,24 +46,16 @@
 
 <div id="toast-container"></div>
 
-<button id="scroll-top" aria-label="Scroll to top" style="position:fixed;bottom:2rem;left:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--white);border:none;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 15px rgba(220,38,38,0.3);transition:var(--transition);opacity:0;transform:translateY(20px);pointer-events:none;z-index:999;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 25px rgba(220,38,38,0.4)'" onmouseout="this.style.transform=''">
+<button id="scroll-top" aria-label="Scroll to top">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
 <script>
 (function(){
-    const btn = document.getElementById('scroll-top');
+    var btn = document.getElementById('scroll-top');
     if (!btn) return;
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            btn.style.opacity = '1';
-            btn.style.transform = 'translateY(0)';
-            btn.style.pointerEvents = 'auto';
-        } else {
-            btn.style.opacity = '0';
-            btn.style.transform = 'translateY(20px)';
-            btn.style.pointerEvents = 'none';
-        }
+    btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    window.addEventListener('scroll', function() {
+        btn.classList.toggle('visible', window.scrollY > 400);
     });
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 </script>

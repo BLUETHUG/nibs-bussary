@@ -73,34 +73,7 @@ ob_start();
     </div>
 </div>
 
-<style>
-.badge {
-    background: rgba(255,255,255,0.1);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-}
-.fund-progress-container {
-    height: 6px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 3px;
-    overflow: hidden;
-}
-.fund-progress-bar {
-    height: 100%;
-    background: var(--primary-red);
-}
-.standard-form .form-group { margin-bottom: 1.2rem; }
-.standard-form label { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; opacity: 0.8; }
-.standard-form input, .standard-form select {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-    padding: 0.7rem 1rem;
-    border-radius: 8px;
-}
-</style>
+
 
 <?php
 $content = ob_get_clean();
