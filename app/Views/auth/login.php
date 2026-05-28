@@ -9,11 +9,11 @@ ob_start();
 <div class="auth-container float-in">
     <div class="auth-card">
         <div class="auth-header">
-            <img src="https://nibs.ac.ke/wp-content/themes/nibs/assets/images/logo.png"
-                 alt="NIBS Technical College"
-                 class="auth-logo"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-            <div style="display:none;font-size:2rem;font-weight:900;color:#dc2626;margin-bottom:1rem;">NIBS</div>
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" class="auth-logo">
+                <rect width="56" height="56" rx="14" fill="url(#alogin)"/>
+                <defs><linearGradient id="alogin" x1="0" y1="0" x2="56" y2="56"><stop stop-color="#4f46e5"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+                <text x="28" y="37" text-anchor="middle" font-size="28" font-weight="bold" fill="#fff" font-family="Inter">N</text>
+            </svg>
             <h1>Welcome Back</h1>
             <p>Sign in to your bursary portal</p>
         </div>
@@ -58,7 +58,7 @@ ob_start();
                 </div>
             </div>
             <button type="submit" class="btn-auth" id="login-btn">
-                <span>Sign In</span>
+                <span class="btn-text">Sign In</span>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
         </form>
@@ -66,7 +66,7 @@ ob_start();
         <div class="auth-footer">
             <p>Don't have an account? <a href="/register">Register here</a></p>
             <p class="mt-2">Support: +254 111 030 100</p>
-            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(148,163,184,0.6);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
+            <p class="mt-2" style="margin-top:0.75rem;"><a href="index.php" style="color:rgba(168,162,158,0.6);font-size:0.85rem;text-decoration:none;"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Home</a></p>
         </div>
     </div>
 </div>
@@ -74,9 +74,15 @@ ob_start();
 
 <script>
 function togglePassword(id) {
-    const f = document.getElementById(id);
+    var f = document.getElementById(id);
     if (f) f.type = f.type === 'password' ? 'text' : 'password';
 }
+
+// Loading state on submit
+document.getElementById('login-form')?.addEventListener('submit', function() {
+    var btn = document.getElementById('login-btn');
+    btn.classList.add('loading');
+});
 </script>
 <?php
 $content = ob_get_clean();
