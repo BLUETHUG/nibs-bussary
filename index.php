@@ -22,7 +22,7 @@
                     <h1>Empowering<br><span class="highlight">Academic Excellence</span></h1>
                     <p>The NIBS Bursary Management System provides a transparent, efficient, and merit-based platform for students to access financial support for their education.</p>
                     <div class="hero-buttons">
-                        <a href="apply.php" class="btn btn-primary">Apply for Bursary <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="<?= !empty($_SESSION['user_id']) ? '/student/apply' : '/login' ?>" class="btn btn-primary"><?= !empty($_SESSION['user_id']) ? 'Apply for Bursary' : 'Student Portal' ?> <i class="fa-solid fa-arrow-right"></i></a>
                         <a href="#how-it-works" class="btn btn-outline">How It Works</a>
                     </div>
                     <div class="hero-stats">
@@ -223,7 +223,7 @@
             <div class="section-inner">
                 <h2>Ready to Apply?</h2>
                 <p>Take the first step toward securing your financial future. Applications are now open for the current academic year.</p>
-                <a href="apply.php" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 3rem;">Start Your Application <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="<?= !empty($_SESSION['user_id']) ? '/student/apply' : '/login' ?>" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 3rem;"><?= !empty($_SESSION['user_id']) ? 'Start Your Application' : 'Get Started' ?> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </section>
     </main>
