@@ -76,6 +76,36 @@
 </main>
 </div>
 
+<?php if (!empty($_SESSION['user_id'])): ?>
+<!-- Mobile Bottom Navigation (Duolingo-style) -->
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+    <?php if ($_SESSION['role'] === 'student'): ?>
+        <a href="/student/dashboard" class="mobile-nav-link <?= strpos($path ?? '', '/student/dashboard') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </a>
+        <a href="/student/apply" class="mobile-nav-link <?= strpos($path ?? '', '/student/apply') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-file-circle-plus"></i><span>Apply</span>
+        </a>
+        <a href="/student/status" class="mobile-nav-link <?= strpos($path ?? '', '/student/status') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-list"></i><span>Status</span>
+        </a>
+    <?php elseif (in_array($_SESSION['role'], ['admin','officer'])): ?>
+        <a href="/admin/dashboard" class="mobile-nav-link <?= strpos($path ?? '', '/admin/dashboard') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
+        </a>
+        <a href="/admin/applications" class="mobile-nav-link <?= strpos($path ?? '', '/admin/applications') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-clipboard-list"></i><span>Apps</span>
+        </a>
+        <a href="/admin/funds" class="mobile-nav-link <?= strpos($path ?? '', '/admin/funds') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-coins"></i><span>Funds</span>
+        </a>
+    <?php endif; ?>
+    <a href="/logout" class="mobile-nav-link">
+        <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+    </a>
+</nav>
+<?php endif; ?>
+
 <a href="#" id="scroll-top" role="button" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></a>
 <div id="toast-container" role="status" aria-live="polite"></div>
 

@@ -18,7 +18,7 @@ ob_start();
                         <option value="rejected" <?= ($_GET['status'] ?? '') === 'rejected' ? 'selected' : '' ?>>Rejected</option>
                         <option value="disbursed" <?= ($_GET['status'] ?? '') === 'disbursed' ? 'selected' : '' ?>>Disbursed</option>
                     </select>
-                    <button type="submit" class="btn-small">Filter</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Filter</button>
                 </form>
             </div>
         </div>

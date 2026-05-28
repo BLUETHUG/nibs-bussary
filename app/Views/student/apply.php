@@ -58,9 +58,9 @@ ob_start();
                           placeholder="Describe any special circumstances (financial hardship, disability, orphan status, etc.)"><?= htmlspecialchars($_POST['special_circumstances'] ?? '') ?></textarea>
             </div>
 
-            <div class="form-actions mt-4">
-                <button type="submit" class="btn-primary">Submit Application</button>
-                <a href="/student/dashboard" class="btn-secondary">Cancel</a>
+            <div class="flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+                <a href="/student/dashboard" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
