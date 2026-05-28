@@ -1,17 +1,13 @@
-FROM php:8.2-apache
-
-WORKDIR /var/www/html
+FROM php:8.2-cli
 
 RUN docker-php-ext-install pdo pdo_sqlite
 
-RUN a2enmod rewrite
+COPY . /app/
 
-COPY . /var/www/html/
+RUN mkdir -p /app/storage && chmod -R 777 /app/storage
 
-RUN chmod -R 777 storage && \
-    chmod +x start.sh && \
-    sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+WORKDIR /app
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["./start.sh"]
+CMD php -S 0.0.0.0:${PORT:-8080} -t /app /app/server.php
