@@ -83,15 +83,15 @@ ob_start();
                 <?php foreach ($funds as $fund): ?>
                 <div class="fund-item">
                     <div class="fund-info">
-                        <strong><?= htmlspecialchars($fund->fund_name) ?></strong>
-                        <small><?= htmlspecialchars($fund->academic_year) ?> - <?= ucfirst($fund->source) ?></small>
+                        <strong><?= htmlspecialchars($fund['fund_name']) ?></strong>
+                        <small><?= htmlspecialchars($fund['academic_year']) ?> - <?= ucfirst($fund['source']) ?></small>
                     </div>
                     <div class="fund-progress-container">
-                        <div class="fund-progress-bar" style="width: <?= ($fund->available_amount / $fund->total_amount) * 100 ?>%;"></div>
+                        <div class="fund-progress-bar" style="width: <?= ($fund['available_amount'] / max($fund['total_amount'], 1)) * 100 ?>%;"></div>
                     </div>
                     <div class="fund-amounts">
-                        <span>KES <?= number_format($fund->available_amount, 0) ?> left</span>
-                        <span class="text-muted">of KES <?= number_format($fund->total_amount, 0) ?></span>
+                        <span>KES <?= number_format((float)$fund['available_amount'], 0) ?> left</span>
+                        <span class="text-muted">of KES <?= number_format((float)$fund['total_amount'], 0) ?></span>
                     </div>
                 </div>
                 <?php endforeach; ?>

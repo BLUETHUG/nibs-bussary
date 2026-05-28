@@ -23,15 +23,15 @@ ob_start();
                     <tbody>
                         <?php foreach ($funds as $fund): ?>
                         <tr>
-                            <td><strong><?= htmlspecialchars($fund->fund_name) ?></strong></td>
-                            <td><?= htmlspecialchars($fund->academic_year) ?></td>
-                            <td><span class="badge"><?= ucfirst($fund->source) ?></span></td>
-                            <td>KES <?= number_format($fund->total_amount, 2) ?></td>
+                            <td><strong><?= htmlspecialchars($fund['fund_name']) ?></strong></td>
+                            <td><?= htmlspecialchars($fund['academic_year']) ?></td>
+                            <td><span class="badge"><?= ucfirst($fund['source']) ?></span></td>
+                            <td>KES <?= number_format((float)$fund['total_amount'], 2) ?></td>
                             <td>
                                 <div style="display:flex; flex-direction:column; gap:0.3rem;">
-                                    <span>KES <?= number_format($fund->available_amount, 2) ?></span>
+                                    <span>KES <?= number_format((float)$fund['available_amount'], 2) ?></span>
                                     <div class="fund-progress-container">
-                                        <div class="fund-progress-bar" style="width: <?= ($fund->available_amount / $fund->total_amount) * 100 ?>%;"></div>
+                                        <div class="fund-progress-bar" style="width: <?= ((float)$fund['available_amount'] / max((float)$fund['total_amount'], 1)) * 100 ?>%;"></div>
                                     </div>
                                 </div>
                             </td>
