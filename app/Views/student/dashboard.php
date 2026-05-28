@@ -37,6 +37,24 @@ $greeting = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good
         </div>
     </div>
 
+    <?php if (!empty($_SESSION['verify_prompt']) || (isset($_GET['resent']) && $_GET['resent'] === '1')): ?>
+    <div class="glass-card" style="margin-top:1rem;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;border-left:3px solid var(--accent);">
+        <i class="fa-solid fa-envelope-circle-check" style="color:var(--accent);font-size:1.2rem;"></i>
+        <div style="flex:1;">
+            <p style="margin:0;font-size:0.85rem;color:var(--text);">
+                <?= isset($_GET['resent']) ? 'A new verification link has been sent.' : 'Please verify your email address to unlock all features.' ?>
+                <a href="/resend-verification" style="font-weight:600;font-size:0.8rem;">Resend verification</a>
+            </p>
+        </div>
+        <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;">&times;</button>
+    </div>
+    <?php elseif (isset($_GET['verified'])): ?>
+    <div class="glass-card" style="margin-top:1rem;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;border-left:3px solid var(--success);">
+        <i class="fa-solid fa-circle-check" style="color:var(--success);font-size:1.2rem;"></i>
+        <p style="margin:0;font-size:0.85rem;color:var(--text);">Email verified successfully!</p>
+    </div>
+    <?php endif; ?>
+
     <!-- Stats Row -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1.5rem 0;">
         <div class="glass-card" style="padding:1.25rem;display:flex;align-items:center;gap:1rem;">

@@ -53,6 +53,22 @@ function validateCsrf($data): bool {
     return !empty($_SESSION['_old_csrf_token']) && hash_equals($_SESSION['_old_csrf_token'], $token);
 }
 
+function isLockedOut($pdo, string $email, string $ip): bool {
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM login_attempts WHERE (email = ? OR ip_address = ?) AND success = 0 AND attempted_at > datetime('now', '-900 seconds')");
+    $stmt->execute([$email, $ip]);
+    return $stmt->fetchColumn() >= 5;
+}
+
+function recordAttempt($pdo, string $email, string $ip): void {
+    $stmt = $pdo->prepare("INSERT INTO login_attempts (email, ip_address, success) VALUES (?, ?, 0)");
+    $stmt->execute([$email, $ip]);
+}
+
+function clearAttempts($pdo, string $email, string $ip): void {
+    $stmt = $pdo->prepare("DELETE FROM login_attempts WHERE (email = ? OR ip_address = ?)");
+    $stmt->execute([$email, $ip]);
+}
+
 function register($data, $pdo) {
     if (!validateCsrf($data)) {
         echo json_encode(['error' => 'Invalid request security token']);
@@ -60,6 +76,20 @@ function register($data, $pdo) {
     }
     if (empty($data['name']) || empty($data['email']) || empty($data['password'])) {
         echo json_encode(['error' => 'All fields are required']);
+        return;
+    }
+
+    // Password strength
+    if (strlen($data['password']) < 8) {
+        echo json_encode(['error' => 'Password must be at least 8 characters']);
+        return;
+    }
+    if (!preg_match('/[A-Z]/', $data['password'])) {
+        echo json_encode(['error' => 'Password must contain an uppercase letter']);
+        return;
+    }
+    if (!preg_match('/[0-9]/', $data['password'])) {
+        echo json_encode(['error' => 'Password must contain a number']);
         return;
     }
 
@@ -71,13 +101,20 @@ function register($data, $pdo) {
             return;
         }
 
-        $hash = password_hash($data['password'], PASSWORD_BCRYPT);
+        $algo = defined('PASSWORD_ARGON2ID') ? PASSWORD_ARGON2ID : PASSWORD_BCRYPT;
+        $hash = password_hash($data['password'], $algo);
         $index = $data['index_number'] ?? $data['email'];
         $phone = $data['phone'] ?? '0700000000';
         $stmt = $pdo->prepare("INSERT INTO users (full_name, index_number, email, phone, password_hash, role) VALUES (?, ?, ?, ?, ?, 'student')");
         $stmt->execute([$data['name'], $index, $data['email'], $phone, $hash]);
         
-        echo json_encode(['success' => 'Registration successful']);
+        // Generate email verification token
+        $userId = $pdo->lastInsertId();
+        $token = bin2hex(random_bytes(32));
+        $stmt = $pdo->prepare("INSERT INTO email_verifications (user_id, token, expires_at) VALUES (?, ?, datetime('now', '+24 hours'))");
+        $stmt->execute([$userId, $token]);
+        
+        echo json_encode(['success' => 'Registration successful. Please verify your email.', 'verify_token' => $token]);
     } catch (PDOException $e) {
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     }
@@ -94,13 +131,30 @@ function login($data, $pdo) {
         header('Location: login.php?error=Email+and+password+are+required', true, 302); exit;
     }
 
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+    if (isLockedOut($pdo, $data['email'], $ip)) {
+        if ($isAjax) { echo json_encode(['error' => 'Too many attempts. Try again in 15 minutes.']); return; }
+        header('Location: login.php?error=Too+many+attempts', true, 302); exit;
+    }
+
     try {
-        // Try email first, then index_number
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? OR index_number = ?");
         $stmt->execute([$data['email'], $data['email']]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($data['password'], $user['password_hash'])) {
+            // Rehash if needed (bcrypt -> Argon2 upgrade)
+            $algo = defined('PASSWORD_ARGON2ID') ? PASSWORD_ARGON2ID : PASSWORD_BCRYPT;
+            if (password_needs_rehash($user['password_hash'], $algo)) {
+                $newHash = password_hash($data['password'], $algo);
+                $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
+                $stmt->execute([$newHash, $user['id']]);
+            }
+
+            clearAttempts($pdo, $data['email'], $ip);
+            $stmt = $pdo->prepare("UPDATE users SET last_login_at = datetime('now'), login_attempts = 0, locked_until = NULL WHERE id = ?");
+            $stmt->execute([$user['id']]);
+
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
@@ -114,6 +168,11 @@ function login($data, $pdo) {
                 header('Location: ' . $redirect, true, 302); exit;
             }
         } else {
+            recordAttempt($pdo, $data['email'], $ip);
+            if ($user) {
+                $stmt = $pdo->prepare("UPDATE users SET login_attempts = COALESCE(login_attempts, 0) + 1 WHERE id = ?");
+                $stmt->execute([$user['id']]);
+            }
             if ($isAjax) { echo json_encode(['error' => 'Invalid email or password']); return; }
             header('Location: login.php?error=Invalid+email+or+password', true, 302); exit;
         }
@@ -124,6 +183,13 @@ function login($data, $pdo) {
 }
 
 function logout() {
+    // Clear remember-me
+    if (isset($_COOKIE['remember_token'])) {
+        global $pdo;
+        $stmt = $pdo->prepare("DELETE FROM remember_tokens WHERE token_hash = ?");
+        $stmt->execute([hash('sha256', $_COOKIE['remember_token'])]);
+        setcookie('remember_token', '', time() - 3600, '/', '', false, true);
+    }
     session_destroy();
     $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     if ($isAjax) {

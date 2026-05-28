@@ -16,9 +16,21 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'student',
     is_active INTEGER DEFAULT 1,
+    email_verified_at TEXT,
+    last_login_at TEXT,
+    login_attempts INTEGER DEFAULT 0,
+    locked_until TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now'))
 )");
+
+// Migration: add columns if upgrading from older schema
+try { $pdo->exec("ALTER TABLE users ADD COLUMN email_verified_at TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN last_login_at TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN login_attempts INTEGER DEFAULT 0"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE users ADD COLUMN locked_until TEXT"); } catch (PDOException $e) {}
+// Migration: add user_agent column to audit_logs
+try { $pdo->exec("ALTER TABLE audit_logs ADD COLUMN user_agent TEXT"); } catch (PDOException $e) {}
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS students (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -114,8 +126,37 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS audit_logs (
     old_value TEXT,
     new_value TEXT,
     ip_address TEXT,
+    user_agent TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+)");
+
+// Auth security tables
+$pdo->exec("CREATE TABLE IF NOT EXISTS login_attempts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL,
+    ip_address TEXT NOT NULL,
+    attempted_at TEXT DEFAULT (datetime('now')),
+    success INTEGER DEFAULT 0
+)");
+
+$pdo->exec("CREATE TABLE IF NOT EXISTS email_verifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    token TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    verified_at TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)");
+
+$pdo->exec("CREATE TABLE IF NOT EXISTS remember_tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    token_hash TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )");
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS announcements (
@@ -131,9 +172,10 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS announcements (
 // Seed test users
 $stmt = $pdo->query("SELECT COUNT(*) FROM users");
 if ($stmt->fetchColumn() == 0) {
-    $adminPw = password_hash('admin123', PASSWORD_BCRYPT);
-    $studentPw = password_hash('student123', PASSWORD_BCRYPT);
-    $testPw = password_hash('password123', PASSWORD_BCRYPT);
+    $algo = defined('PASSWORD_ARGON2ID') ? PASSWORD_ARGON2ID : PASSWORD_BCRYPT;
+    $adminPw = password_hash('admin123', $algo);
+    $studentPw = password_hash('student123', $algo);
+    $testPw = password_hash('password123', $algo);
 
     $pdo->exec("INSERT INTO users (full_name, index_number, email, phone, password_hash, role) VALUES
         ('System Admin', 'ADM001', 'admin@nibs.ac.ke', '0712345678', '$adminPw', 'admin'),

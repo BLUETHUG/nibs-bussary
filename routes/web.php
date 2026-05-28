@@ -25,4 +25,8 @@ return [
     '/admin/reports/csv' => ['controller' => 'ReportController', 'action' => 'exportExcel'],
     '/admin/announcements' => ['controller' => 'AdminController', 'action' => 'announcements'],
     '/admin/users' => ['controller' => 'AdminController', 'action' => 'users'],
+
+    // Auth security routes
+    '/verify-email' => ['controller' => 'AuthController', 'action' => 'verifyEmail'],
+    '/resend-verification' => ['controller' => 'AuthController', 'action' => 'resendVerification'],
 ];

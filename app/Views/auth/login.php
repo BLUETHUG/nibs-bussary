@@ -71,7 +71,11 @@ ob_start();
                             <button type="button" class="toggle-pw" onclick="togglePassword('password')" aria-label="Toggle password"><i class="fa-solid fa-eye"></i></button>
                         </div>
                     </div>
-                    <button type="submit" class="btn-auth" id="login-btn" style="margin-top:1.5rem;">
+                    <label style="display:flex;align-items:center;gap:0.5rem;margin-top:1rem;font-size:0.85rem;color:var(--text-secondary);cursor:pointer;">
+                        <input type="checkbox" name="remember_me" value="1" style="width:auto;accent-color:var(--primary);">
+                        Remember me for 30 days
+                    </label>
+                    <button type="submit" class="btn-auth" id="login-btn" style="margin-top:1rem;">
                         <span class="btn-text">Sign In</span>
                         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                     </button>
