@@ -48,12 +48,19 @@
         <?php elseif (in_array($_SESSION['role'], ['admin','officer'])): ?>
             <a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a>
             <a href="/admin/applications" class="nav-link"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Applications</a>
+            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel" aria-hidden="true"></i> Scoring</a>
             <a href="/admin/funds" class="nav-link"><i class="fa-solid fa-coins" aria-hidden="true"></i> Funds</a>
             <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Reports</a>
             <a href="/admin/announcements" class="nav-link"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Announcements</a>
             <?php if ($_SESSION['role'] === 'admin'): ?>
+            <a href="/admin/cycles" class="nav-link"><i class="fa-solid fa-calendar-cycle" aria-hidden="true"></i> Cycles</a>
             <a href="/admin/users" class="nav-link"><i class="fa-solid fa-users-gear" aria-hidden="true"></i> Users</a>
             <?php endif; ?>
+        <?php elseif ($_SESSION['role'] === 'committee'): ?>
+            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel" aria-hidden="true"></i> Score Applications</a>
+        <?php elseif ($_SESSION['role'] === 'accountant'): ?>
+            <a href="/admin/finance" class="nav-link"><i class="fa-solid fa-coins" aria-hidden="true"></i> Finance Portal</a>
+            <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Reports</a>
         <?php endif; ?>
     </div>
     <div class="nav-user">
@@ -96,8 +103,22 @@
         <a href="/admin/applications" class="mobile-nav-link <?= strpos($path ?? '', '/admin/applications') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-clipboard-list"></i><span>Apps</span>
         </a>
-        <a href="/admin/funds" class="mobile-nav-link <?= strpos($path ?? '', '/admin/funds') === 0 ? 'active' : '' ?>">
-            <i class="fa-solid fa-coins"></i><span>Funds</span>
+        <a href="/admin/committee" class="mobile-nav-link <?= strpos($path ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-gavel"></i><span>Score</span>
+        </a>
+        <a href="/admin/reports" class="mobile-nav-link <?= strpos($path ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-file-lines"></i><span>Reports</span>
+        </a>
+    <?php elseif ($_SESSION['role'] === 'committee'): ?>
+        <a href="/admin/committee" class="mobile-nav-link <?= strpos($path ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-gavel"></i><span>Score</span>
+        </a>
+    <?php elseif ($_SESSION['role'] === 'accountant'): ?>
+        <a href="/admin/finance" class="mobile-nav-link <?= strpos($path ?? '', '/admin/finance') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-coins"></i><span>Finance</span>
+        </a>
+        <a href="/admin/reports" class="mobile-nav-link <?= strpos($path ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
+            <i class="fa-solid fa-file-lines"></i><span>Reports</span>
         </a>
     <?php endif; ?>
     <a href="/logout" class="mobile-nav-link">

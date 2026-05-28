@@ -31,6 +31,10 @@ try { $pdo->exec("ALTER TABLE users ADD COLUMN login_attempts INTEGER DEFAULT 0"
 try { $pdo->exec("ALTER TABLE users ADD COLUMN locked_until TEXT"); } catch (PDOException $e) {}
 // Migration: add user_agent column to audit_logs
 try { $pdo->exec("ALTER TABLE audit_logs ADD COLUMN user_agent TEXT"); } catch (PDOException $e) {}
+// Migration: add bank details to students
+try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_name TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_account TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE students ADD COLUMN mpesa_phone TEXT"); } catch (PDOException $e) {}
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS students (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -157,6 +161,19 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS remember_tokens (
     expires_at TEXT NOT NULL,
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)");
+
+$pdo->exec("CREATE TABLE IF NOT EXISTS bursary_cycles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    academic_year TEXT NOT NULL,
+    application_start TEXT NOT NULL,
+    application_end TEXT NOT NULL,
+    is_open INTEGER DEFAULT 0,
+    max_applications_per_student INTEGER DEFAULT 1,
+    created_by INTEGER NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (created_by) REFERENCES users(id)
 )");
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS announcements (

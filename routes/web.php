@@ -1,5 +1,4 @@
 <?php
-// routes/web.php
 declare(strict_types=1);
 
 return [
@@ -7,11 +6,11 @@ return [
     '/login' => ['controller' => 'AuthController', 'action' => 'login'],
     '/register' => ['controller' => 'AuthController', 'action' => 'register'],
     '/logout' => ['controller' => 'AuthController', 'action' => 'logout'],
-    
+
     '/student/dashboard' => ['controller' => 'StudentController', 'action' => 'dashboard'],
     '/student/apply' => ['controller' => 'StudentController', 'action' => 'apply'],
     '/student/status' => ['controller' => 'StudentController', 'action' => 'status'],
-    
+
     '/admin/dashboard' => ['controller' => 'AdminController', 'action' => 'dashboard'],
     '/admin/applications' => ['controller' => 'AdminController', 'action' => 'applications'],
     '/admin/funds' => ['controller' => 'AdminController', 'action' => 'funds'],
@@ -25,6 +24,17 @@ return [
     '/admin/reports/csv' => ['controller' => 'ReportController', 'action' => 'exportExcel'],
     '/admin/announcements' => ['controller' => 'AdminController', 'action' => 'announcements'],
     '/admin/users' => ['controller' => 'AdminController', 'action' => 'users'],
+
+    // Bursary cycles
+    '/admin/cycles' => ['controller' => 'AdminController', 'action' => 'cycles'],
+    '/admin/cycles/toggle' => ['controller' => 'AdminController', 'action' => 'toggleCycle'],
+
+    // Committee scoring
+    '/admin/committee' => ['controller' => 'AdminController', 'action' => 'committee'],
+    '/admin/committee/score' => ['controller' => 'AdminController', 'action' => 'score'],
+
+    // Finance portal
+    '/admin/finance' => ['controller' => 'AdminController', 'action' => 'finance'],
 
     // Auth security routes
     '/verify-email' => ['controller' => 'AuthController', 'action' => 'verifyEmail'],
