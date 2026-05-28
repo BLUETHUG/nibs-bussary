@@ -1,0 +1,14 @@
+.git/
+.gitignore
+.vscode/
+.idea/
+node_modules/
+nibs-portal/
+3d-dating/
+deathnote-desires/
+*.md
+*.log
+.DS_Store
+Thumbs.db
+backend/bursary.sqlite
+storage/*.sqlite

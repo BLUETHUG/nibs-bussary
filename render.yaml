@@ -1,15 +1,13 @@
 services:
   - type: web
     name: nibs-bursary
-    runtime: php
+    runtime: image
     region: oregon
     plan: free
-    buildCommand: ""
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
         value: "false"
-      - key: SESSION_DRIVER
-        value: file
