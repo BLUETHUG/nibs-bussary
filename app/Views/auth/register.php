@@ -8,7 +8,7 @@ ob_start();
 
 <div style="min-height:100vh;display:flex;flex-direction:column;background:var(--bg);">
     <!-- Floating nav (always visible) -->
-    <nav class="glass-nav" style="margin-top:0.75rem;justify-content:center;">
+    <nav class="glass-nav" style="margin-top:0.75rem;justify-content:space-between;padding:0.75rem 1.5rem;">
         <a href="/" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;">
             <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
                 <rect width="34" height="34" rx="8" fill="url(#rnlogo)"/>
@@ -17,10 +17,13 @@ ob_start();
             </svg>
             <span style="font-weight:700;font-size:0.95rem;color:var(--text);">NIBS Bursary Portal</span>
         </a>
+        <button class="theme-toggle" id="theme-toggle-register" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon" id="theme-icon-register"></i>
+        </button>
     </nav>
 
     <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;">
-        <div style="width:100%;max-width:600px;animation: fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards;">
+        <div style="width:100%;max-width:600px;animation: scaleIn 0.5s var(--spring) forwards;">
             <div class="glass-card" style="padding:2.5rem;">
                 <div style="text-align:center;margin-bottom:2rem;">
                     <svg width="52" height="52" viewBox="0 0 56 56" fill="none" style="margin-bottom:0.75rem;">
@@ -138,6 +141,22 @@ function togglePassword(id) {
 document.getElementById('register-form')?.addEventListener('submit', function() {
     document.getElementById('register-btn').classList.add('loading');
 });
+(function() {
+    var saved = localStorage.getItem('nibs-theme');
+    if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    function updateIcon() {
+        var icon = document.getElementById('theme-icon-register');
+        if (icon) icon.className = 'fa-solid ' + (document.documentElement.getAttribute('data-theme') === 'dark' ? 'fa-sun' : 'fa-moon');
+    }
+    updateIcon();
+    document.getElementById('theme-toggle-register')?.addEventListener('click', function() {
+        var html = document.documentElement;
+        var isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? '' : 'dark');
+        localStorage.setItem('nibs-theme', isDark ? '' : 'dark');
+        updateIcon();
+    });
+})();
 </script>
 <?php
 $content = ob_get_clean();

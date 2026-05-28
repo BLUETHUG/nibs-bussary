@@ -12,9 +12,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
     <?= $extraHead ?? '' ?>
+    <style>
+    .cinema-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        background: var(--bg-dark); display: flex;
+        align-items: center; justify-content: center;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .cinema-loader.hidden { opacity: 0; visibility: hidden; }
+    .cinema-loader .bar { width: 120px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+    .cinema-loader .bar-inner { height: 100%; width: 0; background: linear-gradient(90deg, #4f46e5, #818cf8); border-radius: 2px; animation: loadBar 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+    @keyframes loadBar { 0% { width: 0; } 100% { width: 100%; } }
+    </style>
 </head>
 <body class="<?= $bodyClass ?? '' ?>">
-<div id="page-loader"><div class="loader-spinner"></div></div>
+<div id="cinema-loader" class="cinema-loader"><div class="bar"><div class="bar-inner"></div></div></div>
 <a href="#page-content" class="skip-link">Skip to main content</a>
 
 <div id="ui-overlay">
@@ -45,6 +57,9 @@
         <?php endif; ?>
     </div>
     <div class="nav-user">
+        <button class="theme-toggle" id="theme-toggle-dash" aria-label="Toggle dark mode" title="Toggle dark mode" style="margin-right:0.5rem;">
+            <i class="fa-solid fa-moon" id="theme-icon-dash"></i>
+        </button>
         <span class="user-avatar"><?= strtoupper(substr($_SESSION['full_name'], 0, 1)) ?></span>
         <div class="user-info">
             <div class="user-name"><?= htmlspecialchars($_SESSION['full_name']) ?></div>
@@ -67,8 +82,33 @@
 <?= $extraScripts ?? '' ?>
 <script>
 (function() {
-    var loader = document.getElementById('page-loader');
-    if (loader) { loader.classList.add('hidden'); }
+    var loader = document.getElementById('cinema-loader');
+    if (loader) setTimeout(function() { loader.classList.add('hidden'); }, 600);
+
+    // ─── Dark Mode ───
+    var saved = localStorage.getItem('nibs-theme');
+    if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    updateThemeIcons();
+
+    function updateThemeIcons() {
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var icon1 = document.getElementById('theme-icon');
+        var icon2 = document.getElementById('theme-icon-dash');
+        var cls = isDark ? 'fa-sun' : 'fa-moon';
+        if (icon1) { icon1.className = 'fa-solid ' + cls; }
+        if (icon2) { icon2.className = 'fa-solid ' + cls; }
+    }
+
+    function toggleTheme() {
+        var html = document.documentElement;
+        var isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? '' : 'dark');
+        localStorage.setItem('nibs-theme', isDark ? '' : 'dark');
+        updateThemeIcons();
+    }
+
+    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-dash')?.addEventListener('click', toggleTheme);
 
     // Hamburger
     document.getElementById('hamburger')?.addEventListener('click', function(e) {
@@ -111,14 +151,14 @@
     if (st) {
         window.addEventListener('scroll', function() {
             st.classList.toggle('visible', window.scrollY > 300);
-        });
+        }, { passive: true });
         st.addEventListener('click', function(e) {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // Button ripple effect
+    // Button press effect
     document.addEventListener('mousedown', function(e) {
         var btn = e.target.closest('.btn, .btn-auth, .btn-action, .btn-small, .btn-icon');
         if (!btn) return;

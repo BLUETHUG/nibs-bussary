@@ -10,6 +10,11 @@
         <li><a href="tribute.php">Lizzie Wanyoike</a></li>
         <li><a href="contact-us.php">Contact</a></li>
         <li><a href="https://www.nibs.ac.ke" target="_blank" rel="noopener">NIBS Official <i class="fa-solid fa-external-link" style="font-size:0.75rem;"></i></a></li>
+        <li>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
+            </button>
+        </li>
         <li><a href="login.php" class="btn-nav">Student Portal <i class="fa-solid fa-arrow-right" style="font-size:0.8rem;"></i></a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
