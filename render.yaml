@@ -11,3 +11,5 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
+      - key: SESSION_DRIVER
+        value: file
