@@ -63,24 +63,30 @@ a:hover { color: var(--primary-hover); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* ─── Navbar ─── */
+/* ─── Navbar (Floating Pill) ─── */
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0.75rem; left: 0; right: 0;
   z-index: 1000;
-  padding: 1.15rem 5%;
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: var(--transition);
   background: transparent;
+  max-width: 1320px;
+  margin: 0 auto;
+  border-radius: 100px;
 }
 .navbar.scrolled {
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(24px);
-  padding: 0.65rem 5%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  padding: 0.6rem 1.5rem;
+  top: 0.75rem;
 }
+.navbar.scrolled:hover { box-shadow: var(--shadow-lg); }
 .navbar .logo {
   font-size: 1.35rem;
   font-weight: 800;
@@ -707,6 +713,7 @@ a:hover { color: var(--primary-hover); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
+  .navbar { border-radius: var(--radius-xl); max-width: calc(100% - 1rem); padding: 0.75rem 1rem; }
   .nav-links {
     position: fixed;
     top: 0; right: -100%;
