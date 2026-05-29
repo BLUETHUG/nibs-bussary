@@ -5,8 +5,16 @@ $bodyClass = 'page-admin-dashboard';
 ob_start();
 ?>
 <style>
-html[data-theme="dark"] .page-admin-dashboard {
-    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%) !important;
+.page-admin-dashboard {
+    --admin-navy: #1A237E;
+    --admin-navy-light: #283593;
+    --admin-gold: #FFD54F;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
+    min-height: 100vh;
+}
+[data-theme="dark"] .page-admin-dashboard {
+    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%);
 }
 </style>
 <div class="dashboard-wrapper float-in">
