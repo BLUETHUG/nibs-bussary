@@ -598,6 +598,7 @@ html[data-theme="dark"] .page-dashboard {
         <a href="/student/dashboard" class="dash-nav-link active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
         <a href="/student/apply" class="dash-nav-link"><i class="fa-solid fa-file-pen"></i><span>Apply</span></a>
         <a href="/student/status" class="dash-nav-link"><i class="fa-solid fa-list-check"></i><span>Status</span></a>
+        <button class="theme-toggle dash-nav-link" id="theme-toggle-dash" aria-label="Toggle dark mode" title="Toggle dark mode" style="border:none;cursor:pointer;font-size:0.82rem;display:inline-flex;align-items:center;gap:0.35rem;padding:0.5rem 0.85rem;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-weight:500;font-family:inherit;"><i class="fa-solid fa-moon" id="theme-icon-dash"></i><span>Theme</span></button>
         <a href="/logout" class="dash-nav-link" style="color:var(--error);"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
     </div>
 </nav>

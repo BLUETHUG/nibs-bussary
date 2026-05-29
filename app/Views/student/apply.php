@@ -579,6 +579,7 @@ html[data-theme="dark"] .page-student-apply {
         <a href="/student/dashboard" class="apply-nav-link"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
         <a href="/student/apply" class="apply-nav-link active"><i class="fa-solid fa-file-pen"></i><span>Apply</span></a>
         <a href="/student/status" class="apply-nav-link"><i class="fa-solid fa-list-check"></i><span>Status</span></a>
+        <button class="theme-toggle apply-nav-link" id="theme-toggle-apply" aria-label="Toggle dark mode" title="Toggle dark mode" style="border:none;cursor:pointer;font-size:0.82rem;display:inline-flex;align-items:center;gap:0.35rem;padding:0.5rem 0.85rem;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-weight:500;font-family:inherit;"><i class="fa-solid fa-moon" id="theme-icon-apply"></i><span>Theme</span></button>
         <a href="/logout" class="apply-nav-link" style="color:var(--error);"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
     </div>
 </nav>

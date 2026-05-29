@@ -30,42 +30,38 @@
 <a href="#page-content" class="skip-link">Skip to main content</a>
 
 <div id="ui-overlay">
-<?php if (!empty($_SESSION['user_id'])): ?>
+<?php if (!empty($_SESSION['user_id']) && $_SESSION['role'] !== 'student'): ?>
 <nav class="glass-nav" id="main-nav">
     <div class="nav-brand">
-        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#nlogo)"/>
-            <defs><linearGradient id="nlogo" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#4f46e5"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff" font-family="Inter">N</text>
+            <defs><linearGradient id="nlogo" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
         </svg>
-        <span class="nav-title">Bursary Portal</span>
+        <span class="nav-title">NIBS Bursary</span>
     </div>
     <div class="nav-links" id="nav-links">
-        <?php if ($_SESSION['role'] === 'student'): ?>
-            <a href="/student/dashboard" class="nav-link"><i class="fa-solid fa-house" aria-hidden="true"></i> Dashboard</a>
-            <a href="/student/apply" class="nav-link"><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i> Apply</a>
-            <a href="/student/status" class="nav-link"><i class="fa-solid fa-list" aria-hidden="true"></i> Status</a>
-        <?php elseif (in_array($_SESSION['role'], ['admin','officer'])): ?>
-            <a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a>
-            <a href="/admin/applications" class="nav-link"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Applications</a>
-            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel" aria-hidden="true"></i> Scoring</a>
-            <a href="/admin/funds" class="nav-link"><i class="fa-solid fa-coins" aria-hidden="true"></i> Funds</a>
-            <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Reports</a>
-            <a href="/admin/announcements" class="nav-link"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Announcements</a>
+        <?php if (in_array($_SESSION['role'], ['admin','officer'])): ?>
+            <a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/admin/applications" class="nav-link"><i class="fa-solid fa-clipboard-list"></i> Applications</a>
+            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel"></i> Scoring</a>
+            <a href="/admin/funds" class="nav-link"><i class="fa-solid fa-coins"></i> Funds</a>
+            <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines"></i> Reports</a>
+            <a href="/admin/announcements" class="nav-link"><i class="fa-solid fa-bullhorn"></i> Announcements</a>
             <?php if ($_SESSION['role'] === 'admin'): ?>
-            <a href="/admin/cycles" class="nav-link"><i class="fa-solid fa-calendar-cycle" aria-hidden="true"></i> Cycles</a>
-            <a href="/admin/users" class="nav-link"><i class="fa-solid fa-users-gear" aria-hidden="true"></i> Users</a>
+            <a href="/admin/cycles" class="nav-link"><i class="fa-solid fa-calendar-cycle"></i> Cycles</a>
+            <a href="/admin/users" class="nav-link"><i class="fa-solid fa-users-gear"></i> Users</a>
             <?php endif; ?>
         <?php elseif ($_SESSION['role'] === 'committee'): ?>
-            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel" aria-hidden="true"></i> Score Applications</a>
+            <a href="/admin/committee" class="nav-link"><i class="fa-solid fa-gavel"></i> Score Applications</a>
         <?php elseif ($_SESSION['role'] === 'accountant'): ?>
-            <a href="/admin/finance" class="nav-link"><i class="fa-solid fa-coins" aria-hidden="true"></i> Finance Portal</a>
-            <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Reports</a>
+            <a href="/admin/finance" class="nav-link"><i class="fa-solid fa-coins"></i> Finance Portal</a>
+            <a href="/admin/reports" class="nav-link"><i class="fa-solid fa-file-lines"></i> Reports</a>
         <?php endif; ?>
     </div>
     <div class="nav-user">
-        <button class="theme-toggle" id="theme-toggle-dash" aria-label="Toggle dark mode" title="Toggle dark mode" style="margin-right:0.5rem;">
-            <i class="fa-solid fa-moon" id="theme-icon-dash"></i>
+        <button class="theme-toggle" id="theme-toggle-admin" aria-label="Toggle dark mode" title="Toggle dark mode" style="margin-right:0.5rem;border:none;cursor:pointer;background:none;font-size:0.9rem;">
+            <i class="fa-solid fa-moon" id="theme-icon-admin"></i>
         </button>
         <span class="user-avatar"><?= strtoupper(substr($_SESSION['full_name'], 0, 1)) ?></span>
         <div class="user-info">
@@ -143,11 +139,8 @@
 
     function updateThemeIcons() {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        var icon1 = document.getElementById('theme-icon');
-        var icon2 = document.getElementById('theme-icon-dash');
         var cls = isDark ? 'fa-sun' : 'fa-moon';
-        if (icon1) { icon1.className = 'fa-solid ' + cls; }
-        if (icon2) { icon2.className = 'fa-solid ' + cls; }
+        document.querySelectorAll('[id^="theme-icon"]').forEach(function(el) { el.className = 'fa-solid ' + cls; });
     }
 
     function toggleTheme() {
@@ -158,10 +151,11 @@
         updateThemeIcons();
     }
 
-    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
-    document.getElementById('theme-toggle-dash')?.addEventListener('click', toggleTheme);
+    document.querySelectorAll('[id^="theme-toggle"]').forEach(function(el) {
+        el.addEventListener('click', toggleTheme);
+    });
 
-    // Hamburger
+    // Hamburger (admin nav)
     document.getElementById('hamburger')?.addEventListener('click', function(e) {
         e.stopPropagation();
         document.getElementById('nav-links')?.classList.toggle('open');
@@ -173,9 +167,8 @@
     });
 
     // Active nav link
-    var path = window.location.pathname;
     document.querySelectorAll('.nav-link').forEach(function(a) {
-        if (a.getAttribute('href') === path) a.classList.add('active');
+        if (a.getAttribute('href') === window.location.pathname) a.classList.add('active');
     });
 
     // Toast system
