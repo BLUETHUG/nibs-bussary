@@ -6,6 +6,7 @@ namespace App\Helpers;
 
 use PDO;
 use Exception;
+use PDOException;
 
 class Database {
     private static ?PDO $instance = null;
@@ -58,10 +59,17 @@ class Database {
             guardian_occupation TEXT,
             guardian_monthly_income REAL NOT NULL,
             family_size INTEGER NOT NULL,
+            bank_name TEXT,
+            bank_account TEXT,
+            mpesa_phone TEXT,
             photo_path TEXT,
             created_at TEXT DEFAULT (datetime('now')),
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )");
+        // Migration: add bank details to students for databases created without them
+        try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_name TEXT"); } catch (PDOException $e) {}
+        try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_account TEXT"); } catch (PDOException $e) {}
+        try { $pdo->exec("ALTER TABLE students ADD COLUMN mpesa_phone TEXT"); } catch (PDOException $e) {}
 
         $pdo->exec("CREATE TABLE IF NOT EXISTS bursary_funds (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

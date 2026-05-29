@@ -31,10 +31,6 @@ try { $pdo->exec("ALTER TABLE users ADD COLUMN login_attempts INTEGER DEFAULT 0"
 try { $pdo->exec("ALTER TABLE users ADD COLUMN locked_until TEXT"); } catch (PDOException $e) {}
 // Migration: add user_agent column to audit_logs
 try { $pdo->exec("ALTER TABLE audit_logs ADD COLUMN user_agent TEXT"); } catch (PDOException $e) {}
-// Migration: add bank details to students
-try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_name TEXT"); } catch (PDOException $e) {}
-try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_account TEXT"); } catch (PDOException $e) {}
-try { $pdo->exec("ALTER TABLE students ADD COLUMN mpesa_phone TEXT"); } catch (PDOException $e) {}
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS students (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,10 +44,17 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS students (
     guardian_occupation TEXT,
     guardian_monthly_income REAL NOT NULL,
     family_size INTEGER NOT NULL,
+    bank_name TEXT,
+    bank_account TEXT,
+    mpesa_phone TEXT,
     photo_path TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )");
+// Migration: add bank details to students (for databases created before the columns existed)
+try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_name TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE students ADD COLUMN bank_account TEXT"); } catch (PDOException $e) {}
+try { $pdo->exec("ALTER TABLE students ADD COLUMN mpesa_phone TEXT"); } catch (PDOException $e) {}
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS bursary_funds (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
