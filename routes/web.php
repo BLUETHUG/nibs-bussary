@@ -10,6 +10,7 @@ return [
     '/student/dashboard' => ['controller' => 'StudentController', 'action' => 'dashboard'],
     '/student/apply' => ['controller' => 'StudentController', 'action' => 'apply'],
     '/student/status' => ['controller' => 'StudentController', 'action' => 'status'],
+    '/student/bank-details' => ['controller' => 'StudentController', 'action' => 'saveBankDetails'],
 
     '/admin/dashboard' => ['controller' => 'AdminController', 'action' => 'dashboard'],
     '/admin/applications' => ['controller' => 'AdminController', 'action' => 'applications'],
@@ -32,9 +33,11 @@ return [
     // Committee scoring
     '/admin/committee' => ['controller' => 'AdminController', 'action' => 'committee'],
     '/admin/committee/score' => ['controller' => 'AdminController', 'action' => 'score'],
+    '/admin/committee/csv' => ['controller' => 'AdminController', 'action' => 'exportCommitteeCsv'],
 
     // Finance portal
     '/admin/finance' => ['controller' => 'AdminController', 'action' => 'finance'],
+    '/admin/finance/csv' => ['controller' => 'AdminController', 'action' => 'exportFinanceCsv'],
 
     // Auth security routes
     '/verify-email' => ['controller' => 'AuthController', 'action' => 'verifyEmail'],

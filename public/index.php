@@ -62,7 +62,7 @@ if (array_key_exists($uri, $routes)) {
         exit;
     }
     
-    $controller->$action();
+        $controller->$action();
 } else {
     http_response_code(404);
     require __DIR__ . '/../app/Views/errors/404.php';

@@ -21,7 +21,7 @@ class ReportController {
             'by_status'          => $db->query("SELECT status, COUNT(*) as count FROM applications GROUP BY status")->fetchAll(),
             'by_course'          => $db->query("SELECT s.course, COUNT(*) as count FROM applications a JOIN students s ON a.student_id=s.id GROUP BY s.course")->fetchAll(),
             'by_gender'          => $db->query("SELECT s.gender, COUNT(*) as count FROM applications a JOIN students s ON a.student_id=s.id GROUP BY s.gender")->fetchAll(),
-            'monthly_disbursed'  => $db->query("SELECT DATE_FORMAT(disbursed_at,'%Y-%m') as month, SUM(amount) as total FROM disbursements GROUP BY month ORDER BY month DESC LIMIT 12")->fetchAll(),
+            'monthly_disbursed'  => $db->query("SELECT strftime('%Y-%m', disbursed_at) as month, SUM(amount) as total FROM disbursements GROUP BY month ORDER BY month DESC LIMIT 12")->fetchAll(),
         ];
 
         require __DIR__ . '/../Views/admin/reports.php';

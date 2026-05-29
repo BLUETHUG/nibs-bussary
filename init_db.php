@@ -212,7 +212,30 @@ if ($stmt->fetchColumn() == 0) {
         ('NIBS Excellence Fund', 200000.00, 200000.00, '2024/2025', 'institution', 1)
     ");
 
+    // Seed an active bursary cycle so students can apply
+    $pdo->exec("INSERT INTO bursary_cycles (name, academic_year, application_start, application_end, is_open, max_applications_per_student, created_by) VALUES
+        ('Main Application Cycle 2024/2025', '2024/2025', date('now', '-30 days'), date('now', '+60 days'), 1, 3, 1)
+    ");
+
+    // Seed a sample application for Test Student (TEST001)
+    $pdo->exec("INSERT INTO applications (student_id, fund_id, academic_year, status, amount_requested, amount_approved, special_circumstances) VALUES
+        (3, 1, '2024/2025', 'pending', 45000.00, 0, 'Family financial hardship due to reduced guardian income')
+    ");
+
+    // Seed a test notification for Test Student
+    $pdo->exec("INSERT INTO notifications (user_id, title, message) VALUES
+        (4, 'Welcome to NIBS Bursary Portal', 'Your account has been created. Please verify your email and complete your profile to start applying.')
+    ");
+
     echo "Database initialized and seeded successfully.\n";
 } else {
     echo "Database already has data, skipping seed.\n";
+    // For existing databases, ensure at least one active cycle exists
+    $check = $pdo->query("SELECT COUNT(*) FROM bursary_cycles WHERE is_open = 1");
+    if ((int)$check->fetchColumn() === 0) {
+        $pdo->exec("INSERT INTO bursary_cycles (name, academic_year, application_start, application_end, is_open, max_applications_per_student, created_by) VALUES
+            ('Main Application Cycle 2024/2025', '2024/2025', date('now', '-30 days'), date('now', '+60 days'), 1, 3, 1)
+        ");
+        echo "Seeded a default active bursary cycle.\n";
+    }
 }

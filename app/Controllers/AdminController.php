@@ -39,6 +39,13 @@ class AdminController {
         
         $funds = BursaryFund::all();
         
+        // Chart data
+        $byStatus = $db->query("SELECT status, COUNT(*) as count FROM applications GROUP BY status")->fetchAll();
+        $byGender = $db->query("SELECT s.gender, COUNT(*) as count FROM applications a JOIN students s ON a.student_id = s.id GROUP BY s.gender")->fetchAll();
+        $byCourse = $db->query("SELECT s.course, COUNT(*) as count FROM applications a JOIN students s ON a.student_id = s.id GROUP BY s.course ORDER BY count DESC LIMIT 8")->fetchAll();
+        $monthlyApps = $db->query("SELECT strftime('%Y-%m', created_at) as month, COUNT(*) as count FROM applications GROUP BY month ORDER BY month ASC LIMIT 12")->fetchAll();
+        $monthlyDisbursed = $db->query("SELECT strftime('%Y-%m', disbursed_at) as month, SUM(amount) as total FROM disbursements GROUP BY month ORDER BY month ASC LIMIT 12")->fetchAll();
+        
         require __DIR__ . '/../Views/admin/dashboard.php';
     }
 
@@ -401,5 +408,62 @@ class AdminController {
         ];
         
         require __DIR__ . '/../Views/admin/finance.php';
+    }
+
+    public function exportCommitteeCsv(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('admin', 'officer', 'committee');
+        
+        $db = Database::getConnection();
+        $rows = $db->query("
+            SELECT u.full_name, u.index_number, s.course, s.year_of_study,
+                   a.academic_year, a.amount_requested, a.status,
+                   cs.need_score, cs.academic_score, cs.circumstance_score,
+                   ROUND((cs.need_score + cs.academic_score + cs.circumstance_score) / 3.0, 2) as avg_score,
+                   cs.recommendation, cs.scored_at
+            FROM committee_scores cs
+            JOIN applications a ON cs.application_id = a.id
+            JOIN students s ON a.student_id = s.id
+            JOIN users u ON s.user_id = u.id
+            ORDER BY cs.scored_at DESC
+        ")->fetchAll();
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=committee_scores_' . date('Ymd') . '.csv');
+        $out = fopen('php://output', 'w');
+        fputcsv($out, ['Name','Index No','Course','Year','Acad Year','Amount Requested','Status','Need(1-10)','Academic(1-10)','Circumstance(1-10)','Avg Score','Recommendation','Scored At']);
+        foreach ($rows as $r) {
+            fputcsv($out, [$r['full_name'],$r['index_number'],$r['course'],$r['year_of_study'],$r['academic_year'],$r['amount_requested'],$r['status'],$r['need_score'],$r['academic_score'],$r['circumstance_score'],$r['avg_score'],$r['recommendation'],$r['scored_at']]);
+        }
+        fclose($out);
+        exit;
+    }
+
+    public function exportFinanceCsv(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('admin', 'accountant');
+        
+        $db = Database::getConnection();
+        $rows = $db->query("
+            SELECT u.full_name, u.index_number, s.course,
+                   a.academic_year, a.amount_requested, a.amount_approved, a.status,
+                   d.amount as disbursed_amount, d.payment_method, d.reference_number, d.disbursed_at, d.notes,
+                   s.bank_name, s.bank_account, s.mpesa_phone
+            FROM applications a
+            JOIN students s ON a.student_id = s.id
+            JOIN users u ON s.user_id = u.id
+            LEFT JOIN disbursements d ON d.application_id = a.id
+            ORDER BY COALESCE(d.disbursed_at, a.updated_at) DESC
+        ")->fetchAll();
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=finance_report_' . date('Ymd') . '.csv');
+        $out = fopen('php://output', 'w');
+        fputcsv($out, ['Name','Index No','Course','Acad Year','Requested(KES)','Approved(KES)','Status','Disbursed(KES)','Payment Method','Reference','Bank Name','Bank Account','M-Pesa','Disbursed At','Notes']);
+        foreach ($rows as $r) {
+            fputcsv($out, [$r['full_name'],$r['index_number'],$r['course'],$r['academic_year'],$r['amount_requested'],$r['amount_approved'],$r['status'],$r['disbursed_amount'],$r['payment_method'],$r['reference_number'],$r['bank_name'],$r['bank_account'],$r['mpesa_phone'],$r['disbursed_at'],$r['notes']]);
+        }
+        fclose($out);
+        exit;
     }
 }

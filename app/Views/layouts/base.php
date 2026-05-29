@@ -87,37 +87,37 @@
 <!-- Mobile Bottom Navigation (Duolingo-style) -->
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
     <?php if ($_SESSION['role'] === 'student'): ?>
-        <a href="/student/dashboard" class="mobile-nav-link <?= strpos($path ?? '', '/student/dashboard') === 0 ? 'active' : '' ?>">
-            <i class="fa-solid fa-house"></i><span>Home</span>
-        </a>
-        <a href="/student/apply" class="mobile-nav-link <?= strpos($path ?? '', '/student/apply') === 0 ? 'active' : '' ?>">
-            <i class="fa-solid fa-file-circle-plus"></i><span>Apply</span>
-        </a>
-        <a href="/student/status" class="mobile-nav-link <?= strpos($path ?? '', '/student/status') === 0 ? 'active' : '' ?>">
-            <i class="fa-solid fa-list"></i><span>Status</span>
-        </a>
+    <a href="/student/dashboard" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/student/dashboard') === 0 ? 'active' : '' ?>">
+        <i class="fa-solid fa-house"></i><span>Home</span>
+    </a>
+    <a href="/student/apply" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/student/apply') === 0 ? 'active' : '' ?>">
+        <i class="fa-solid fa-file-circle-plus"></i><span>Apply</span>
+    </a>
+    <a href="/student/status" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/student/status') === 0 ? 'active' : '' ?>">
+        <i class="fa-solid fa-list"></i><span>Status</span>
+    </a>
     <?php elseif (in_array($_SESSION['role'], ['admin','officer'])): ?>
-        <a href="/admin/dashboard" class="mobile-nav-link <?= strpos($path ?? '', '/admin/dashboard') === 0 ? 'active' : '' ?>">
+        <a href="/admin/dashboard" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/dashboard') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-chart-pie"></i><span>Dashboard</span>
         </a>
-        <a href="/admin/applications" class="mobile-nav-link <?= strpos($path ?? '', '/admin/applications') === 0 ? 'active' : '' ?>">
+        <a href="/admin/applications" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/applications') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-clipboard-list"></i><span>Apps</span>
         </a>
-        <a href="/admin/committee" class="mobile-nav-link <?= strpos($path ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
+        <a href="/admin/committee" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-gavel"></i><span>Score</span>
         </a>
-        <a href="/admin/reports" class="mobile-nav-link <?= strpos($path ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
+        <a href="/admin/reports" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-file-lines"></i><span>Reports</span>
         </a>
     <?php elseif ($_SESSION['role'] === 'committee'): ?>
-        <a href="/admin/committee" class="mobile-nav-link <?= strpos($path ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
+        <a href="/admin/committee" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/committee') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-gavel"></i><span>Score</span>
         </a>
     <?php elseif ($_SESSION['role'] === 'accountant'): ?>
-        <a href="/admin/finance" class="mobile-nav-link <?= strpos($path ?? '', '/admin/finance') === 0 ? 'active' : '' ?>">
+        <a href="/admin/finance" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/finance') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-coins"></i><span>Finance</span>
         </a>
-        <a href="/admin/reports" class="mobile-nav-link <?= strpos($path ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
+        <a href="/admin/reports" class="mobile-nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/reports') === 0 ? 'active' : '' ?>">
             <i class="fa-solid fa-file-lines"></i><span>Reports</span>
         </a>
     <?php endif; ?>

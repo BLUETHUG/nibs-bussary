@@ -137,7 +137,7 @@ class AuthController {
 
                         // Insert student profile
                         $db = Database::getConnection();
-                        $stmt = $db->prepare("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size) VALUES (?,?,?,?,?,?,?,?,?)");
+                        $stmt = $db->prepare("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size, bank_name, bank_account, mpesa_phone) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
                         $stmt->execute([
                             $user->id,
                             Validator::clean($_POST['course'] ?? 'Not specified'),
@@ -148,6 +148,9 @@ class AuthController {
                             Validator::clean($_POST['guardian_phone'] ?? '0700000000'),
                             (float)($_POST['guardian_income'] ?? 0),
                             (int)($_POST['family_size'] ?? 1),
+                            Validator::clean($_POST['bank_name'] ?? ''),
+                            Validator::clean($_POST['bank_account'] ?? ''),
+                            Validator::clean($_POST['mpesa_phone'] ?? ''),
                         ]);
 
                         // Generate email verification token

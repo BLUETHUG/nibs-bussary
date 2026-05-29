@@ -32,18 +32,71 @@ class StudentController {
         $stmt->execute();
         $announcements = $stmt->fetchAll();
         
+        $stmt = $db->prepare("SELECT bank_name, bank_account, mpesa_phone FROM students WHERE id = ?");
+        $stmt->execute([$studentId]);
+        $bankDetails = $stmt->fetch();
+        
         require __DIR__ . '/../Views/student/dashboard.php';
+    }
+
+    public function saveBankDetails(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('student');
+        CsrfMiddleware::validate();
+        
+        $db        = Database::getConnection();
+        $studentId = $this->getStudentId();
+        
+        $bankName    = Validator::clean($_POST['bank_name'] ?? '');
+        $bankAccount = Validator::clean($_POST['bank_account'] ?? '');
+        $mpesaPhone  = Validator::clean($_POST['mpesa_phone'] ?? '');
+        
+        $stmt = $db->prepare("UPDATE students SET bank_name = ?, bank_account = ?, mpesa_phone = ? WHERE id = ?");
+        $stmt->execute([$bankName, $bankAccount, $mpesaPhone, $studentId]);
+        
+        header('Location: /student/dashboard?saved=1');
+        exit;
     }
 
     public function apply(): void {
         AuthMiddleware::require();
         RoleMiddleware::require('student');
         
-        $funds     = BursaryFund::where(['academic_year' => date('Y') . '/' . (date('Y') + 1)]);
+        $db        = Database::getConnection();
         $studentId = $this->getStudentId();
+        
+        // Check for active bursary cycle
+        $stmt = $db->prepare("SELECT * FROM bursary_cycles WHERE is_open = 1 AND application_start <= date('now') AND application_end >= date('now') ORDER BY application_end ASC LIMIT 1");
+        $stmt->execute();
+        $activeCycle = $stmt->fetch();
+        
+        if ($activeCycle) {
+            $academicYear = $activeCycle['academic_year'];
+        } else {
+            $academicYear = date('Y') . '/' . (date('Y') + 1);
+        }
+        
+        $funds = BursaryFund::where(['academic_year' => $academicYear]);
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CsrfMiddleware::validate();
+            
+            // Re-check cycle on submit
+            if (!$activeCycle) {
+                $errors[] = 'No active application cycle is open at this time. Please check back during the application period.';
+                require __DIR__ . '/../Views/student/apply.php';
+                return;
+            }
+            
+            // Check max applications per student
+            $stmt = $db->prepare("SELECT COUNT(*) FROM applications WHERE student_id = ? AND academic_year = ?");
+            $stmt->execute([$studentId, $academicYear]);
+            $appCount = (int)$stmt->fetchColumn();
+            if ($appCount >= (int)$activeCycle['max_applications_per_student']) {
+                $errors[] = 'You have reached the maximum number of applications (' . $activeCycle['max_applications_per_student'] . ') for this cycle.';
+                require __DIR__ . '/../Views/student/apply.php';
+                return;
+            }
             
             $errors = Validator::validateRequired($_POST, ['fund_id','amount_requested','academic_year']);
             
@@ -68,7 +121,6 @@ class StudentController {
                 $app->save();
                 
                 // Send notification
-                $db = Database::getConnection();
                 $stmt = $db->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?, ?, ?)");
                 $stmt->execute([$_SESSION['user_id'], 'Application Received', 'Your bursary application has been submitted and is pending review.']);
                 

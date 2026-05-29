@@ -25,7 +25,8 @@ class BursaryFund {
 
     public static function all(): array {
         $db = Database::getConnection();
-        return $db->query("SELECT * FROM bursary_funds ORDER BY created_at DESC")->fetchAll();
+        $rows = $db->query("SELECT * FROM bursary_funds ORDER BY created_at DESC")->fetchAll();
+        return array_map(fn($r) => self::fromArray($r), $rows);
     }
 
     public static function where(array $conditions): array {
@@ -33,7 +34,7 @@ class BursaryFund {
         $where = implode(' AND ', array_map(fn($k) => "$k = ?", array_keys($conditions)));
         $stmt = $db->prepare("SELECT * FROM bursary_funds WHERE $where");
         $stmt->execute(array_values($conditions));
-        return $stmt->fetchAll();
+        return array_map(fn($r) => self::fromArray($r), $stmt->fetchAll());
     }
 
     public function save(): bool {

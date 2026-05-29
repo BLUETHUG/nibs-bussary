@@ -8,8 +8,8 @@ ob_start();
     <div class="card-header mb-4">
         <h2 class="section-title"><i class="fa-solid fa-chart-bar"></i> Analytics Overview</h2>
         <div class="header-actions">
-            <a href="/admin/reports/pdf" class="btn-secondary">Download PDF</a>
-            <a href="/admin/reports/csv" class="btn-primary">Export CSV</a>
+            <a href="/admin/reports/pdf" class="btn-secondary"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+            <a href="/admin/reports/csv" class="btn-primary"><i class="fa-solid fa-file-csv"></i> CSV</a>
         </div>
     </div>
 
@@ -48,7 +48,13 @@ ob_start();
             <canvas id="disbursementChart"></canvas>
         </div>
 
-        <!-- Applications by Course -->
+        <!-- By Gender -->
+        <div class="section-card glass-card">
+            <h3>Applications by Gender</h3>
+            <canvas id="genderChart"></canvas>
+        </div>
+
+        <!-- Top Courses -->
         <div class="section-card glass-card">
             <h3>Top Courses by Applications</h3>
             <div class="course-stats">
@@ -65,6 +71,10 @@ ob_start();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var textColor = isDark ? '#cbd5e1' : '#475569';
+    var gridColor = isDark ? 'rgba(255,255,255,0.06)' : '#e2e8f0';
+
     var statusEl = document.getElementById('statusChart');
     if (statusEl) {
         new Chart(statusEl.getContext('2d'), {
@@ -79,7 +89,26 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true,
-                plugins: { legend: { position: 'bottom', labels: { color: '#475569' } } }
+                plugins: { legend: { position: 'bottom', labels: { color: textColor } } }
+            }
+        });
+    }
+
+    var genderEl = document.getElementById('genderChart');
+    if (genderEl) {
+        new Chart(genderEl.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: <?= json_encode(!empty($summary['by_gender']) ? array_column($summary['by_gender'], 'gender') : []) ?>,
+                datasets: [{
+                    data: <?= json_encode(!empty($summary['by_gender']) ? array_column($summary['by_gender'], 'count') : []) ?>,
+                    backgroundColor: ['#818cf8', '#f472b6', '#94a3b8'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom', labels: { color: textColor } } }
             }
         });
     }
@@ -102,10 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
             options: {
                 responsive: true,
                 scales: {
-                    y: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569' } },
-                    x: { grid: { color: '#e2e8f0' }, ticks: { color: '#475569' } }
+                    y: { grid: { color: gridColor }, ticks: { color: textColor, callback: function(v) { return 'KES ' + v.toLocaleString(); } } },
+                    x: { grid: { color: gridColor }, ticks: { color: textColor } }
                 },
-                plugins: { legend: { labels: { color: '#475569' } } }
+                plugins: { legend: { labels: { color: textColor } } }
             }
         });
     }
