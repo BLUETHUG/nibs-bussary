@@ -258,7 +258,8 @@ ob_start();
     transition: all var(--transition);
     font-weight: 500;
 }
-.role-login-btn:hover {
+.role-login-btn:hover,
+.role-login-btn.active {
     background: var(--navy);
     color: #fff;
     transform: translateY(-1px);
@@ -353,11 +354,11 @@ ob_start();
 
             <div style="margin-top:0.75rem;border-top:1px solid var(--border);padding-top:0.75rem;">
                 <p style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem;">Quick Login by Role</p>
-                <div class="role-login-grid">
-                    <a href="/login" class="role-login-btn"><i class="fa-solid fa-graduation-cap" style="color:var(--navy);"></i> Student</a>
-                    <a href="/login" class="role-login-btn"><i class="fa-solid fa-shield-hooded" style="color:#F57F17;"></i> Admin</a>
-                    <a href="/login" class="role-login-btn"><i class="fa-solid fa-users" style="color:var(--success);"></i> Committee</a>
-                    <a href="/login" class="role-login-btn"><i class="fa-solid fa-calculator" style="color:#1E88E5;"></i> Accountant</a>
+                <div class="role-login-grid" id="role-login-grid">
+                    <button type="button" class="role-login-btn" data-role="student" data-hint="student@nibs.ac.ke"><i class="fa-solid fa-graduation-cap" style="color:var(--navy);"></i> Student</button>
+                    <button type="button" class="role-login-btn" data-role="admin" data-hint="admin@nibs.ac.ke"><i class="fa-solid fa-shield-hooded" style="color:#F57F17;"></i> Admin</button>
+                    <button type="button" class="role-login-btn" data-role="committee" data-hint="Committee member"><i class="fa-solid fa-users" style="color:var(--success);"></i> Committee</button>
+                    <button type="button" class="role-login-btn" data-role="accountant" data-hint="Accountant"><i class="fa-solid fa-calculator" style="color:#1E88E5;"></i> Accountant</button>
                 </div>
             </div>
 
@@ -389,6 +390,21 @@ document.querySelectorAll('.login-field input').forEach(function(el) {
     if (el.value && el.value !== '') {
         el.closest('.login-field').classList.add('float');
     }
+});
+
+// ─── Role Selection ───
+document.getElementById('role-login-grid')?.addEventListener('click', function(e) {
+    var btn = e.target.closest('.role-login-btn');
+    if (!btn) return;
+    document.querySelectorAll('.role-login-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var input = document.getElementById('index_number');
+    if (input) {
+        input.value = btn.getAttribute('data-hint') || '';
+        input.dispatchEvent(new Event('focus'));
+        input.setSelectionRange(0, input.value.length);
+    }
+    document.getElementById('field-index')?.classList.add('float');
 });
 </script>
 <?php

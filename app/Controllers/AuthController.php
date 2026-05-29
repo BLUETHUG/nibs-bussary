@@ -73,8 +73,8 @@ class AuthController {
 
                     match ($user->role) {
                         'admin', 'officer' => header('Location: /admin/dashboard'),
-                        'committee'        => header('Location: /committee/dashboard'),
-                        'accountant'       => header('Location: /accountant/dashboard'),
+                        'committee'        => header('Location: /admin/committee'),
+                        'accountant'       => header('Location: /admin/finance'),
                         default            => header('Location: /student/dashboard'),
                     };
                     exit;

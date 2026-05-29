@@ -7,7 +7,7 @@
         <li><a href="index.php">Home</a></li>
         <li><a href="index.php#how-it-works">How It Works</a></li>
         <li><a href="sponsors.php">Sponsors</a></li>
-        <li><a href="tribute.php">Lizzie Wanyoike</a></li>
+        <li><a href="tribute.php">Our Founder</a></li>
         <li><a href="contact-us.php">Contact</a></li>
         <li><a href="https://www.nibs.ac.ke" target="_blank" rel="noopener">NIBS Official <i class="fa-solid fa-external-link" style="font-size:0.75rem;"></i></a></li>
         <li>
