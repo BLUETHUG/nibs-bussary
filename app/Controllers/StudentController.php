@@ -18,23 +18,28 @@ class StudentController {
         RoleMiddleware::require('student');
         
         $db        = Database::getConnection();
+        $userId    = (int)$_SESSION['user_id'];
         $studentId = $this->getStudentId();
         
         $stmt = $db->prepare("SELECT * FROM applications WHERE student_id = ? ORDER BY created_at DESC LIMIT 5");
         $stmt->execute([$studentId]);
         $applications = $stmt->fetchAll();
         
-        $stmt = $db->prepare("SELECT * FROM notifications WHERE user_id = ? AND is_read = 0 ORDER BY created_at DESC");
-        $stmt->execute([$_SESSION['user_id']]);
+        $stmt = $db->prepare("SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC LIMIT 20");
+        $stmt->execute([$userId]);
         $notifications = $stmt->fetchAll();
+        
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0");
+        $stmt->execute([$userId]);
+        $unreadCount = (int)$stmt->fetchColumn();
         
         $stmt = $db->prepare("SELECT * FROM announcements WHERE is_active = 1 ORDER BY created_at DESC LIMIT 3");
         $stmt->execute();
         $announcements = $stmt->fetchAll();
         
-        $stmt = $db->prepare("SELECT bank_name, bank_account, mpesa_phone FROM students WHERE id = ?");
+        $stmt = $db->prepare("SELECT s.bank_name, s.bank_account, s.mpesa_phone, u.full_name, u.email, u.phone FROM students s JOIN users u ON u.id = s.user_id WHERE s.id = ?");
         $stmt->execute([$studentId]);
-        $bankDetails = $stmt->fetch();
+        $profile = $stmt->fetch();
         
         require __DIR__ . '/../Views/student/dashboard.php';
     }
@@ -64,6 +69,10 @@ class StudentController {
         
         $db        = Database::getConnection();
         $studentId = $this->getStudentId();
+        
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0");
+        $stmt->execute([$_SESSION['user_id']]);
+        $unreadCount = (int)$stmt->fetchColumn();
         
         // Check for active bursary cycle
         $stmt = $db->prepare("SELECT * FROM bursary_cycles WHERE is_open = 1 AND application_start <= date('now') AND application_end >= date('now') ORDER BY application_end ASC LIMIT 1");
@@ -136,10 +145,82 @@ class StudentController {
         AuthMiddleware::require();
         RoleMiddleware::require('student');
         
+        $db = Database::getConnection();
         $studentId    = $this->getStudentId();
         $applications = Application::byStudent($studentId);
         
+        $stmt = $db->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0");
+        $stmt->execute([$_SESSION['user_id']]);
+        $unreadCount = (int)$stmt->fetchColumn();
+        
         require __DIR__ . '/../Views/student/status.php';
+    }
+
+    public function withdraw(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('student');
+        CsrfMiddleware::validate();
+
+        $appId = (int)($_POST['application_id'] ?? 0);
+        $db = Database::getConnection();
+        $studentId = $this->getStudentId();
+
+        $stmt = $db->prepare("SELECT id FROM applications WHERE id = ? AND student_id = ? AND status = 'pending'");
+        $stmt->execute([$appId, $studentId]);
+        if (!$stmt->fetch()) {
+            header('Location: /student/status?error=1');
+            exit;
+        }
+
+        $stmt = $db->prepare("UPDATE applications SET status = 'withdrawn', updated_at = datetime('now') WHERE id = ?");
+        $stmt->execute([$appId]);
+
+        header('Location: /student/status?withdrawn=1');
+        exit;
+    }
+
+    public function updateProfile(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('student');
+        CsrfMiddleware::validate();
+
+        $db = Database::getConnection();
+        $userId = (int)$_SESSION['user_id'];
+        $studentId = $this->getStudentId();
+
+        $fullName = Validator::clean($_POST['full_name'] ?? '');
+        $email = Validator::clean($_POST['email'] ?? '');
+        $phone = Validator::clean($_POST['phone'] ?? '');
+        $bankName = Validator::clean($_POST['bank_name'] ?? '');
+        $bankAccount = Validator::clean($_POST['bank_account'] ?? '');
+        $mpesaPhone = Validator::clean($_POST['mpesa_phone'] ?? '');
+
+        $errors = Validator::validateRequired($_POST, ['full_name', 'email', 'phone']);
+        if (empty($errors)) {
+            $stmt = $db->prepare("UPDATE users SET full_name = ?, email = ?, phone = ? WHERE id = ?");
+            $stmt->execute([$fullName, $email, $phone, $userId]);
+            $_SESSION['full_name'] = $fullName;
+
+            $stmt = $db->prepare("UPDATE students SET bank_name = ?, bank_account = ?, mpesa_phone = ? WHERE id = ?");
+            $stmt->execute([$bankName, $bankAccount, $mpesaPhone, $studentId]);
+
+            header('Location: /student/dashboard?saved=1');
+            exit;
+        }
+        header('Location: /student/dashboard?error=1');
+        exit;
+    }
+
+    public function markNotificationRead(): void {
+        AuthMiddleware::require();
+        CsrfMiddleware::validate();
+
+        $notifId = (int)($_POST['id'] ?? 0);
+        $db = Database::getConnection();
+        $stmt = $db->prepare("UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?");
+        $stmt->execute([$notifId, $_SESSION['user_id']]);
+        header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/student/dashboard'));
+        exit;
     }
 
     private function getStudentId(): int {

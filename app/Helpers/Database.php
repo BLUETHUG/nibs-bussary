@@ -162,6 +162,15 @@ class Database {
             FOREIGN KEY (posted_by) REFERENCES users(id)
         )");
 
+        $pdo->exec("CREATE TABLE IF NOT EXISTS remember_tokens (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            token_hash TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            created_at TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )");
+
         self::seedSqlite($pdo);
     }
 
@@ -178,9 +187,9 @@ class Database {
             ('Jane Smith', 'STUD002', 'student002@nibs.ac.ke', '0762345678', '$studentPw', 'student')
         ");
 
-        $pdo->exec("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size) VALUES
-            (2, 'Computer Science', 2, 'male', '2004-05-15', 'Mark Doe', '0711111111', 15000.00, 4),
-            (3, 'Business Management', 1, 'female', '2005-08-20', 'Mary Smith', '0722222222', 12000.00, 5)
+        $pdo->exec("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size, bank_name, bank_account, mpesa_phone) VALUES
+            (2, 'Computer Science', 2, 'male', '2004-05-15', 'Mark Doe', '0711111111', 15000.00, 4, 'Equity Bank', '1234567890', '0711111111'),
+            (3, 'Business Management', 1, 'female', '2005-08-20', 'Mary Smith', '0722222222', 12000.00, 5, 'KCB', '0987654321', '0722222222')
         ");
 
         $pdo->exec("INSERT INTO bursary_funds (fund_name, total_amount, available_amount, academic_year, source, created_by) VALUES

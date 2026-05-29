@@ -598,6 +598,8 @@ html[data-theme="dark"] .page-dashboard {
         <a href="/student/dashboard" class="dash-nav-link active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
         <a href="/student/apply" class="dash-nav-link"><i class="fa-solid fa-file-pen"></i><span>Apply</span></a>
         <a href="/student/status" class="dash-nav-link"><i class="fa-solid fa-list-check"></i><span>Status</span></a>
+        <a href="javascript:void(0)" class="dash-nav-link" onclick="openProfile()"><i class="fa-solid fa-user-gear"></i><span>Profile</span></a>
+        <a href="/student/dashboard" class="dash-nav-link" style="position:relative;"><i class="fa-solid fa-bell"></i><span>Alerts</span><?php if (!empty($unreadCount) && $unreadCount > 0): ?><span style="position:absolute;top:2px;right:2px;background:var(--error);color:#fff;font-size:0.6rem;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;"><?= $unreadCount > 9 ? '9+' : $unreadCount ?></span><?php endif; ?></a>
         <button class="theme-toggle dash-nav-link" id="theme-toggle-dash" aria-label="Toggle dark mode" title="Toggle dark mode" style="border:none;cursor:pointer;font-size:0.82rem;display:inline-flex;align-items:center;gap:0.35rem;padding:0.5rem 0.85rem;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-weight:500;font-family:inherit;"><i class="fa-solid fa-moon" id="theme-icon-dash"></i><span>Theme</span></button>
         <a href="/logout" class="dash-nav-link" style="color:var(--error);"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
     </div>
@@ -825,19 +827,64 @@ html[data-theme="dark"] .page-dashboard {
     <?php endif; ?>
 </div>
 
+<div id="profile-modal" class="dash-modal">
+    <div class="dash-modal-bg" onclick="closeProfile()"></div>
+    <div class="dash-modal-content">
+        <button type="button" class="dash-modal-close" onclick="closeProfile()">&times;</button>
+        <h3 style="color:var(--navy);margin:0 0 1.5rem;font-size:1.15rem;"><i class="fa-solid fa-user-gear"></i> My Profile</h3>
+        <form method="POST" action="/student/profile">
+            <?= \App\Middleware\CsrfMiddleware::field() ?>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div class="dash-field">
+                    <input type="text" id="pf_name" name="full_name" placeholder=" " value="<?= htmlspecialchars($profile['full_name'] ?? '') ?>" required>
+                    <label for="pf_name">Full Name</label>
+                </div>
+                <div class="dash-field">
+                    <input type="email" id="pf_email" name="email" placeholder=" " value="<?= htmlspecialchars($profile['email'] ?? '') ?>" required>
+                    <label for="pf_email">Email</label>
+                </div>
+                <div class="dash-field">
+                    <input type="text" id="pf_phone" name="phone" placeholder=" " value="<?= htmlspecialchars($profile['phone'] ?? '') ?>" required>
+                    <label for="pf_phone">Phone</label>
+                </div>
+                <div class="dash-field">
+                    <input type="text" id="pf_bank" name="bank_name" placeholder=" " value="<?= htmlspecialchars($profile['bank_name'] ?? '') ?>">
+                    <label for="pf_bank">Bank Name</label>
+                </div>
+                <div class="dash-field">
+                    <input type="text" id="pf_account" name="bank_account" placeholder=" " value="<?= htmlspecialchars($profile['bank_account'] ?? '') ?>">
+                    <label for="pf_account">Bank Account</label>
+                </div>
+                <div class="dash-field">
+                    <input type="text" id="pf_mpesa" name="mpesa_phone" placeholder=" " value="<?= htmlspecialchars($profile['mpesa_phone'] ?? '') ?>">
+                    <label for="pf_mpesa">M-Pesa Phone</label>
+                </div>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:flex-end;">
+                <button type="button" class="dash-btn dash-btn-secondary" onclick="closeProfile()">Cancel</button>
+                <button type="submit" class="dash-btn dash-btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.dash-modal { display:none; position:fixed; inset:0; z-index:9999; align-items:center; justify-content:center; }
+.dash-modal.open { display:flex; }
+.dash-modal-bg { position:absolute; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); }
+.dash-modal-content { position:relative; background:var(--bg-card); border-radius:16px; padding:2rem; max-width:580px; width:90%; box-shadow:0 24px 48px rgba(0,0,0,0.15); max-height:90vh; overflow-y:auto; }
+.dash-modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-muted); padding:0.25rem; line-height:1; }
+.dash-modal-close:hover { color:var(--text); }
+[data-theme="dark"] .dash-modal-content { background:var(--bg-card); }
+</style>
+
 <script>
+function openProfile() { document.getElementById('profile-modal')?.classList.add('open'); }
+function closeProfile() { document.getElementById('profile-modal')?.classList.remove('open'); }
 document.querySelectorAll('.dash-field input').forEach(function(el) {
-    el.addEventListener('focus', function() {
-        this.closest('.dash-field').classList.add('float');
-    });
-    el.addEventListener('blur', function() {
-        if (!this.value || this.value === '') {
-            this.closest('.dash-field').classList.remove('float');
-        }
-    });
-    if (el.value && el.value !== '') {
-        el.closest('.dash-field').classList.add('float');
-    }
+    el.addEventListener('focus', function() { this.closest('.dash-field').classList.add('float'); });
+    el.addEventListener('blur', function() { if (!this.value || this.value === '') { this.closest('.dash-field').classList.remove('float'); } });
+    if (el.value && el.value !== '') { el.closest('.dash-field').classList.add('float'); }
 });
 </script>
 <?php

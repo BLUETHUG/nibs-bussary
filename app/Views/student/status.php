@@ -297,6 +297,8 @@ html[data-theme="dark"] .page-student-status {
 .status-approved { background: #E8F5E9; color: var(--success); }
 .status-rejected { background: #FFEBEE; color: var(--error); }
 .status-disbursed { background: #E8EAF6; color: var(--navy); }
+.status-withdrawn { background: #F3E5F5; color: #7B1FA2; }
+[data-theme="dark"] .status-withdrawn { background: rgba(123,31,162,0.15); color: #CE93D8; }
 
 /* ─── Buttons ─── */
 .status-btn {
@@ -370,6 +372,7 @@ html[data-theme="dark"] .page-student-status {
         <a href="/student/dashboard" class="status-nav-link"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
         <a href="/student/apply" class="status-nav-link"><i class="fa-solid fa-file-pen"></i><span>Apply</span></a>
         <a href="/student/status" class="status-nav-link active"><i class="fa-solid fa-list-check"></i><span>Status</span></a>
+        <a href="/student/dashboard" class="status-nav-link" style="position:relative;"><i class="fa-solid fa-bell"></i><span>Alerts</span><?php if (!empty($unreadCount) && $unreadCount > 0): ?><span style="position:absolute;top:2px;right:2px;background:var(--error);color:#fff;font-size:0.6rem;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;"><?= $unreadCount > 9 ? '9+' : $unreadCount ?></span><?php endif; ?></a>
         <button class="theme-toggle status-nav-link" id="theme-toggle-status" aria-label="Toggle dark mode" title="Toggle dark mode" style="border:none;cursor:pointer;font-size:0.82rem;display:inline-flex;align-items:center;gap:0.35rem;padding:0.5rem 0.85rem;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-weight:500;font-family:inherit;"><i class="fa-solid fa-moon" id="theme-icon-status"></i><span>Theme</span></button>
         <a href="/logout" class="status-nav-link" style="color:var(--error);"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
     </div>
@@ -387,6 +390,16 @@ html[data-theme="dark"] .page-student-status {
         <i class="fa-solid fa-check-circle"></i> Application submitted successfully!
     </div>
     <?php endif; ?>
+    <?php if (isset($_GET['withdrawn'])): ?>
+    <div class="status-alert anim-3" style="background:#F3E5F5;border-left-color:#7B1FA2;">
+        <i class="fa-solid fa-minus-circle"></i> Application withdrawn successfully.
+    </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['error'])): ?>
+    <div class="status-alert anim-3" style="background:#FFEBEE;border-left-color:var(--error);">
+        <i class="fa-solid fa-exclamation-circle"></i> Could not withdraw. Only pending applications can be withdrawn.
+    </div>
+    <?php endif; ?>
 
     <!-- Search/Filter Bar -->
     <div class="status-filter-bar anim-3">
@@ -400,6 +413,7 @@ html[data-theme="dark"] .page-student-status {
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
             <option value="disbursed">Disbursed</option>
+            <option value="withdrawn">Withdrawn</option>
         </select>
         <select class="status-filter-select" id="yearFilter" onchange="filterTable()">
             <option value="">All Years</option>
@@ -435,6 +449,7 @@ html[data-theme="dark"] .page-student-status {
                         <th>Amount Approved</th>
                         <th>Status</th>
                         <th>Submitted</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -445,6 +460,17 @@ html[data-theme="dark"] .page-student-status {
                         <td>KES <?= number_format((float)$app['amount_approved'], 2) ?></td>
                         <td><span class="status-badge status-<?= $app['status'] ?>"><?= ucfirst($app['status']) ?></span></td>
                         <td><?= date('d M Y', strtotime($app['created_at'])) ?></td>
+                        <td>
+                            <?php if ($app['status'] === 'pending'): ?>
+                            <form method="POST" action="/student/withdraw" style="display:inline;" onsubmit="return confirm('Withdraw this application? This cannot be undone.')">
+                                <?= \App\Middleware\CsrfMiddleware::field() ?>
+                                <input type="hidden" name="application_id" value="<?= $app['id'] ?>">
+                                <button type="submit" class="status-btn status-btn-danger" style="padding:0.3rem 0.65rem;font-size:0.72rem;background:#FFEBEE;color:#C62828;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:500;">Withdraw</button>
+                            </form>
+                            <?php else: ?>
+                            <span style="color:var(--text-muted);font-size:0.72rem;">—</span>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -458,6 +484,7 @@ html[data-theme="dark"] .page-student-status {
             <span class="status-legend-item"><span class="status-legend-dot status-legend-dot-approved"></span> Approved</span>
             <span class="status-legend-item"><span class="status-legend-dot status-legend-dot-rejected"></span> Rejected</span>
             <span class="status-legend-item"><span class="status-legend-dot status-legend-dot-disbursed"></span> Disbursed</span>
+            <span class="status-legend-item"><span class="status-legend-dot" style="background:#7B1FA2;"></span> Withdrawn</span>
         </div>
         <?php endif; ?>
     </div>

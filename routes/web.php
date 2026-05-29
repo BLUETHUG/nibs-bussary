@@ -11,6 +11,9 @@ return [
     '/student/apply' => ['controller' => 'StudentController', 'action' => 'apply'],
     '/student/status' => ['controller' => 'StudentController', 'action' => 'status'],
     '/student/bank-details' => ['controller' => 'StudentController', 'action' => 'saveBankDetails'],
+    '/student/withdraw' => ['controller' => 'StudentController', 'action' => 'withdraw'],
+    '/student/profile' => ['controller' => 'StudentController', 'action' => 'updateProfile'],
+    '/student/notifications/read' => ['controller' => 'StudentController', 'action' => 'markNotificationRead'],
 
     '/admin/dashboard' => ['controller' => 'AdminController', 'action' => 'dashboard'],
     '/admin/applications' => ['controller' => 'AdminController', 'action' => 'applications'],
