@@ -45,7 +45,7 @@
 
 <style>
 .sidebar {
-    background: var(--primary-dark);
+    background: var(--bg-dark);
     height: 100vh;
     position: sticky;
     top: 0;
@@ -62,7 +62,7 @@
 .sidebar-logo {
     font-size: 1.3rem;
     font-weight: 800;
-    color: var(--white);
+    color: #fff;
 }
 .sidebar-logo span {
     color: var(--accent);
@@ -85,7 +85,7 @@
     border-left: 3px solid transparent;
 }
 .sidebar-nav a.active {
-    background: rgba(220, 38, 38, 0.08);
+    background: rgba(99,102,241,0.08);
     color: var(--accent);
     border-left-color: var(--accent);
     font-weight: 600;
@@ -116,7 +116,7 @@
     transition: all 0.25s ease;
 }
 .logout-link:hover {
-    background: rgba(220,38,38,0.15);
-    color: #dc2626 !important;
+    background: rgba(239,68,68,0.15);
+    color: var(--error) !important;
 }
 </style>

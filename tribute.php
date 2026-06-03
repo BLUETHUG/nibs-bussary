@@ -383,7 +383,7 @@
                 <p class="founder-legacy-subtitle">Her Legacy</p>
                 <h2>The Lizzie Wanyoike Endowment</h2>
                 <p>Established to preserve her legacy, this fund provides full-tuition coverage for exceptional students from historically underserved communities. Every application processed through this bursary system is a tribute to her vision.</p>
-                <a href="apply.php" class="btn">Apply for Legacy Scholarship <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="/register" class="btn">Apply for Legacy Scholarship <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </section>
     </main>

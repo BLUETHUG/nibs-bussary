@@ -18,91 +18,7 @@ foreach ($applications as $app) {
 $hour = (int)date('G');
 $greeting = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
 ?>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-    --navy: #1A237E;
-    --navy-light: #283593;
-    --navy-dark: #0D1442;
-    --gold: #FFD54F;
-    --gold-light: #FFE082;
-    --gold-dark: #FFC107;
-    --white: #FAFAFA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1A237E;
-    --text-secondary: #546E7A;
-    --text-muted: #90A4AE;
-    --border: #E8EAF6;
-    --success: #43A047;
-    --error: #E53935;
-    --shadow-sm: 0 2px 8px rgba(26,35,126,0.08);
-    --shadow-md: 0 4px 20px rgba(26,35,126,0.12);
-    --shadow-lg: 0 8px 40px rgba(26,35,126,0.16);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.page-dashboard {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
-html[data-theme="dark"] .page-dashboard {
-    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%);
-}
-
-/* ─── Sticky Nav ─── */
-.dash-nav {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 1.5rem;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow-sm);
-}
-.dash-nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--navy);
-}
-.dash-nav-brand svg { flex-shrink: 0; }
-.dash-nav-links {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-.dash-nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-size: 0.82rem;
-    font-weight: 500;
-    transition: all var(--transition);
-}
-.dash-nav-link:hover,
-.dash-nav-link.active {
-    background: var(--navy);
-    color: #fff;
-}
-.dash-nav-link i { font-size: 0.9rem; }
 
 /* ─── Container ─── */
 .dash-container {
@@ -114,7 +30,7 @@ html[data-theme="dark"] .page-dashboard {
 /* ─── Cards ─── */
 .dash-card {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     padding: 1.75rem;
     transition: box-shadow var(--transition);
@@ -127,12 +43,12 @@ html[data-theme="dark"] .page-dashboard {
     gap: 0.75rem;
     margin-bottom: 1.25rem;
     padding-bottom: 0.85rem;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 2px solid var(--accent);
 }
 .dash-card-header i {
     width: 38px; height: 38px;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
-    color: var(--gold);
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: var(--accent);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1rem;
@@ -141,20 +57,20 @@ html[data-theme="dark"] .page-dashboard {
 .dash-card-header h2 {
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--primary);
     margin: 0;
 }
 .dash-card-header .badge-count {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 22px; height: 22px; padding: 0 6px;
-    border-radius: 999px; background: var(--navy); color: var(--gold);
+    border-radius: 999px; background: var(--primary); color: var(--accent);
     font-size: 0.65rem; font-weight: 700; margin-left: auto;
 }
 
 /* ─── Hero ─── */
 .dash-hero {
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
-    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    border-radius: var(--radius-xl);
     padding: 2rem 2.5rem;
     display: flex;
     align-items: center;
@@ -173,7 +89,7 @@ html[data-theme="dark"] .page-dashboard {
     border-radius: 50%;
 }
 .dash-hero-greeting {
-    color: var(--gold-light);
+    color: var(--accent-light);
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -217,7 +133,7 @@ html[data-theme="dark"] .page-dashboard {
 .dash-alert-info { border-left: 4px solid #1E88E5; }
 .dash-alert-info i { color: #1E88E5; font-size: 1.1rem; }
 .dash-alert-text { flex: 1; color: var(--text-secondary); margin: 0; }
-.dash-alert-link { font-weight: 600; font-size: 0.82rem; color: var(--navy); text-decoration: none; }
+.dash-alert-link { font-weight: 600; font-size: 0.82rem; color: var(--primary); text-decoration: none; }
 .dash-alert-link:hover { text-decoration: underline; }
 .dash-alert-close {
     background: none; border: none; color: var(--text-muted);
@@ -252,13 +168,13 @@ html[data-theme="dark"] .page-dashboard {
     font-size: 1.2rem;
     flex-shrink: 0;
 }
-.dash-stat-icon-total { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: var(--gold); }
-.dash-stat-icon-pending { background: linear-gradient(135deg, #FFF8E1, #FFE082); color: #F57F17; }
+.dash-stat-icon-total { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: var(--accent); }
+.dash-stat-icon-pending { background: linear-gradient(135deg, #EEF2FF, #C7D2FE); color: #F59E0B; }
 .dash-stat-icon-approved { background: linear-gradient(135deg, #E8F5E9, #A5D6A7); color: var(--success); }
-.dash-stat-icon-disbursed { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: var(--gold); }
+.dash-stat-icon-disbursed { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: var(--accent); }
 .dash-stat-label { margin: 0; font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
-.dash-stat-value { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; }
-.dash-stat-value-pending { color: #F57F17; }
+.dash-stat-value { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; }
+.dash-stat-value-pending { color: #F59E0B; }
 .dash-stat-value-approved { color: var(--success); }
 
 /* ─── Quick Actions ─── */
@@ -291,10 +207,10 @@ html[data-theme="dark"] .page-dashboard {
     transition: transform var(--transition);
 }
 .dash-action-card:hover .dash-action-icon { transform: scale(1.1); }
-.dash-action-icon-apply { background: linear-gradient(135deg, var(--navy), var(--navy-light)); color: var(--gold); }
+.dash-action-icon-apply { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: var(--accent); }
 .dash-action-icon-status { background: linear-gradient(135deg, #E8F5E9, #A5D6A7); color: var(--success); }
-.dash-action-icon-letter { background: linear-gradient(135deg, #FFF8E1, #FFE082); color: #F57F17; }
-.dash-action-title { font-size: 0.9rem; margin: 0 0 0.25rem; color: var(--text-primary); font-weight: 600; }
+.dash-action-icon-letter { background: linear-gradient(135deg, #EEF2FF, #C7D2FE); color: #F59E0B; }
+.dash-action-title { font-size: 0.9rem; margin: 0 0 0.25rem; color: var(--text); font-weight: 600; }
 .dash-action-desc { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
 
 /* ─── Two Column ─── */
@@ -316,8 +232,8 @@ html[data-theme="dark"] .page-dashboard {
     margin-bottom: 0.5rem;
 }
 .dash-ann-item:hover { background: #EEF0F6; }
-.dash-ann-icon { color: var(--gold-dark); font-size: 0.9rem; padding-top: 0.15rem; flex-shrink: 0; }
-.dash-ann-title { font-size: 0.85rem; display: block; margin-bottom: 0.15rem; color: var(--text-primary); font-weight: 600; }
+.dash-ann-icon { color: var(--accent-hover); font-size: 0.9rem; padding-top: 0.15rem; flex-shrink: 0; }
+.dash-ann-title { font-size: 0.85rem; display: block; margin-bottom: 0.15rem; color: var(--text); font-weight: 600; }
 .dash-ann-body { font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 0.25rem; }
 .dash-ann-date { font-size: 0.7rem; color: var(--text-muted); }
 .dash-no-ann { color: var(--text-muted); font-size: 0.85rem; margin: 0; }
@@ -334,10 +250,10 @@ html[data-theme="dark"] .page-dashboard {
 .dash-notif-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: var(--gold-dark);
+    background: var(--accent-hover);
     flex-shrink: 0; margin-top: 0.4rem;
 }
-.dash-notif-title { font-size: 0.85rem; color: var(--text-primary); font-weight: 600; }
+.dash-notif-title { font-size: 0.85rem; color: var(--text); font-weight: 600; }
 .dash-notif-msg { font-size: 0.78rem; color: var(--text-secondary); margin: 0.1rem 0 0; }
 
 /* ─── Payment Details Accordion ─── */
@@ -348,10 +264,10 @@ html[data-theme="dark"] .page-dashboard {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-primary);
+    color: var(--text);
     font-size: 0.95rem;
 }
-.dash-summary-header i { color: var(--gold-dark); margin-right: 0.5rem; }
+.dash-summary-header i { color: var(--accent-hover); margin-right: 0.5rem; }
 .dash-summary-sub {
     font-size: 0.72rem;
     color: var(--text-muted);
@@ -375,7 +291,7 @@ html[data-theme="dark"] .page-dashboard {
     color: var(--text-secondary);
     font-size: 0.78rem;
 }
-.dash-payment-summary-item strong { color: var(--text-primary); }
+.dash-payment-summary-item strong { color: var(--text); }
 
 /* ─── Floating Labels (for payment form) ─── */
 .dash-field {
@@ -401,7 +317,7 @@ html[data-theme="dark"] .page-dashboard {
     top: -9px;
     left: 10px;
     font-size: 0.65rem;
-    color: var(--navy);
+    color: var(--primary);
     font-weight: 600;
 }
 .dash-field input {
@@ -411,15 +327,15 @@ html[data-theme="dark"] .page-dashboard {
     border-radius: var(--radius);
     font-family: 'Poppins', sans-serif;
     font-size: 0.82rem;
-    color: var(--text-primary);
+    color: var(--text);
     background: var(--bg-card);
     transition: all var(--transition);
     outline: none;
     box-sizing: border-box;
 }
 .dash-field input:focus {
-    border-color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
 .dash-payment-form {
     display: grid;
@@ -439,14 +355,14 @@ html[data-theme="dark"] .page-dashboard {
     font-size: 0.78rem;
     font-weight: 600;
     cursor: pointer;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff;
     transition: all var(--transition);
     white-space: nowrap;
 }
 .dash-payment-form .dash-save-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(26,35,126,0.3);
+    box-shadow: 0 4px 16px rgba(14,165,233,0.3);
 }
 
 /* ─── Table ─── */
@@ -468,7 +384,7 @@ html[data-theme="dark"] .page-dashboard {
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
 }
 .dash-table td {
     padding: 0.7rem 1rem;
@@ -482,7 +398,7 @@ html[data-theme="dark"] .page-dashboard {
     background: #F0F0FF;
 }
 .dash-table tr:last-child td { border-bottom: none; }
-.dash-table strong { color: var(--text-primary); }
+.dash-table strong { color: var(--text); }
 
 /* ─── Empty State ─── */
 .dash-empty-state {
@@ -490,7 +406,7 @@ html[data-theme="dark"] .page-dashboard {
     padding: 2.5rem 1rem;
 }
 .dash-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; color: var(--text-muted); opacity: 0.4; }
-.dash-empty-title { margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.05rem; }
+.dash-empty-title { margin-bottom: 0.5rem; color: var(--text); font-size: 1.05rem; }
 .dash-empty-desc { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.82rem; }
 
 .dash-section-header {
@@ -500,7 +416,7 @@ html[data-theme="dark"] .page-dashboard {
     margin-bottom: 1rem;
 }
 .dash-view-all {
-    color: var(--navy);
+    color: var(--primary);
     font-size: 0.82rem;
     font-weight: 600;
     text-decoration: none;
@@ -525,16 +441,16 @@ html[data-theme="dark"] .page-dashboard {
     box-shadow: var(--shadow-sm);
 }
 .dash-btn-primary {
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff;
 }
 .dash-btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(26,35,126,0.3);
+    box-shadow: 0 6px 24px rgba(14,165,233,0.3);
 }
 .dash-btn-gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--navy-dark);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: var(--bg-dark);
 }
 .dash-btn-gold:hover {
     transform: translateY(-2px);
@@ -550,10 +466,14 @@ html[data-theme="dark"] .page-dashboard {
     font-size: 0.72rem;
     font-weight: 600;
 }
-.status-pending { background: #FFF8E1; color: #F57F17; }
+.status-pending { background: #EEF2FF; color: #F59E0B; }
 .status-approved { background: #E8F5E9; color: var(--success); }
 .status-rejected { background: #FFEBEE; color: var(--error); }
-.status-disbursed { background: #E8EAF6; color: var(--navy); }
+.status-disbursed { background: #E0F2FE; color: var(--primary); }
+[data-theme="dark"] .status-pending { background: rgba(245,158,11,0.15); color: #FBBF24; }
+[data-theme="dark"] .status-approved { background: rgba(34,197,94,0.15); color: var(--success); }
+[data-theme="dark"] .status-rejected { background: rgba(239,68,68,0.15); color: var(--error); }
+[data-theme="dark"] .status-disbursed { background: rgba(14,165,233,0.15); color: var(--primary); }
 
 /* ─── Animations ─── */
 @keyframes fadeUp {
@@ -589,8 +509,8 @@ html[data-theme="dark"] .page-dashboard {
     <a href="/student/dashboard" class="dash-nav-brand">
         <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#dnav)"/>
-            <defs><linearGradient id="dnav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+            <defs><linearGradient id="dnav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#0284C7"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
         </svg>
         NIBS Bursary
     </a>
@@ -617,7 +537,7 @@ html[data-theme="dark"] .page-dashboard {
         <div class="dash-hero-icon">
             <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
                 <rect width="56" height="56" rx="14" fill="rgba(255,255,255,0.12)"/>
-                <text x="28" y="37" text-anchor="middle" font-size="28" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+                <text x="28" y="37" text-anchor="middle" font-size="28" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
             </svg>
         </div>
     </div>
@@ -831,7 +751,7 @@ html[data-theme="dark"] .page-dashboard {
     <div class="dash-modal-bg" onclick="closeProfile()"></div>
     <div class="dash-modal-content">
         <button type="button" class="dash-modal-close" onclick="closeProfile()">&times;</button>
-        <h3 style="color:var(--navy);margin:0 0 1.5rem;font-size:1.15rem;"><i class="fa-solid fa-user-gear"></i> My Profile</h3>
+        <h3 style="color:var(--primary);margin:0 0 1.5rem;font-size:1.15rem;"><i class="fa-solid fa-user-gear"></i> My Profile</h3>
         <form method="POST" action="/student/profile">
             <?= \App\Middleware\CsrfMiddleware::field() ?>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">

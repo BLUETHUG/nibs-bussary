@@ -36,7 +36,8 @@ ob_start();
 
             <?php if ($application->supporting_doc_path): ?>
             <div class="mt-4">
-                <a href="<?= htmlspecialchars($application->supporting_doc_path) ?>" target="_blank" class="btn-primary">View Supporting Documents</a>
+                <?php $docPath = $application->supporting_doc_path; $docUrl = (str_starts_with($docPath, 'http')) ? $docPath : '/storage/uploads/' . $docPath; ?>
+                <a href="<?= htmlspecialchars($docUrl) ?>" target="_blank" class="btn-primary">View Supporting Documents</a>
             </div>
             <?php endif; ?>
         </div>

@@ -60,16 +60,6 @@ class CloudinaryUpload
         $params['api_key'] = self::$apiKey;
         $params['signature'] = $signature;
 
-        $ch = curl_init('https://api.cloudinary.com/v1_1/' . self::$cloudName . '/auto/upload');
-        curl_setopt_array($ch, [
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $params,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 30,
-            CURLOPT_SSL_VERIFYPEER => false,
-        ]);
-
-        // Attach file
         $ch = curl_init();
         $postData = $params;
         $postData['file'] = new \CURLFile($filePath);

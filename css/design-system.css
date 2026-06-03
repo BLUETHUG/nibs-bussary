@@ -1,58 +1,59 @@
 /* ═══════════════════════════════════════════════════════════════
    NIBS BURSARY — GLOBAL DESIGN SYSTEM
+   Navy (#1A237E) / Gold (#FFD54F) academic theme
    Single source of truth for all visual tokens, components,
    spacing, typography, animations, and dark mode.
-   Inspired by: Duolingo (playful), Linear (clean),
-   Notion (functional), Stripe (polished)
    ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 /* ─── 1. DESIGN TOKENS ─── */
 :root {
-  /* Brand */
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-light: #eef2ff;
-  --primary-glow: rgba(79,70,229,0.3);
-  --accent: #d97706;
-  --accent-light: #fffbeb;
-  --accent-hover: #b45309;
+  /* Brand — NIBS Navy/Gold */
+  --primary: #1A237E;
+  --primary-hover: #283593;
+  --primary-light: #E8EAF6;
+  --primary-glow: rgba(26,35,126,0.25);
+  --accent: #FFD54F;
+  --accent-light: #FFF8E1;
+  --accent-hover: #FFC107;
 
   /* Semantic */
-  --success: #059669;
-  --success-light: #ecfdf5;
-  --warning: #d97706;
-  --warning-light: #fffbeb;
-  --error: #dc2626;
-  --error-light: #fef2f2;
-  --info: #2563eb;
-  --info-light: #eff6ff;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+  --warning: #F57F17;
+  --warning-light: #FFF8E1;
+  --error: #C62828;
+  --error-light: #FFEBEE;
+  --info: #1565C0;
+  --info-light: #E3F2FD;
 
   /* Surfaces */
-  --bg: #ffffff;
-  --bg-off: #fafaf9;
-  --bg-card: #ffffff;
-  --bg-dark: #1c1917;
-  --glass-bg: rgba(255,255,255,0.6);
-  --glass-border: rgba(255,255,255,0.2);
-  --glass-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  --bg: #FAFAFA;
+  --bg-off: #F5F5F5;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1A237E;
+  --glass-bg: rgba(255,255,255,0.7);
+  --glass-border: rgba(255,255,255,0.25);
+  --glass-shadow: 0 8px 32px rgba(26,35,126,0.08);
 
   /* Text */
-  --text: #1c1917;
-  --text-secondary: #57534e;
-  --text-muted: #a8a29e;
+  --text: #212121;
+  --text-secondary: #616161;
+  --text-muted: #9E9E9E;
 
   /* Borders */
-  --border: #e7e5e4;
-  --border-light: #f5f5f4;
+  --border: #E0E0E0;
+  --border-light: #F0F0F0;
 
-  /* Shadows — 8px grid elevation */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-  --shadow-md: 0 4px 12px -4px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04);
-  --shadow-lg: 0 12px 24px -8px rgb(0 0 0 / 0.08), 0 4px 8px -4px rgb(0 0 0 / 0.04);
-  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.12), 0 8px 16px -8px rgb(0 0 0 / 0.06);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px -4px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 24px -8px rgba(0,0,0,0.10), 0 4px 8px -4px rgba(0,0,0,0.04);
+  --shadow-xl: 0 24px 48px -12px rgba(0,0,0,0.15), 0 8px 16px -8px rgba(0,0,0,0.06);
   --shadow-glow: 0 0 30px var(--primary-glow);
 
-  /* Radii — consistent across all components */
+  /* Radii */
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 16px;
@@ -61,8 +62,8 @@
   --radius-full: 9999px;
 
   /* Typography */
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Motion */
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,37 +77,37 @@
 
 /* ─── DARK MODE ─── */
 [data-theme="dark"] {
-  --primary: #818cf8;
-  --primary-hover: #6366f1;
-  --primary-light: rgba(129,140,248,0.12);
-  --primary-glow: rgba(129,140,248,0.25);
-  --accent: #f59e0b;
-  --accent-light: rgba(245,158,11,0.12);
-  --accent-hover: #d97706;
-  --success: #34d399;
-  --success-light: rgba(52,211,153,0.12);
-  --warning: #fbbf24;
-  --warning-light: rgba(251,191,36,0.12);
-  --error: #f87171;
-  --error-light: rgba(248,113,113,0.12);
-  --info: #60a5fa;
-  --info-light: rgba(96,165,250,0.12);
-  --bg: #0f0f12;
-  --bg-off: #18181b;
-  --bg-card: #18181b;
-  --bg-dark: #09090b;
-  --glass-bg: rgba(15,15,18,0.7);
-  --glass-border: rgba(255,255,255,0.06);
-  --glass-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  --text: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --border: #27272a;
-  --border-light: #1f1f23;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
-  --shadow-md: 0 4px 12px -4px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
-  --shadow-lg: 0 12px 24px -8px rgb(0 0 0 / 0.4), 0 4px 8px -4px rgb(0 0 0 / 0.2);
-  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.5), 0 8px 16px -8px rgb(0 0 0 / 0.2);
+  --primary: #7986CB;
+  --primary-hover: #9FA8DA;
+  --primary-light: rgba(121,134,203,0.12);
+  --primary-glow: rgba(121,134,203,0.25);
+  --accent: #FFD54F;
+  --accent-light: rgba(255,213,79,0.12);
+  --accent-hover: #FFE082;
+  --success: #81C784;
+  --success-light: rgba(129,199,132,0.12);
+  --warning: #FFB74D;
+  --warning-light: rgba(255,183,77,0.12);
+  --error: #E57373;
+  --error-light: rgba(229,115,115,0.12);
+  --info: #64B5F6;
+  --info-light: rgba(100,181,246,0.12);
+  --bg: #121212;
+  --bg-off: #1E1E1E;
+  --bg-card: #1E1E1E;
+  --bg-dark: #0D0D2B;
+  --glass-bg: rgba(18,18,18,0.7);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --text: #E0E0E0;
+  --text-secondary: #B0B0B0;
+  --text-muted: #808080;
+  --border: #333333;
+  --border-light: #282828;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px -4px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2);
+  --shadow-lg: 0 12px 24px -8px rgba(0,0,0,0.4), 0 4px 8px -4px rgba(0,0,0,0.2);
+  --shadow-xl: 0 24px 48px -12px rgba(0,0,0,0.5), 0 8px 16px -8px rgba(0,0,0,0.2);
   --shadow-glow: 0 0 30px var(--primary-glow);
 }
 
@@ -439,7 +440,7 @@ img, svg { max-width: 100%; display: block; }
 /* ─── 9. TOAST / NOTIFICATION ─── */
 .toast-container {
   position: fixed;
-  top: 1.5rem;
+  bottom: 1.5rem;
   right: 1.5rem;
   z-index: 99999;
   display: flex;
@@ -463,11 +464,11 @@ img, svg { max-width: 100%; display: block; }
   align-items: center;
   gap: 0.5rem;
 }
-.toast.removing { opacity: 0; transform: translateX(100%); transition: all 0.3s ease; }
+.toast.removing { opacity: 0; transform: translateY(100%); transition: all 0.3s ease; }
 
 @keyframes dsToastIn {
-  from { transform: translateX(100%) scale(0.9); opacity: 0; }
-  to { transform: translateX(0) scale(1); opacity: 1; }
+  from { transform: translateY(100%) scale(0.9); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 /* ─── 10. ALERT BOX ─── */

@@ -4,41 +4,7 @@ $pageTitle = 'My Applications — NIBS Bursary';
 $bodyClass = 'page-student-status';
 ob_start();
 ?>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-    --navy: #1A237E;
-    --navy-light: #283593;
-    --navy-dark: #0D1442;
-    --gold: #FFD54F;
-    --gold-light: #FFE082;
-    --gold-dark: #FFC107;
-    --white: #FAFAFA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1A237E;
-    --text-secondary: #546E7A;
-    --text-muted: #90A4AE;
-    --border: #E8EAF6;
-    --success: #43A047;
-    --error: #E53935;
-    --shadow-sm: 0 2px 8px rgba(26,35,126,0.08);
-    --shadow-md: 0 4px 20px rgba(26,35,126,0.12);
-    --shadow-lg: 0 8px 40px rgba(26,35,126,0.16);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.page-student-status {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
-html[data-theme="dark"] .page-student-status {
-    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%);
-}
 
 /* ─── Sticky Nav ─── */
 .status-nav {
@@ -63,7 +29,7 @@ html[data-theme="dark"] .page-student-status {
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
-    color: var(--navy);
+    color: var(--primary);
 }
 .status-nav-brand svg { flex-shrink: 0; }
 .status-nav-links {
@@ -85,7 +51,7 @@ html[data-theme="dark"] .page-student-status {
 }
 .status-nav-link:hover,
 .status-nav-link.active {
-    background: var(--navy);
+    background: var(--primary);
     color: #fff;
 }
 .status-nav-link i { font-size: 0.9rem; }
@@ -109,18 +75,18 @@ html[data-theme="dark"] .page-student-status {
 .status-header-title {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin: 0;
 }
-.status-header-title i { color: var(--gold-dark); }
+.status-header-title i { color: var(--accent-hover); }
 
 /* ─── Card ─── */
 .status-card {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     transition: box-shadow var(--transition);
 }
@@ -168,7 +134,7 @@ html[data-theme="dark"] .page-student-status {
     padding: 0.7rem 1rem 0.7rem 2.5rem;
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    color: var(--text-primary);
+    color: var(--text);
     font-size: 0.85rem;
     font-family: 'Poppins', sans-serif;
     background: var(--bg-card);
@@ -177,15 +143,15 @@ html[data-theme="dark"] .page-student-status {
     box-sizing: border-box;
 }
 .status-search-input:focus {
-    border-color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
 .status-search-input::placeholder { color: var(--text-muted); }
 .status-filter-select {
     padding: 0.7rem 2rem 0.7rem 1rem;
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
-    color: var(--text-primary);
+    color: var(--text);
     font-size: 0.85rem;
     font-family: 'Poppins', sans-serif;
     background: var(--bg-card);
@@ -200,10 +166,10 @@ html[data-theme="dark"] .page-student-status {
     min-width: 140px;
 }
 .status-filter-select:focus {
-    border-color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
-.status-filter-select option { background: var(--bg-card); color: var(--text-primary); }
+.status-filter-select option { background: var(--bg-card); color: var(--text); }
 
 /* ─── Table ─── */
 .status-table-wrap {
@@ -224,7 +190,7 @@ html[data-theme="dark"] .page-student-status {
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
 }
 .status-table td {
     padding: 0.7rem 1rem;
@@ -238,7 +204,7 @@ html[data-theme="dark"] .page-student-status {
     background: #F0F0FF;
 }
 .status-table tr:last-child td { border-bottom: none; }
-.status-table strong { color: var(--text-primary); }
+.status-table strong { color: var(--text); }
 
 /* ─── Empty State ─── */
 .status-empty {
@@ -246,7 +212,7 @@ html[data-theme="dark"] .page-student-status {
     padding: 3rem 1.5rem;
 }
 .status-empty-icon { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-muted); opacity: 0.4; }
-.status-empty h3 { font-size: 1.05rem; color: var(--text-primary); margin-bottom: 0.375rem; }
+.status-empty h3 { font-size: 1.05rem; color: var(--text); margin-bottom: 0.375rem; }
 .status-empty p { font-size: 0.82rem; color: var(--text-muted); max-width: 320px; margin: 0 auto 1.25rem; }
 
 /* ─── Legend ─── */
@@ -279,10 +245,10 @@ html[data-theme="dark"] .page-student-status {
     width: 8px; height: 8px;
     border-radius: 50%;
 }
-.status-legend-dot-pending { background: #d97706; }
-.status-legend-dot-approved { background: #059669; }
-.status-legend-dot-rejected { background: #dc2626; }
-.status-legend-dot-disbursed { background: var(--navy); }
+.status-legend-dot-pending { background: var(--warning); }
+.status-legend-dot-approved { background: var(--success); }
+.status-legend-dot-rejected { background: var(--error); }
+.status-legend-dot-disbursed { background: var(--primary); }
 
 /* ─── Status Badges ─── */
 .status-badge {
@@ -293,11 +259,15 @@ html[data-theme="dark"] .page-student-status {
     font-size: 0.72rem;
     font-weight: 600;
 }
-.status-pending { background: #FFF8E1; color: #F57F17; }
+.status-pending { background: #EEF2FF; color: #F59E0B; }
 .status-approved { background: #E8F5E9; color: var(--success); }
 .status-rejected { background: #FFEBEE; color: var(--error); }
-.status-disbursed { background: #E8EAF6; color: var(--navy); }
+.status-disbursed { background: #E0F2FE; color: var(--primary); }
 .status-withdrawn { background: #F3E5F5; color: #7B1FA2; }
+[data-theme="dark"] .status-pending { background: rgba(245,158,11,0.15); color: #FBBF24; }
+[data-theme="dark"] .status-approved { background: rgba(34,197,94,0.15); color: var(--success); }
+[data-theme="dark"] .status-rejected { background: rgba(239,68,68,0.15); color: var(--error); }
+[data-theme="dark"] .status-disbursed { background: rgba(14,165,233,0.15); color: var(--primary); }
 [data-theme="dark"] .status-withdrawn { background: rgba(123,31,162,0.15); color: #CE93D8; }
 
 /* ─── Buttons ─── */
@@ -318,16 +288,16 @@ html[data-theme="dark"] .page-student-status {
     box-shadow: var(--shadow-sm);
 }
 .status-btn-primary {
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff;
 }
 .status-btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(26,35,126,0.3);
+    box-shadow: 0 6px 24px rgba(14,165,233,0.3);
 }
 .status-btn-gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--navy-dark);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: var(--bg-dark);
 }
 .status-btn-gold:hover {
     transform: translateY(-2px);
@@ -363,8 +333,8 @@ html[data-theme="dark"] .page-student-status {
     <a href="/student/dashboard" class="status-nav-brand">
         <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#snav)"/>
-            <defs><linearGradient id="snav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+            <defs><linearGradient id="snav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#0284C7"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
         </svg>
         NIBS Bursary
     </a>
@@ -465,7 +435,7 @@ html[data-theme="dark"] .page-student-status {
                             <form method="POST" action="/student/withdraw" style="display:inline;" onsubmit="return confirm('Withdraw this application? This cannot be undone.')">
                                 <?= \App\Middleware\CsrfMiddleware::field() ?>
                                 <input type="hidden" name="application_id" value="<?= $app['id'] ?>">
-                                <button type="submit" class="status-btn status-btn-danger" style="padding:0.3rem 0.65rem;font-size:0.72rem;background:#FFEBEE;color:#C62828;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:500;">Withdraw</button>
+                                <button type="submit" class="status-btn status-btn-danger" style="padding:0.3rem 0.65rem;font-size:0.72rem;background:#FFEBEE;color:#EF4444;border:none;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:500;">Withdraw</button>
                             </form>
                             <?php else: ?>
                             <span style="color:var(--text-muted);font-size:0.72rem;">—</span>

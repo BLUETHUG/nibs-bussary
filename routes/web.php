@@ -28,6 +28,7 @@ return [
     '/admin/reports/csv' => ['controller' => 'ReportController', 'action' => 'exportExcel'],
     '/admin/announcements' => ['controller' => 'AdminController', 'action' => 'announcements'],
     '/admin/users' => ['controller' => 'AdminController', 'action' => 'users'],
+    '/admin/users/create' => ['controller' => 'AdminController', 'action' => 'createUser'],
 
     // Bursary cycles
     '/admin/cycles' => ['controller' => 'AdminController', 'action' => 'cycles'],

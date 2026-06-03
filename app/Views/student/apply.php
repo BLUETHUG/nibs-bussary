@@ -5,51 +5,7 @@ $bodyClass = 'page-student-apply';
 use App\Middleware\CsrfMiddleware;
 ob_start();
 ?>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-    --navy: #1A237E;
-    --navy-light: #283593;
-    --navy-dark: #0D1442;
-    --gold: #FFD54F;
-    --gold-light: #FFE082;
-    --gold-dark: #FFC107;
-    --white: #FAFAFA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1A237E;
-    --text-secondary: #546E7A;
-    --text-muted: #90A4AE;
-    --border: #E8EAF6;
-    --success: #43A047;
-    --error: #E53935;
-    --shadow-sm: 0 2px 8px rgba(26,35,126,0.08);
-    --shadow-md: 0 4px 20px rgba(26,35,126,0.12);
-    --shadow-lg: 0 8px 40px rgba(26,35,126,0.16);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-html[data-theme="dark"] {
-    --bg-card: #1a1a2e;
-    --white: #16213e;
-    --border: #2a2a4a;
-    --text-primary: #E8EAF6;
-    --text-secondary: #b0bec5;
-    --text-muted: #78909c;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
-}
-
-.page-student-apply {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
-html[data-theme="dark"] .page-student-apply {
-    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%);
-}
 
 /* ─── Sticky Nav ─── */
 .apply-nav {
@@ -74,7 +30,7 @@ html[data-theme="dark"] .page-student-apply {
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
-    color: var(--navy);
+    color: var(--primary);
 }
 .apply-nav-brand svg { flex-shrink: 0; }
 .apply-nav-links {
@@ -96,7 +52,7 @@ html[data-theme="dark"] .page-student-apply {
 }
 .apply-nav-link:hover,
 .apply-nav-link.active {
-    background: var(--navy);
+    background: var(--primary);
     color: #fff;
 }
 .apply-nav-link i { font-size: 0.9rem; }
@@ -115,7 +71,7 @@ html[data-theme="dark"] .page-student-apply {
 /* ─── Cards ─── */
 .apply-card {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     padding: 2rem;
     transition: box-shadow var(--transition);
@@ -124,15 +80,15 @@ html[data-theme="dark"] .page-student-apply {
 .apply-card-header {
     margin-bottom: 1.75rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 2px solid var(--accent);
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 .apply-card-header i {
     width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
-    color: var(--gold);
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: var(--accent);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.1rem;
@@ -140,7 +96,7 @@ html[data-theme="dark"] .page-student-apply {
 .apply-card-header h2 {
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--primary);
     margin: 0;
 }
 .apply-card-header p {
@@ -170,7 +126,7 @@ html[data-theme="dark"] .page-student-apply {
 .apply-progress-fill {
     height: 100%;
     width: 14%;
-    background: linear-gradient(90deg, var(--navy), var(--gold));
+    background: linear-gradient(90deg, var(--primary), var(--accent));
     border-radius: 999px;
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -203,7 +159,7 @@ html[data-theme="dark"] .page-student-apply {
     top: -9px;
     left: 10px;
     font-size: 0.7rem;
-    color: var(--navy);
+    color: var(--primary);
     font-weight: 600;
 }
 .apply-field input,
@@ -215,7 +171,7 @@ html[data-theme="dark"] .page-student-apply {
     border-radius: var(--radius);
     font-family: 'Poppins', sans-serif;
     font-size: 0.85rem;
-    color: var(--text-primary);
+    color: var(--text);
     background: var(--bg-card);
     transition: all var(--transition);
     outline: none;
@@ -224,8 +180,8 @@ html[data-theme="dark"] .page-student-apply {
 .apply-field input:focus,
 .apply-field select:focus,
 .apply-field textarea:focus {
-    border-color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
 .apply-field input.error,
 .apply-field select.error,
@@ -241,7 +197,7 @@ html[data-theme="dark"] .page-student-apply {
 }
 .apply-field.error .field-error { display: block; }
 .apply-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2390A4AE' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-.apply-field select option { color: var(--text-primary); }
+.apply-field select option { color: var(--text); }
 .apply-field textarea { resize: vertical; min-height: 100px; }
 
 /* ─── Tooltip ─── */
@@ -260,13 +216,13 @@ html[data-theme="dark"] .page-student-apply {
     transition: all var(--transition);
     z-index: 2;
 }
-.apply-tooltip:hover { background: var(--navy); color: #fff; }
+.apply-tooltip:hover { background: var(--primary); color: #fff; }
 .apply-tooltip:hover::after {
     content: attr(data-tip);
     position: absolute;
     bottom: calc(100% + 6px);
     right: -40px;
-    background: var(--navy-dark);
+    background: var(--bg-dark);
     color: #fff;
     font-size: 0.7rem;
     font-weight: 400;
@@ -283,7 +239,7 @@ html[data-theme="dark"] .page-student-apply {
     bottom: calc(100% - 2px);
     right: 28px;
     border: 5px solid transparent;
-    border-top-color: var(--navy-dark);
+    border-top-color: var(--bg-dark);
 }
 .apply-field textarea ~ .apply-tooltip { top: 14px; transform: none; }
 
@@ -299,8 +255,8 @@ html[data-theme="dark"] .page-student-apply {
 }
 .apply-file-zone:hover,
 .apply-file-zone.dragover {
-    border-color: var(--navy);
-    background: rgba(26,35,126,0.03);
+    border-color: var(--primary);
+    background: rgba(14,165,233,0.03);
 }
 .apply-file-zone i { font-size: 2rem; color: var(--text-muted); margin-bottom: 0.5rem; }
 .apply-file-zone p { margin: 0; font-size: 0.82rem; color: var(--text-secondary); }
@@ -327,7 +283,7 @@ html[data-theme="dark"] .page-student-apply {
 /* ─── Sidebar ─── */
 .apply-sidebar-card {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
@@ -336,13 +292,13 @@ html[data-theme="dark"] .page-student-apply {
 .apply-sidebar-title {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--primary);
     margin: 0 0 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
-.apply-sidebar-title i { color: var(--gold-dark); }
+.apply-sidebar-title i { color: var(--accent-hover); }
 .apply-sidebar-item {
     display: flex;
     justify-content: space-between;
@@ -352,7 +308,7 @@ html[data-theme="dark"] .page-student-apply {
 }
 .apply-sidebar-item:last-child { border-bottom: none; }
 .apply-sidebar-item span:first-child { color: var(--text-secondary); }
-.apply-sidebar-item span:last-child { font-weight: 600; color: var(--text-primary); }
+.apply-sidebar-item span:last-child { font-weight: 600; color: var(--text); }
 
 /* ─── Cycle Info Pill ─── */
 .apply-cycle-pill {
@@ -360,12 +316,12 @@ html[data-theme="dark"] .page-student-apply {
     align-items: center;
     gap: 0.4rem;
     padding: 0.4rem 0.85rem;
-    background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
-    border: 1px solid var(--gold-light);
+    background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+    border: 1px solid var(--accent-light);
     border-radius: 999px;
     font-size: 0.72rem;
     font-weight: 600;
-    color: #F57F17;
+    color: #F59E0B;
     margin-bottom: 1.25rem;
 }
 .apply-cycle-pill i { font-size: 0.8rem; }
@@ -388,12 +344,12 @@ html[data-theme="dark"] .page-student-apply {
     box-shadow: var(--shadow-sm);
 }
 .apply-btn-primary {
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff;
 }
 .apply-btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(26,35,126,0.3);
+    box-shadow: 0 6px 24px rgba(14,165,233,0.3);
 }
 .apply-btn-primary:disabled {
     opacity: 0.5;
@@ -401,8 +357,8 @@ html[data-theme="dark"] .page-student-apply {
     transform: none;
 }
 .apply-btn-gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--navy-dark);
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: var(--bg-dark);
 }
 .apply-btn-gold:hover {
     transform: translateY(-2px);
@@ -447,8 +403,8 @@ html[data-theme="dark"] .page-student-apply {
     animation: toastSlide 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
     max-width: 380px;
 }
-.apply-toast-success { background: #E8F5E9; color: #2E7D32; border-left: 4px solid var(--success); }
-.apply-toast-error { background: #FFEBEE; color: #C62828; border-left: 4px solid var(--error); }
+.apply-toast-success { background: #E8F5E9; color: #22C55E; border-left: 4px solid var(--success); }
+.apply-toast-error { background: #FFEBEE; color: #EF4444; border-left: 4px solid var(--error); }
 .apply-toast-info { background: #E3F2FD; color: #1565C0; border-left: 4px solid #1E88E5; }
 @keyframes toastSlide {
     from { opacity: 0; transform: translateX(100px); }
@@ -461,7 +417,7 @@ html[data-theme="dark"] .page-student-apply {
     position: fixed;
     inset: 0;
     z-index: 9998;
-    background: rgba(26,35,126,0.6);
+    background: rgba(14,165,233,0.6);
     backdrop-filter: blur(8px);
     align-items: center;
     justify-content: center;
@@ -469,7 +425,7 @@ html[data-theme="dark"] .page-student-apply {
 .apply-success-overlay.visible { display: flex; }
 .apply-success-modal {
     background: #fff;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     padding: 3rem 2.5rem;
     text-align: center;
     max-width: 420px;
@@ -482,7 +438,7 @@ html[data-theme="dark"] .page-student-apply {
 }
 .apply-success-modal .success-icon {
     width: 72px; height: 72px;
-    background: linear-gradient(135deg, #43A047, #66BB6A);
+    background: linear-gradient(135deg, #22C55E, #4ADE80);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 1.25rem;
@@ -493,7 +449,7 @@ html[data-theme="dark"] .page-student-apply {
     0% { transform: scale(0) rotate(-30deg); }
     100% { transform: scale(1) rotate(0); }
 }
-.apply-success-modal h2 { color: var(--navy); margin: 0 0 0.5rem; font-size: 1.3rem; }
+.apply-success-modal h2 { color: var(--primary); margin: 0 0 0.5rem; font-size: 1.3rem; }
 .apply-success-modal p { color: var(--text-secondary); margin: 0 0 1.5rem; font-size: 0.88rem; }
 
 /* ─── Collapsible Sections ─── */
@@ -504,7 +460,7 @@ html[data-theme="dark"] .page-student-apply {
     font-family: 'Poppins', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--navy);
+    color: var(--primary);
     cursor: pointer;
     padding: 0.5rem 0;
     width: 100%;
@@ -570,8 +526,8 @@ html[data-theme="dark"] .page-student-apply {
     <a href="/student/dashboard" class="apply-nav-brand">
         <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#anav)"/>
-            <defs><linearGradient id="anav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+            <defs><linearGradient id="anav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#0284C7"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
         </svg>
         NIBS Bursary
     </a>
@@ -619,7 +575,7 @@ html[data-theme="dark"] .page-student-apply {
         <?php if (!empty($errors)): ?>
         <div class="apply-toast" style="margin-bottom:1.5rem;animation:none;max-width:none;" id="server-errors">
             <?php foreach ($errors as $e): ?>
-            <div style="background:#FFEBEE;padding:0.5rem 0.75rem;border-radius:6px;font-size:0.8rem;color:#C62828;margin-bottom:0.25rem;">
+            <div style="background:#FFEBEE;padding:0.5rem 0.75rem;border-radius:6px;font-size:0.8rem;color:#EF4444;margin-bottom:0.25rem;">
                 <i class="fa-solid fa-circle-exclamation"></i> <?= htmlspecialchars($e) ?>
             </div>
             <?php endforeach; ?>
@@ -759,13 +715,13 @@ html[data-theme="dark"] .page-student-apply {
         </div>
 
         <!-- Need Help? -->
-        <div class="apply-sidebar-card" style="background:linear-gradient(135deg, #1A237E, #283593);color:#fff;">
-            <h3 class="apply-sidebar-title" style="color:var(--gold);"><i class="fa-solid fa-headset" style="color:var(--gold);"></i> Need Help?</h3>
+        <div class="apply-sidebar-card" style="background:linear-gradient(135deg, #0EA5E9, #0284C7);color:#fff;">
+            <h3 class="apply-sidebar-title" style="color:var(--accent);"><i class="fa-solid fa-headset" style="color:var(--accent);"></i> Need Help?</h3>
             <p style="font-size:0.8rem;opacity:0.85;margin:0 0 0.75rem;">Contact the bursary office for assistance with your application.</p>
-            <a href="tel:+254111030100" style="display:flex;align-items:center;gap:0.5rem;color:var(--gold);text-decoration:none;font-size:0.85rem;font-weight:600;">
+            <a href="tel:+254111030100" style="display:flex;align-items:center;gap:0.5rem;color:var(--accent);text-decoration:none;font-size:0.85rem;font-weight:600;">
                 <i class="fa-solid fa-phone"></i> +254 111 030 100
             </a>
-            <a href="mailto:bursary@nibs.ac.ke" style="display:flex;align-items:center;gap:0.5rem;color:var(--gold);text-decoration:none;font-size:0.82rem;margin-top:0.4rem;">
+            <a href="mailto:bursary@nibs.ac.ke" style="display:flex;align-items:center;gap:0.5rem;color:var(--accent);text-decoration:none;font-size:0.82rem;margin-top:0.4rem;">
                 <i class="fa-solid fa-envelope"></i> bursary@nibs.ac.ke
             </a>
         </div>

@@ -4,19 +4,6 @@ $pageTitle = 'Admin Dashboard — NIBS Bursary';
 $bodyClass = 'page-admin-dashboard';
 ob_start();
 ?>
-<style>
-.page-admin-dashboard {
-    --admin-navy: #1A237E;
-    --admin-navy-light: #283593;
-    --admin-gold: #FFD54F;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
-[data-theme="dark"] .page-admin-dashboard {
-    background: linear-gradient(135deg, #0D1442 0%, #1a1a2e 50%, #16213e 100%);
-}
-</style>
 <div class="dashboard-wrapper float-in">
     <div class="card-header mb-4">
         <h2 class="section-title"><i class="fa-solid fa-chart-pie"></i> Admin Overview</h2>
@@ -187,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 labels: <?= json_encode(!empty($byGender) ? array_column($byGender, 'gender') : []) ?>,
                 datasets: [{
                     data: <?= json_encode(!empty($byGender) ? array_column($byGender, 'count') : []) ?>,
-                    backgroundColor: ['#818cf8', '#f472b6', '#94a3b8'],
+                    backgroundColor: ['#6366F1', '#f472b6', '#94a3b8'],
                     borderWidth: 0
                 }]
             },
@@ -210,8 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'Applications',
                     data: <?= json_encode(!empty($monthlyApps) ? array_column($monthlyApps, 'count') : []) ?>,
-                    backgroundColor: 'rgba(79,70,229,0.6)',
-                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(14,165,233,0.6)',
+                    borderColor: '#0EA5E9',
                     borderWidth: 1,
                     borderRadius: 4
                 }]

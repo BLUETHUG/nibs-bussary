@@ -180,11 +180,19 @@ class Database {
 
         $adminPw = password_hash('admin123', PASSWORD_BCRYPT);
         $studentPw = password_hash('student123', PASSWORD_BCRYPT);
+        $testPw = password_hash('password123', PASSWORD_BCRYPT);
 
         $pdo->exec("INSERT INTO users (full_name, index_number, email, phone, password_hash, role) VALUES
             ('System Admin', 'ADM001', 'admin@nibs.ac.ke', '0712345678', '$adminPw', 'admin'),
             ('John Doe', 'STUD001', 'student001@nibs.ac.ke', '0752345678', '$studentPw', 'student'),
-            ('Jane Smith', 'STUD002', 'student002@nibs.ac.ke', '0762345678', '$studentPw', 'student')
+            ('Jane Smith', 'STUD002', 'student002@nibs.ac.ke', '0762345678', '$studentPw', 'student'),
+            ('Test Student', 'TEST001', 'test@nibs.ac.ke', '0700000000', '$testPw', 'student')
+        ");
+
+        $pdo->exec("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size) VALUES
+            (2, 'Computer Science', 2, 'male', '2004-05-15', 'Mark Doe', '0711111111', 15000.00, 4),
+            (3, 'Business Management', 1, 'female', '2005-08-20', 'Mary Smith', '0722222222', 12000.00, 5),
+            (4, 'Information Technology', 2, 'male', '2003-05-20', 'Parent Test', '0700000000', 15000.00, 4)
         ");
 
         $pdo->exec("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size, bank_name, bank_account, mpesa_phone) VALUES

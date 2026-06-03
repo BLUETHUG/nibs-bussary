@@ -5,26 +5,7 @@ $bodyClass = 'page-register';
 use App\Middleware\CsrfMiddleware;
 ob_start();
 ?>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-    --navy: #1A237E; --navy-light: #283593; --navy-dark: #0D1442;
-    --gold: #FFD54F; --gold-light: #FFE082; --gold-dark: #FFC107;
-    --white: #FAFAFA; --bg-card: #FFFFFF;
-    --text-primary: #1A237E; --text-secondary: #546E7A; --text-muted: #90A4AE;
-    --border: #E8EAF6; --success: #43A047; --error: #E53935;
-    --shadow-sm: 0 2px 8px rgba(26,35,126,0.08);
-    --shadow-md: 0 4px 20px rgba(26,35,126,0.12);
-    --shadow-lg: 0 8px 40px rgba(26,35,126,0.16);
-    --radius: 12px; --radius-lg: 20px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.page-register {
-    margin: 0; padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
 .reg-nav {
     position: sticky; top: 0; z-index: 1000;
     background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
@@ -35,14 +16,14 @@ ob_start();
 }
 .reg-nav-brand {
     display: flex; align-items: center; gap: 0.6rem;
-    text-decoration: none; font-weight: 700; font-size: 0.95rem; color: var(--navy);
+    text-decoration: none; font-weight: 700; font-size: 0.95rem; color: var(--primary);
 }
 .reg-theme-btn {
     background: none; border: 1px solid var(--border); border-radius: 8px;
     width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
     color: var(--text-secondary); cursor: pointer; transition: all var(--transition);
 }
-.reg-theme-btn:hover { border-color: var(--navy); color: var(--navy); }
+.reg-theme-btn:hover { border-color: var(--primary); color: var(--primary); }
 .reg-layout {
     min-height: calc(100vh - 60px);
     display: flex; align-items: center; justify-content: center;
@@ -50,7 +31,7 @@ ob_start();
 }
 .reg-card {
     width: 100%; max-width: 680px;
-    background: var(--bg-card); border-radius: var(--radius-lg);
+    background: var(--bg-card); border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg); padding: 2.5rem;
     animation: regFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
 }
@@ -58,16 +39,16 @@ ob_start();
 .reg-header { text-align: center; margin-bottom: 2rem; }
 .reg-header-icon {
     width: 56px; height: 56px;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     border-radius: 14px; display: inline-flex; align-items: center; justify-content: center;
     margin-bottom: 0.75rem;
 }
-.reg-header h1 { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin: 0 0 0.25rem; }
+.reg-header h1 { font-size: 1.4rem; font-weight: 700; color: var(--primary); margin: 0 0 0.25rem; }
 .reg-header p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
 
 .reg-alert {
     background: #FFEBEE; border: 1px solid #FFCDD2; border-radius: var(--radius);
-    padding: 1rem; margin-bottom: 1.5rem; color: #C62828; font-size: 0.82rem;
+    padding: 1rem; margin-bottom: 1.5rem; color: #EF4444; font-size: 0.82rem;
 }
 .reg-alert div { margin-bottom: 0.25rem; }
 .reg-alert div:last-child { margin-bottom: 0; }
@@ -85,17 +66,17 @@ ob_start();
 .reg-form .reg-field input:focus + label,
 .reg-form .reg-field select:focus + label,
 .reg-form .reg-field input:not(:placeholder-shown) + label {
-    top: -9px; left: 10px; font-size: 0.68rem; color: var(--navy); font-weight: 600;
+    top: -9px; left: 10px; font-size: 0.68rem; color: var(--primary); font-weight: 600;
 }
 .reg-form input, .reg-form select {
     width: 100%; padding: 13px 14px 11px;
     border: 1.5px solid var(--border); border-radius: var(--radius);
-    font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: var(--text-primary);
+    font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: var(--text);
     background: var(--bg-card); transition: all var(--transition); outline: none;
     box-sizing: border-box;
 }
 .reg-form input:focus, .reg-form select:focus {
-    border-color: var(--navy); box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
 .reg-form .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); z-index: 2; font-size: 0.85rem; }
 .reg-form .reg-field.float .input-icon { top: 50%; }
@@ -109,7 +90,7 @@ ob_start();
 .reg-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .reg-divider { margin: 1.5rem 0; border: none; border-top: 1.5px solid var(--border); }
 .reg-section-label {
-    font-size: 0.82rem; font-weight: 600; color: var(--gold-dark);
+    font-size: 0.82rem; font-weight: 600; color: var(--accent-hover);
     margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
 }
 
@@ -117,10 +98,10 @@ ob_start();
     width: 100%; padding: 0.9rem; border: none; border-radius: var(--radius);
     font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
     cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff; transition: all var(--transition); margin-top: 1.5rem;
 }
-.reg-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(26,35,126,0.3); }
+.reg-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(14,165,233,0.3); }
 .reg-btn.loading .btn-text { visibility: hidden; }
 .reg-btn.loading::after {
     content: ''; position: absolute; width: 20px; height: 20px;
@@ -130,7 +111,7 @@ ob_start();
 @keyframes regSpin { to { transform: rotate(360deg); } }
 
 .reg-footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; }
-.reg-footer a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.reg-footer a { color: var(--primary); font-weight: 600; text-decoration: none; }
 .reg-footer a:hover { text-decoration: underline; }
 .reg-footer p { color: var(--text-muted); margin: 0.25rem 0; }
 
@@ -143,7 +124,7 @@ ob_start();
     color: var(--text-secondary); font-size: 0.75rem; text-decoration: none;
     transition: all var(--transition);
 }
-.reg-role-link:hover { background: var(--navy); color: #fff; transform: translateY(-1px); }
+.reg-role-link:hover { background: var(--primary); color: #fff; transform: translateY(-1px); }
 
 .reg-pw-bar { margin-top: 0.4rem; height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
 .reg-pw-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.3s; }
@@ -166,8 +147,8 @@ ob_start();
     <a href="/" class="reg-nav-brand">
         <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#rnav)"/>
-            <defs><linearGradient id="rnav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+            <defs><linearGradient id="rnav" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#0284C7"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
         </svg>
         NIBS Bursary Portal
     </a>
@@ -178,7 +159,7 @@ ob_start();
     <div class="reg-card anim-2">
         <div class="reg-header">
             <div class="reg-header-icon">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><text x="14" y="20" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text></svg>
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><text x="14" y="20" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text></svg>
             </div>
             <h1>Create Your Account</h1>
             <p>Join the NIBS Bursary Portal to apply for financial aid</p>
@@ -194,6 +175,28 @@ ob_start();
 
         <form method="POST" action="/register" class="reg-form" id="register-form">
             <?= CsrfMiddleware::field() ?>
+
+            <div class="anim-3">
+                <div class="reg-section-label" style="margin-bottom:0.75rem;"><i class="fa-solid fa-user-tag"></i> Account Type</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1.25rem;">
+                    <label style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.6rem 0.5rem;border:2px solid var(--border);border-radius:10px;cursor:pointer;font-size:0.78rem;font-weight:500;transition:all var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'var(--primary)':'var(--border)'">
+                        <input type="radio" name="role" value="student" checked onchange="toggleRoleFields('student')" style="accent-color:var(--primary);">
+                        <i class="fa-solid fa-graduation-cap"></i> Student
+                    </label>
+                    <label style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.6rem 0.5rem;border:2px solid var(--border);border-radius:10px;cursor:pointer;font-size:0.78rem;font-weight:500;transition:all var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'var(--primary)':'var(--border)'">
+                        <input type="radio" name="role" value="admin" onchange="toggleRoleFields('admin')" style="accent-color:var(--primary);">
+                        <i class="fa-solid fa-shield-hooded"></i> Admin
+                    </label>
+                    <label style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.6rem 0.5rem;border:2px solid var(--border);border-radius:10px;cursor:pointer;font-size:0.78rem;font-weight:500;transition:all var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'var(--primary)':'var(--border)'">
+                        <input type="radio" name="role" value="committee" onchange="toggleRoleFields('committee')" style="accent-color:var(--primary);">
+                        <i class="fa-solid fa-users"></i> Committee
+                    </label>
+                    <label style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.6rem 0.5rem;border:2px solid var(--border);border-radius:10px;cursor:pointer;font-size:0.78rem;font-weight:500;transition:all var(--transition);" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=this.querySelector('input').checked?'var(--primary)':'var(--border)'">
+                        <input type="radio" name="role" value="accountant" onchange="toggleRoleFields('accountant')" style="accent-color:var(--primary);">
+                        <i class="fa-solid fa-calculator"></i> Accountant
+                    </label>
+                </div>
+            </div>
 
             <div class="anim-3">
                 <div class="reg-row-2">
@@ -249,6 +252,7 @@ ob_start();
                 </div>
             </div>
 
+            <div id="student-fields">
             <hr class="reg-divider anim-4">
 
             <div class="anim-4">
@@ -289,6 +293,8 @@ ob_start();
                     <label for="mpesa_phone">M-Pesa Phone Number</label>
                 </div>
             </div>
+
+            </div> <!-- /student-fields -->
 
             <hr class="reg-divider anim-5">
 
@@ -360,10 +366,10 @@ function checkStrength(val) {
     if (/[^a-zA-Z0-9]/.test(val)) score += 25;
     if (bar) {
         bar.style.width = score + '%';
-        if (score < 25) { bar.style.background = '#E53935'; txt.textContent = 'Too weak'; }
-        else if (score < 50) { bar.style.background = '#FFC107'; txt.textContent = 'Weak'; }
-        else if (score < 75) { bar.style.background = '#1A237E'; txt.textContent = 'Good'; }
-        else { bar.style.background = '#43A047'; txt.textContent = 'Strong'; }
+        if (score < 25) { bar.style.background = '#EF4444'; txt.textContent = 'Too weak'; }
+        else if (score < 50) { bar.style.background = '#F59E0B'; txt.textContent = 'Weak'; }
+        else if (score < 75) { bar.style.background = '#0EA5E9'; txt.textContent = 'Good'; }
+        else { bar.style.background = '#22C55E'; txt.textContent = 'Strong'; }
     }
 }
 (function() {
@@ -371,6 +377,10 @@ function checkStrength(val) {
         if (el.value) el.closest('.reg-field').classList.add('float');
     });
 })();
+function toggleRoleFields(role) {
+    var sf = document.getElementById('student-fields');
+    if (sf) sf.style.display = role === 'student' ? '' : 'none';
+}
 </script>
 <?php
 $content = ob_get_clean();

@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Helpers\Database;
 use App\Helpers\Validator;
+use App\Helpers\NotificationHelper;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
 use App\Middleware\CsrfMiddleware;
@@ -129,9 +130,7 @@ class StudentController {
                 $app->status              = 'pending';
                 $app->save();
                 
-                // Send notification
-                $stmt = $db->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?, ?, ?)");
-                $stmt->execute([$_SESSION['user_id'], 'Application Received', 'Your bursary application has been submitted and is pending review.']);
+                NotificationHelper::send($_SESSION['user_id'], 'Application Received', 'Your bursary application has been submitted and is pending review.', ['database', 'email']);
                 
                 header('Location: /student/status?success=1');
                 exit;
@@ -239,6 +238,14 @@ class StudentController {
         finfo_close($finfo);
         
         if ($file['size'] > $maxSize || !in_array($mimeType, $allowed, true)) return null;
+        
+        // Upload to Cloudinary if configured, otherwise fall back to local
+        if (\App\Helpers\CloudinaryUpload::isConfigured()) {
+            $result = \App\Helpers\CloudinaryUpload::upload($file['tmp_name'], [
+                'folder' => 'nibs-bursary/documents',
+            ]);
+            return $result['url'] ?? null;
+        }
         
         $ext      = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = bin2hex(random_bytes(16)) . '.' . $ext;

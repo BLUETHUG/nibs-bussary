@@ -36,6 +36,13 @@ spl_autoload_register(function ($class) {
     }
 });
 
+// Initialize Cloudinary with environment variables (optional)
+\App\Helpers\CloudinaryUpload::init([
+    'cloud_name'    => $_ENV['CLOUDINARY_CLOUD_NAME'] ?? getenv('CLOUDINARY_CLOUD_NAME') ?? '',
+    'api_key'       => $_ENV['CLOUDINARY_API_KEY'] ?? getenv('CLOUDINARY_API_KEY') ?? '',
+    'api_secret'    => $_ENV['CLOUDINARY_API_SECRET'] ?? getenv('CLOUDINARY_API_SECRET') ?? '',
+]);
+
 $routes = require __DIR__ . '/../routes/web.php';
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

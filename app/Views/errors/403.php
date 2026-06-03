@@ -9,7 +9,7 @@ ob_start();
         <div class="empty-icon" style="font-size:5rem;opacity:0.3;">403</div>
         <h3>Access Denied</h3>
         <p>You do not have permission to access this page. Please contact your administrator if you believe this is an error.</p>
-        <a href="index.php" class="btn btn-primary">Return to Home</a>
+        <a href="/" class="btn btn-primary">Return to Home</a>
     </div>
 </div>
 <?php

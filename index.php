@@ -1,10 +1,6 @@
 <?php 
     $pageTitle = "NIBS Bursary Portal — Empowering Academic Excellence";
     if (session_status() === PHP_SESSION_NONE) session_start();
-    if (empty($_SESSION['_old_csrf_token'])) {
-        $_SESSION['_old_csrf_token'] = bin2hex(random_bytes(32));
-    }
-    $csrfToken = $_SESSION['_old_csrf_token'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,19 +48,8 @@
                 <div class="hero-card glass stagger-6" style="animation:slideUpElastic 0.6s var(--spring) 0.7s both;">
                     <h3>Student Portal</h3>
                     <p>Secure access to your applications</p>
-                    <form id="login-form" action="backend/auth.php?action=login" method="POST">
-                        <div class="form-group">
-                            <label>Student Email</label>
-                            <input type="email" name="email" id="login-email" required placeholder="name@nibs.ac.ke">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" id="login-password" required placeholder="••••••••">
-                        </div>
-                        <input type="hidden" name="_csrf_token" id="login-csrf" value="<?= htmlspecialchars($csrfToken) ?>">
-                        <button type="submit" class="btn btn-primary btn-glow" style="width:100%;justify-content:center;">Launch Dashboard <i class="fa-solid fa-arrow-right"></i></button>
-                    </form>
-                    <p class="form-footer">
+                    <a href="/login" class="btn btn-primary btn-glow" style="width:100%;justify-content:center;padding:0.9rem;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;font-weight:600;font-size:0.95rem;">Launch Dashboard <i class="fa-solid fa-arrow-right"></i></a>
+                    <p class="form-footer" style="margin-top:1rem;">
                         Don't have an account? <a href="/register">Create one free</a>
                     </p>
                 </div>
@@ -239,8 +224,6 @@
 
     <?php include 'includes/footer.php'; ?>
 
-    <div id="toast-container" role="status" aria-live="polite"></div>
-
     <script src="js/app.js"></script>
     <script>
     (function() {
@@ -327,46 +310,7 @@
             }, { passive: true });
         }
 
-        // ─── CSRF + Login ───
-        (function initCsrf() {
-            fetch('backend/auth.php?action=csrf')
-                .then(function(r) { return r.json(); })
-                .then(function(json) {
-                    var inp = document.getElementById('login-csrf');
-                    if (inp) inp.value = json.token;
-                })
-                .catch(function() {});
-        })();
-
-        var loginForm = document.getElementById('login-form');
-        if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var btn = loginForm.querySelector('button[type="submit"]');
-                btn.disabled = true; btn.innerHTML = 'Signing in... <i class="fa-solid fa-spinner fa-spin"></i>';
-                var email = document.getElementById('login-email').value;
-                var password = document.getElementById('login-password').value;
-                var csrf = document.getElementById('login-csrf').value;
-                fetch('backend/auth.php?action=login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, password: password, _csrf_token: csrf })
-                })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.success) {
-                        window.location.href = data.role === 'admin' ? '/admin/dashboard' : '/student/dashboard';
-                    } else {
-                        btn.disabled = false; btn.innerHTML = 'Launch Dashboard <i class="fa-solid fa-arrow-right"></i>';
-                        showToast(data.error || 'Login failed', 'error');
-                    }
-                })
-                .catch(function() {
-                    btn.disabled = false; btn.innerHTML = 'Launch Dashboard <i class="fa-solid fa-arrow-right"></i>';
-                    showToast('Connection error', 'error');
-                });
-            });
-        }
+        // ─── CSRF + Login (removed — form replaced with direct link) ───
 
         // ─── Toast helper ───
         window.showToast = function(msg, type) {
@@ -383,20 +327,6 @@
             setTimeout(function() { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function() { t.remove(); }, 300); }, 4000);
         };
 
-        // ─── Scroll To Top Button ───
-        var stBtn = document.createElement('a');
-        stBtn.href = '#';
-        stBtn.className = 'scroll-top';
-        stBtn.setAttribute('aria-label', 'Scroll to top');
-        stBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-        document.body.appendChild(stBtn);
-        window.addEventListener('scroll', function() {
-            stBtn.classList.toggle('visible', window.scrollY > 300);
-        }, { passive: true });
-        stBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     })();
     </script>
 </body>

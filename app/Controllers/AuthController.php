@@ -100,10 +100,17 @@ class AuthController {
     public function register(): void {
         AuthMiddleware::guest();
 
+        $allowedRoles = ['student', 'admin', 'committee', 'accountant'];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CsrfMiddleware::validate();
 
-            $errors = Validator::validateRequired($_POST, ['full_name','index_number','email','phone','password','confirm_password']);
+            $errors = Validator::validateRequired($_POST, ['full_name','index_number','email','phone','password','confirm_password','role']);
+
+            $role = $_POST['role'] ?? '';
+            if (!in_array($role, $allowedRoles, true)) {
+                $errors[] = 'Invalid role selected.';
+            }
 
             if ($_POST['password'] !== $_POST['confirm_password']) {
                 $errors[] = 'Passwords do not match.';
@@ -131,45 +138,52 @@ class AuthController {
                         $user->email         = Validator::clean($_POST['email']);
                         $user->phone         = Validator::clean($_POST['phone']);
                         $user->password_hash = password_hash($_POST['password'], self::HASH_ALGO);
-                        $user->role          = 'student';
+                        $user->role          = $role;
                         $user->is_active     = true;
                         $user->save();
 
-                        // Insert student profile
-                        $db = Database::getConnection();
-                        $stmt = $db->prepare("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size, bank_name, bank_account, mpesa_phone) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-                        $stmt->execute([
-                            $user->id,
-                            Validator::clean($_POST['course'] ?? 'Not specified'),
-                            (int)($_POST['year_of_study'] ?? 1),
-                            Validator::clean($_POST['gender'] ?? 'male'),
-                            $_POST['dob'] ?? date('Y-m-d'),
-                            Validator::clean($_POST['guardian_name'] ?? 'N/A'),
-                            Validator::clean($_POST['guardian_phone'] ?? '0700000000'),
-                            (float)($_POST['guardian_income'] ?? 0),
-                            (int)($_POST['family_size'] ?? 1),
-                            Validator::clean($_POST['bank_name'] ?? ''),
-                            Validator::clean($_POST['bank_account'] ?? ''),
-                            Validator::clean($_POST['mpesa_phone'] ?? ''),
-                        ]);
+                        // Insert student profile only for student role
+                        if ($role === 'student') {
+                            $db = Database::getConnection();
+                            $stmt = $db->prepare("INSERT INTO students (user_id, course, year_of_study, gender, date_of_birth, guardian_name, guardian_phone, guardian_monthly_income, family_size, bank_name, bank_account, mpesa_phone) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                            $stmt->execute([
+                                $user->id,
+                                Validator::clean($_POST['course'] ?? 'Not specified'),
+                                (int)($_POST['year_of_study'] ?? 1),
+                                Validator::clean($_POST['gender'] ?? 'male'),
+                                $_POST['dob'] ?? date('Y-m-d'),
+                                Validator::clean($_POST['guardian_name'] ?? 'N/A'),
+                                Validator::clean($_POST['guardian_phone'] ?? '0700000000'),
+                                (float)($_POST['guardian_income'] ?? 0),
+                                (int)($_POST['family_size'] ?? 1),
+                                Validator::clean($_POST['bank_name'] ?? ''),
+                                Validator::clean($_POST['bank_account'] ?? ''),
+                                Validator::clean($_POST['mpesa_phone'] ?? ''),
+                            ]);
+                        }
+
+                        auditLogger::log($user->id, 'REGISTER', 'users', $user->id, null, null, 'Account created as ' . $role);
 
                         // Generate email verification token
+                        $db = Database::getConnection();
                         $token = bin2hex(random_bytes(32));
                         $stmt = $db->prepare("INSERT INTO email_verifications (user_id, token, expires_at) VALUES (?, ?, datetime('now', '+24 hours'))");
                         $stmt->execute([$user->id, $token]);
 
-                        AuditLogger::log($user->id, 'REGISTER', 'users', $user->id, null, null, 'Account created, verification sent');
-
                         session_regenerate_id(true);
                         $_SESSION['user_id']       = $user->id;
-                        $_SESSION['role']          = 'student';
+                        $_SESSION['role']          = $role;
                         $_SESSION['full_name']     = $user->full_name;
                         $_SESSION['last_activity'] = time();
                         $_SESSION['auth_method']   = 'register';
 
-                        // Redirect to dashboard with verification prompt
-                        $_SESSION['verify_prompt'] = true;
-                        header('Location: /student/dashboard');
+                        $redirect = match ($role) {
+                            'admin', 'officer' => '/admin/dashboard',
+                            'committee'        => '/admin/committee',
+                            'accountant'       => '/admin/finance',
+                            default            => '/student/dashboard',
+                        };
+                        header("Location: $redirect");
                         exit;
                     }
                 }

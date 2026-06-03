@@ -7,21 +7,30 @@
         <div>
             <h4>Quick Links</h4>
             <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="apply.php">Apply Now</a></li>
-                <li><a href="sponsors.php">Our Sponsors</a></li>
-                <li><a href="tribute.php">Founder Tribute</a></li>
-                <li><a href="contact-us.php">Contact Us</a></li>
+            <?php if (empty($_SESSION['user_id'])): ?>
+                <li><a href="/">Home</a></li>
+                <li><a href="/register">Apply Now</a></li>
+                <li><a href="/tribute">Founder Tribute</a></li>
                 <li><a href="https://www.nibs.ac.ke" target="_blank" rel="noopener">NIBS Official Website <i class="fa-solid fa-external-link" style="font-size:0.75rem;"></i></a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>For Students</h4>
-            <ul>
-                <li><a href="login.php">Student Portal</a></li>
-                <li><a href="/register">Create Account</a></li>
-                <li><a href="my-applications.php">My Applications</a></li>
-                <li><a href="messages.php">Messages</a></li>
+            <?php elseif ($_SESSION['role'] === 'student'): ?>
+                <li><a href="/student/dashboard">Dashboard</a></li>
+                <li><a href="/student/apply">Apply</a></li>
+                <li><a href="/student/status">Status</a></li>
+                <li><a href="/logout">Logout</a></li>
+            <?php elseif ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'officer'): ?>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/applications">Applications</a></li>
+                <li><a href="/admin/funds">Funds</a></li>
+                <li><a href="/admin/reports">Reports</a></li>
+                <li><a href="/logout">Logout</a></li>
+            <?php elseif ($_SESSION['role'] === 'committee'): ?>
+                <li><a href="/admin/committee">Score Applications</a></li>
+                <li><a href="/logout">Logout</a></li>
+            <?php elseif ($_SESSION['role'] === 'accountant'): ?>
+                <li><a href="/admin/finance">Finance Portal</a></li>
+                <li><a href="/admin/reports">Reports</a></li>
+                <li><a href="/logout">Logout</a></li>
+            <?php endif; ?>
             </ul>
         </div>
         <div>

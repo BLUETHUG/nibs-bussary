@@ -6,8 +6,9 @@
     <meta name="description" content="NIBS Technical College — Automated Bursary Management System">
     <title><?= $pageTitle ?? 'NIBS Bursary Portal' ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><text x='16' y='22' text-anchor='middle' font-size='18' font-weight='bold' fill='%23fff'>N</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231A237E'/><text x='16' y='22' text-anchor='middle' font-size='18' font-weight='bold' fill='%23FFD54F'>N</text></svg>">
+    <link rel="stylesheet" href="/css/design-system.css">
     <link rel="stylesheet" href="/assets/css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
@@ -21,14 +22,12 @@
     }
     .cinema-loader.hidden { opacity: 0; visibility: hidden; }
     .cinema-loader .bar { width: 120px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
-    .cinema-loader .bar-inner { height: 100%; width: 0; background: linear-gradient(90deg, #4f46e5, #818cf8); border-radius: 2px; animation: loadBar 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .cinema-loader .bar-inner { height: 100%; width: 0; background: linear-gradient(90deg, #1A237E, #FFD54F); border-radius: 2px; animation: loadBar 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
     @keyframes loadBar { 0% { width: 0; } 100% { width: 100%; } }
     </style>
 </head>
 <body class="<?= $bodyClass ?? '' ?>">
 <div id="cinema-loader" class="cinema-loader"><div class="bar"><div class="bar-inner"></div></div></div>
-<a href="#page-content" class="skip-link">Skip to main content</a>
-
 <div id="ui-overlay">
 <?php if (!empty($_SESSION['user_id']) && $_SESSION['role'] !== 'student'): ?>
 <nav class="glass-nav" id="main-nav">

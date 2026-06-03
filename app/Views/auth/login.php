@@ -5,38 +5,7 @@ $bodyClass = 'page-login';
 use App\Middleware\CsrfMiddleware;
 ob_start();
 ?>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-    --navy: #1A237E;
-    --navy-light: #283593;
-    --navy-dark: #0D1442;
-    --gold: #FFD54F;
-    --gold-light: #FFE082;
-    --gold-dark: #FFC107;
-    --white: #FAFAFA;
-    --bg-card: #FFFFFF;
-    --text-primary: #1A237E;
-    --text-secondary: #546E7A;
-    --text-muted: #90A4AE;
-    --border: #E8EAF6;
-    --success: #43A047;
-    --error: #E53935;
-    --shadow-sm: 0 2px 8px rgba(26,35,126,0.08);
-    --shadow-md: 0 4px 20px rgba(26,35,126,0.12);
-    --shadow-lg: 0 8px 40px rgba(26,35,126,0.16);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.page-login {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #E8EAF6 0%, #FAFAFA 50%, #FFF8E1 100%);
-    min-height: 100vh;
-}
 
 /* ─── Nav ─── */
 .login-nav {
@@ -61,7 +30,7 @@ ob_start();
     text-decoration: none;
     font-weight: 700;
     font-size: 0.95rem;
-    color: var(--navy);
+    color: var(--primary);
 }
 
 /* ─── Layout ─── */
@@ -78,21 +47,21 @@ ob_start();
     width: 100%;
     max-width: 420px;
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
     padding: 2.5rem;
 }
 .login-header { text-align: center; margin-bottom: 2rem; }
 .login-header-icon {
     width: 52px; height: 52px;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 0.75rem;
     font-size: 1.5rem;
-    color: var(--gold);
+    color: var(--accent);
 }
-.login-header h1 { font-size: 1.35rem; color: var(--text-primary); margin: 0 0 0.25rem; font-weight: 700; }
+.login-header h1 { font-size: 1.35rem; color: var(--text); margin: 0 0 0.25rem; font-weight: 700; }
 .login-header p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
 
 /* ─── Alerts ─── */
@@ -102,9 +71,9 @@ ob_start();
     margin-bottom: 1.5rem;
     font-size: 0.82rem;
 }
-.login-alert-error { background: #FFEBEE; color: #C62828; border-left: 4px solid var(--error); }
-.login-alert-success { background: #E8F5E9; color: #2E7D32; border-left: 4px solid var(--success); }
-.login-alert-warning { background: #FFF8E1; color: #F57F17; border-left: 4px solid var(--gold-dark); }
+.login-alert-error { background: #FFEBEE; color: #EF4444; border-left: 4px solid var(--error); }
+.login-alert-success { background: #E8F5E9; color: #22C55E; border-left: 4px solid var(--success); }
+.login-alert-warning { background: #EEF2FF; color: #F59E0B; border-left: 4px solid var(--accent-hover); }
 
 /* ─── Floating Labels ─── */
 .login-field {
@@ -130,7 +99,7 @@ ob_start();
     top: -9px;
     left: 10px;
     font-size: 0.68rem;
-    color: var(--navy);
+    color: var(--primary);
     font-weight: 600;
 }
 .login-field .input-icon {
@@ -154,15 +123,15 @@ ob_start();
     border-radius: var(--radius);
     font-family: 'Poppins', sans-serif;
     font-size: 0.85rem;
-    color: var(--text-primary);
+    color: var(--text);
     background: var(--bg-card);
     transition: all var(--transition);
     outline: none;
     box-sizing: border-box;
 }
 .login-field input:focus {
-    border-color: var(--navy);
-    box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
 }
 .login-field .toggle-pw {
     position: absolute;
@@ -177,7 +146,7 @@ ob_start();
     font-size: 0.9rem;
     z-index: 2;
 }
-.login-field .toggle-pw:hover { color: var(--text-primary); }
+.login-field .toggle-pw:hover { color: var(--text); }
 
 /* ─── Remember Me ─── */
 .login-remember {
@@ -191,7 +160,7 @@ ob_start();
 }
 .login-remember input[type="checkbox"] {
     width: 16px; height: 16px;
-    accent-color: var(--navy);
+    accent-color: var(--primary);
     cursor: pointer;
 }
 
@@ -211,13 +180,13 @@ ob_start();
     cursor: pointer;
     transition: all var(--transition);
     text-decoration: none;
-    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #fff;
     margin-top: 1.25rem;
 }
 .login-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(26,35,126,0.3);
+    box-shadow: 0 6px 24px rgba(14,165,233,0.3);
 }
 .login-btn.loading .btn-text { visibility: hidden; }
 .login-btn.loading::after {
@@ -233,7 +202,7 @@ ob_start();
 
 /* ─── Footer ─── */
 .login-footer { text-align: center; margin-top: 1.5rem; }
-.login-footer a { color: var(--navy); font-weight: 600; text-decoration: none; font-size: 0.82rem; }
+.login-footer a { color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.82rem; }
 .login-footer a:hover { text-decoration: underline; }
 .login-footer p { color: var(--text-muted); margin: 0.25rem 0; font-size: 0.78rem; }
 
@@ -260,10 +229,10 @@ ob_start();
 }
 .role-login-btn:hover,
 .role-login-btn.active {
-    background: var(--navy);
+    background: var(--primary);
     color: #fff;
     transform: translateY(-1px);
-    border-color: var(--navy);
+    border-color: var(--primary);
 }
 .role-login-btn i { font-size: 0.85rem; width: 1.1rem; text-align: center; }
 
@@ -290,8 +259,8 @@ ob_start();
     <a href="/" class="login-nav-brand">
         <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
             <rect width="34" height="34" rx="8" fill="url(#lnlogo)"/>
-            <defs><linearGradient id="lnlogo" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#1A237E"/><stop offset="1" stop-color="#283593"/></linearGradient></defs>
-            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFD54F" font-family="Poppins">N</text>
+            <defs><linearGradient id="lnlogo" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0EA5E9"/><stop offset="1" stop-color="#0284C7"/></linearGradient></defs>
+            <text x="17" y="23" text-anchor="middle" font-size="18" font-weight="bold" fill="#6366F1" font-family="Poppins">N</text>
         </svg>
         NIBS Bursary Portal
     </a>
@@ -355,8 +324,8 @@ ob_start();
             <div style="margin-top:0.75rem;border-top:1px solid var(--border);padding-top:0.75rem;">
                 <p style="font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem;">Quick Login by Role</p>
                 <div class="role-login-grid" id="role-login-grid">
-                    <button type="button" class="role-login-btn" data-role="student" data-hint="student@nibs.ac.ke"><i class="fa-solid fa-graduation-cap" style="color:var(--navy);"></i> Student</button>
-                    <button type="button" class="role-login-btn" data-role="admin" data-hint="admin@nibs.ac.ke"><i class="fa-solid fa-shield-hooded" style="color:#F57F17;"></i> Admin</button>
+                    <button type="button" class="role-login-btn" data-role="student" data-hint="student@nibs.ac.ke"><i class="fa-solid fa-graduation-cap" style="color:var(--primary);"></i> Student</button>
+                    <button type="button" class="role-login-btn" data-role="admin" data-hint="admin@nibs.ac.ke"><i class="fa-solid fa-shield-hooded" style="color:#F59E0B;"></i> Admin</button>
                     <button type="button" class="role-login-btn" data-role="committee" data-hint="Committee member"><i class="fa-solid fa-users" style="color:var(--success);"></i> Committee</button>
                     <button type="button" class="role-login-btn" data-role="accountant" data-hint="Accountant"><i class="fa-solid fa-calculator" style="color:#1E88E5;"></i> Accountant</button>
                 </div>

@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Helpers\Database;
 use App\Helpers\Validator;
 use App\Helpers\AuditLogger;
+use App\Helpers\NotificationHelper;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
 use App\Middleware\CsrfMiddleware;
@@ -118,13 +119,12 @@ class AdminController {
             $app->reviewed_by    = $_SESSION['user_id'];
             $app->save();
             
-            // Notify student
             $db   = Database::getConnection();
             $stmt = $db->prepare("SELECT u.id FROM students s JOIN users u ON s.user_id = u.id WHERE s.id = ?");
             $stmt->execute([$app->student_id]);
             $userId = $stmt->fetchColumn();
-            $db->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?,?,?)")
-               ->execute([$userId, 'Application Approved', "Congratulations! Your bursary application has been approved for KSh " . number_format($amount, 2)]);
+            $msg = "Congratulations! Your bursary application has been approved for KSh " . number_format($amount, 2);
+            NotificationHelper::send((int)$userId, 'Application Approved', $msg, ['database', 'email']);
         }
         
         header('Location: /admin/applications?approved=1');
@@ -150,8 +150,8 @@ class AdminController {
             $stmt = $db->prepare("SELECT u.id FROM students s JOIN users u ON s.user_id = u.id WHERE s.id = ?");
             $stmt->execute([$app->student_id]);
             $userId = $stmt->fetchColumn();
-            $db->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?,?,?)")
-               ->execute([$userId, 'Application Update', 'Unfortunately your bursary application was not successful. Reason: ' . $reason]);
+            $msg = 'Unfortunately your bursary application was not successful. Reason: ' . $reason;
+            NotificationHelper::send((int)$userId, 'Application Update', $msg, ['database', 'email']);
         }
         
         header('Location: /admin/applications?rejected=1');
@@ -181,8 +181,8 @@ class AdminController {
             $stmt = $db->prepare("SELECT u.id FROM students s JOIN users u ON s.user_id = u.id WHERE s.id = ?");
             $stmt->execute([$app->student_id]);
             $userId = $stmt->fetchColumn();
-            $db->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?,?,?)")
-               ->execute([$userId, 'Funds Disbursed', "KSh " . number_format($app->amount_approved, 2) . " has been disbursed to you. Ref: $ref"]);
+            $msg = "KSh " . number_format($app->amount_approved, 2) . " has been disbursed to you. Ref: $ref";
+            NotificationHelper::send((int)$userId, 'Funds Disbursed', $msg, ['database', 'email']);
         }
         
         header('Location: /admin/applications?disbursed=1');
@@ -243,6 +243,50 @@ class AdminController {
         $db    = Database::getConnection();
         $users = $db->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll();
         require __DIR__ . '/../Views/admin/users.php';
+    }
+
+    public function createUser(): void {
+        AuthMiddleware::require();
+        RoleMiddleware::require('admin');
+        CsrfMiddleware::validate();
+
+        $errors = Validator::validateRequired($_POST, ['full_name','index_number','email','phone','password','role']);
+        $allowedRoles = ['admin', 'officer', 'committee', 'accountant', 'student'];
+        $role = $_POST['role'] ?? '';
+        if (!in_array($role, $allowedRoles, true)) {
+            $errors[] = 'Invalid role selected.';
+        }
+
+        if (empty($errors)) {
+            $existing = User::where(['index_number' => $_POST['index_number']]);
+            if (!empty($existing)) {
+                $errors[] = 'Index number already registered.';
+            } else {
+                $existingEmail = User::where(['email' => $_POST['email']]);
+                if (!empty($existingEmail)) {
+                    $errors[] = 'Email already registered.';
+                }
+            }
+        }
+
+        if (empty($errors)) {
+            $user = new User();
+            $user->full_name     = Validator::clean($_POST['full_name']);
+            $user->index_number  = Validator::clean($_POST['index_number']);
+            $user->email         = Validator::clean($_POST['email']);
+            $user->phone         = Validator::clean($_POST['phone']);
+            $user->password_hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $user->role          = $role;
+            $user->is_active     = true;
+            $user->save();
+
+            $_SESSION['flash_message'] = 'User ' . htmlspecialchars($user->full_name) . ' (' . $role . ') created successfully.';
+        } else {
+            $_SESSION['flash_errors'] = $errors;
+        }
+
+        header('Location: /admin/users');
+        exit;
     }
 
     // ─── Bursary Cycles ───
